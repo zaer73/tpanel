@@ -1,0 +1,140 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'TICKETS' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'TICKETS' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeIn" ng-controller="ticketsController">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="tabs-container">
+                <tabset>
+                    <tab ng-if="tickets.sent && user.role != 2" heading="{{ 'SENT' | translate }}">
+                        <div class="panel-body">
+                            <table datatable="ng" dt-options="dtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th>{{ 'code' | uppercase | translate }}</th>
+                                        <th>{{ 'title' | uppercase | translate }}</th>
+                                        <th>{{ 'create_date' | uppercase | translate }}</th>
+                                        <th>{{ 'priority' | uppercase | translate }}</th>
+                                        <th>{{ 'condition' | uppercase | translate }}</th>
+                                        <th>{{ 'ACTIONS' | translate }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="(key,ticket) in tickets.sent">
+                                        <td>{{ ticket.code }}</td>
+                                        <td>{{ ticket.title }}</td>
+                                        <td>{{ ticket.create_date }}</td>
+                                        <td>{{ ticket.ticket_priority }}</td>
+                                        <td>{{ ticket.condition }}</td>
+                                        <td>
+                                            <a href="" ng-if="!ticket.answer && ticket.status == 0" ng-click="close(key, ticket.id)">
+                                                <i class="fa fa-remove"></i>
+                                            </a>
+                                            <a href="" ng-show="ticket.status != -1" ui-sref="app.support.show_ticket({id: ticket.id})">
+                                                {{ 'SHOW' | translate }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </tab>
+                    <tab ng-if="tickets.received && user.role != 0" heading="{{ 'RECEIVED' | translate }}">
+                        <div class="panel-body">
+                            <table datatable="ng" dt-options="dtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                                <thead>
+                                    <tr>
+                                        <th>{{ 'code' | uppercase | translate }}</th>
+                                        <th>{{ 'title' | uppercase | translate }}</th>
+                                        <th>{{ 'create_date' | uppercase | translate }}</th>
+                                        <th>{{ 'priority' | uppercase | translate }}</th>
+                                        <th>{{ 'condition' | uppercase | translate }}</th>
+                                        <th>{{ 'ACTIONS' | translate }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="(key,ticket) in tickets.received">
+                                        <td>{{ ticket.code }}</td>
+                                        <td>{{ ticket.title }}</td>
+                                        <td>{{ ticket.create_date }}</td>
+                                        <td>{{ ticket.ticket_priority }}</td>
+                                        <td>{{ ticket.condition }}</td>
+                                        <td>
+                                            <a href="" ng-if="!ticket.answer" ui-sref="app.support.ticket_answer({id: ticket.id})">
+                                                <i class="fa fa-reply"></i>
+                                            </a>
+                                            <a href="" ui-sref="app.support.show_ticket({id: ticket.id})">
+                                                {{ 'SHOW' | translate }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </tab>
+                    <tab ng-if="tickets.sent && user.role != 2" heading="{{ 'CREATE_NEW_TICKET' | translate }}">
+                        <div class="panel-body">
+                            <form method="post"
+                                ng-controller="ajaxFormController as form"
+                                action="{{ createTicketURL }}"
+                                ng-submit="form.submit($event)"
+                                class="form-horizontal"
+                            >
+                                <div ng-include="'views/includes/form_response.html'"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="title">
+                                        {{ 'TITLE' | translate }}
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" class="form-control" ng-model="info.title" placeholder="{{ 'TITLE' | translate }}" id="title">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="text">
+                                        {{ 'TEXT' | translate }}
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <textarea ng-model="info.text" class="form-control" placeholder="{{ 'TEXT' | translate }}" id="text"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label" for="priorit">
+                                        {{ 'PRIORITY' | translate }}
+                                    </label>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <select ng-model="info.priority" class="form-control">
+                                            <option value="1">{{ 'HIGH' | translate }}</option>
+                                            <option value="2">{{ 'MEDIUM' | translate }}</option>
+                                            <option value="3">{{ 'LOW' | translate }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        
+                                    </div>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <button class="btn btn-primary" ng-disabled="!info.title || !info.text || !info.priority" type="submit">{{ 'SUBMIT' | translate }}</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</div>

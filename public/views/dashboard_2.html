@@ -1,0 +1,164 @@
+<div class="wrapper wrapper-content" ng-controller="dashboardController as controller">
+<div class="row">
+    <div class="col-lg-3" ng-if="user.role != 'user'">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'total_income' | uppercase | translate }}</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">{{ info.total_income }} {{ 'rials' | uppercase | translate }}</h1>
+            </div>
+        </div>
+    </div>
+    <div ng-class="(user.role == 'user') ? 'col-lg-6' : 'col-lg-3'">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'total_messages' | uppercase | translate}}</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">{{ info.total_messages }}</h1>
+            </div>
+        </div>
+    </div>
+    <div ng-class="(user.role == 'user') ? 'col-lg-6' : 'col-lg-3'">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'total_received_messages' | uppercase | translate }}</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">{{ info.total_received_messages }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3" ng-if="user.role != 'user'">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'total_users' | uppercase | translate }}</h5>
+            </div>
+            <div class="ibox-content">
+                <h1 class="no-margins">{{ info.total_users }}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'latest_news' | uppercase | translate }}</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-12" ng-repeat="news in dashboardNews">
+                        <h2>{{ news.title }}</h2>
+                        <p>
+                            {{ news.body }}
+                        </p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row" ng-if="user.role != 'admin'">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5 style="width:100%">
+                    {{ 'latest_tickets' | uppercase | translate }}
+                    <a ui-sref="app.support.tickets" style="float:left">{{ 'all_tickets' | uppercase | translate }}</a> 
+                </h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12" ng-if="!dashboardTickets.length">
+                        <p>
+                            {{ 'no_tickets_yet' | uppercase | translate }}
+                        </p>
+                    </div>
+                    <div class="col-lg-12" ng-repeat="ticket in dashboardTickets">
+                        <h2>{{ ticket.text }}</h2>
+                        <p>
+                            {{ ticket.answer }}
+                        </p>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'last_month_messages' | uppercase | translate }}</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="flot-chart">
+                            <div flot class="flot-chart-content" dataset="flotData" options="flotOptions"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'received_messages' | uppercase | translate }}</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="feed-activity-list">
+                    <div class="feed-element" ng-repeat="message in info.received">
+                        <div>
+                            <small class="pull-right text-navy">{{ message.created_at }}</small>
+                            <strong>{{ (message.contact) ? message.contact.name : message.from }}</strong>
+
+                            <div>{{ message.text }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{{ 'latest_sent_messages_status' | uppercase | translate }}</h5>
+            </div>
+            <div class="ibox-content">
+                <table class="table table-hover no-margins">
+                    <thead>
+                    <tr>
+                        <th>{{ 'status' | uppercase | translate }}</th>
+                        <th>{{ 'date' | uppercase | translate }}</th>
+                        <th>{{ 'username' | uppercase | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="message in info.latest_messages">
+                        <td>
+                            <small>{{ message.sms_status }}</small>
+                        </td>
+                        <td>{{ message.created_at }}</td>
+                        <td>{{ message.user.username }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

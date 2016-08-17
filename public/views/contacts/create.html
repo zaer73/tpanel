@@ -1,0 +1,108 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'CONTACT' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'CONTACT' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="createContactController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="post"
+                    ng-controller="ajaxFormController as form"
+                    action="{{ createContactURL }}"
+                    ng-submit="form.submit($event)"
+                    class="form-horizontal"
+                >
+                    <div ng-include="'views/includes/form_response.html'"></div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-3 col-xs-12 control-label">
+                            {{ 'GROUP' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" ng-model="info.group_id">
+                                <option ng-repeat="group in groups" value="{{ group.id }}">
+                                    {{ group.title }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h3 class="col-md-12">{{ 'ADD' | translate }}</h3>
+                    </div>
+                    <div ng-repeat="(key, contact) in contacts">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="name">
+                                {{ 'NAME' | translate }}
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input class="form-control" type="text" ng-model="info.contact[key].name" placeholder="{{ 'NAME' | translate }}" id="name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="numberSingle">
+                                {{ 'NUMBER' | translate }}
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input class="form-control" type="text" ng-disabled="info.numberMultiple" ng-model="info.contact[key].number" placeholder="{{ 'NUMBER' | translate }}" id="numberSingle">
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                <button class="btn btn-danger" ng-if="contacts.length > 1" ng-click="removeContactRow($event, key)">{{ 'DELETE' | translate }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-3 col-xs-12"></div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-info" ng-click="addNewContactRow($event)" ng-disabled="info.customNumbers">{{ 'ADD' | translate }}</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            <label>{{ 'CUSTOM' | translate }} ({{ 'SEPERATE_BY_COMMA' | translate }})</label>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea class="form-control" ng-disabled="info.contact[0].number" ng-model="info.customNumbers"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="number">
+                            {{ 'NUMBER_FROM_FILE' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-info" ng-disabled="info.numberSingle || info.numberMultiple" ng-click="importContacts($event)">{{ 'IMPORT' | translate }}</button>
+                            <a href="sample/contacts.xls">{{ 'SAMPLE_FILE' | translate }}</a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="description">
+                            {{ 'DESCRIPTION' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="text" ng-model="info.description" placeholder="{{ 'DESCRIPTION' | translate }}" id="description">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-primary" ng-disabled="!info.group_id" type="submit">{{ 'SUBMIT' | translate }}</button>
+                            <span ng-if="!groups.length">{{ 'PLEASE_CREATE_A_CONTACT_GROUP_FIRST' | translate }}</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

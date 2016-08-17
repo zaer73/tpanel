@@ -1,0 +1,48 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'LINE_PATTERNS' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'LINE_PATTERNS' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="linePatternController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+
+            <div class="ibox-content">
+                <table datatable="ng" dt-options="dtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                    <tr>
+                        <th>{{ 'key' | uppercase | translate }}</th>
+                        <th>{{ 'pattern' | uppercase | translate }}</th>
+                        <th>{{ 'ACTIONS' | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,linePattern) in linePatterns">
+                        <td>{{ linePattern.key }}</td>
+                        <td>{{ linePattern.pattern }}</td>
+                        <td>
+                            <a ui-sref="app.admin.line_patterns.edit({id: linePattern.id})">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a href="" ng-click="delete(key, linePattern.id)">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

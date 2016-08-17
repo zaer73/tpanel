@@ -1,0 +1,92 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'CUSTOMIZATION' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'CUSTOMIZATION' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="customizationController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="post"
+                    ng-controller="ajaxFormController as form"
+                    action="{{ customizationURL }}"
+                    ng-submit="form.submit($event)"
+                    class="form-horizontal"
+                    id="customizationForm" 
+                >
+                    <input type="hidden" name="_method" value="PUT">
+                    <div ng-include="'views/includes/form_response.html'"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="title">
+                            {{ 'TITLE' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="text" ng-model="info.title" placeholder="{{ 'TITLE' | translate }}" id="title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="title">
+                            {{ 'CONTACT_US' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12" style="background: #fff">
+                            <div summernote class="summernote" ng-model="info.contact_us"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="title">
+                            {{ 'ABOUT_US' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12" style="background: #fff">
+                            <div summernote class="summernote" ng-model="info.about_us"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="title">
+                            {{ 'OUR_SERVICES' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12" style="background: #fff">
+                            <div summernote class="summernote" ng-model="info.our_services"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="title">
+                            {{ 'MARKETING_CODE' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12" style="background: #fff">
+                            <div summernote class="summernote" ng-model="info.marketing_code"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-primary" ng-disabled="!info.contact_us" type="submit">{{ 'SUBMIT' | translate }}</button>
+                        </div>
+                    </div>
+                    
+                </form>
+                    <div class="form-group" ng-if="user.role == 'admin' || user.role == 'agent'">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <h3>{{ 'UPLOAD_LOGO' | translate }}</h3>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <form action="customization/logo/upload" class="dropzone" drop-zone="/logo/upload" id="upload-logo-dropzone">
+                                <!-- <button type="submit" class="btn btn-primary pull-right">Submit this form!</button> -->
+                            </form>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

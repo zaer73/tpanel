@@ -1,0 +1,88 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'SMS_INTERNATIONAL' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'SMS_INTERNATIONAL' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="sendInternationalSMSController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="post"
+                    ng-controller="ajaxFormController as form"
+                    action="{{ sendInternationalSMSURL }}"
+                    ng-submit="form.submit($event)"
+                    class="form-horizontal"
+                >
+                    <input type="hidden" ng-model="info.is_confirmed" ng-init="info.is_confirmed = 'not'">
+                    <div ng-include="'views/includes/form_response.html'"></div>
+                    <lines></lines>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'GROUP' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <ui-select multiple ng-model="info.groups" theme="bootstrap" style="width: 100%;">
+                                <ui-select-match placeholder="{{ 'GROUP' | translate }}">{{$item.title}}</ui-select-match>
+                                <ui-select-choices repeat="group in groups | filter:$select.search">
+                                    {{group.title}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'CONTACTS' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <ui-select multiple ng-model="info.contacts" theme="bootstrap" style="width: 100%;">
+                                <ui-select-match placeholder="{{ 'SELECT_GROUPS' | translate }}">{{$item.number}}</ui-select-match>
+                                <ui-select-choices repeat="contact in contacts | filter:$select.search">
+                                    {{contact.name}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'CUSTOM_NUMBERS' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea class="form-control" ng-model="info.numbers"></textarea>
+                        </div>
+                    </div>
+                    <default-messages></default-messages>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="text">
+                            {{ 'TEXT' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea ng-model="info.text" placeholder="{{ 'TEXT' | translate }}" class="form-control" id="text" ng-change="calculateCharacters(info.text)" ng-disabled="!info.line"  required></textarea>  
+                             <span>تعداد کاراکتر پیام: {{ messageCharacters }} | تعداد صفحات پیام:‌ {{ messagePages }}</span>
+                        </div>
+                    </div>
+                    <send-on></send-on>
+                    <test-sms international="true"></test-sms>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-primary" ng-disabled="!info.text" type="submit">{{ 'SUBMIT' | translate }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

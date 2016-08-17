@@ -1,0 +1,38 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>{{ 'FAQS' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'FAQS' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+<div class="col-lg-12">
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="supportFaqController">
+
+<div class="faq-item" ng-repeat="faq in faqs">
+    <div class="row">
+        <div class="col-md-7">
+            <a ng-click="faq1 = !faq1" class="faq-question">{{ faq.question }}</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div collapse="faq1" class="panel-collapse collapse">
+                <div class="faq-answer">
+                <p>
+                    {{ faq.answer }}
+                </p>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>

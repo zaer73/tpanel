@@ -1,0 +1,334 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'CREATE_USER' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li>
+                <a ui-sref="users.home">{{ 'USERS' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'CREATE_USER' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="createUserController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h2>{{ 'CREATE_HAGHIGHI_USER' | translate }}</h2>
+                        <form method="post"
+                            ng-controller="ajaxFormController as form"
+                            action="{{ createUserURL }}"
+                            ng-submit="form.submit($event)"
+                            class="form-horizontal"
+                        >
+                            <div ng-include="'views/includes/form_response.html'"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="h-first-name">
+                                        {{ 'FIRST_NAME' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.first_name" placeholder="{{ 'FIRST_NAME' | translate }}" class="form-control" id="h-first-name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="h-last-name">
+                                        {{ 'LAST_NAME' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.last_name" placeholder="{{ 'LAST_NAME' | translate }}" class="form-control" id="h-last-name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="h-username">
+                                        {{ 'USERNAME' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.username" placeholder="{{ 'USERNAME' | translate }}" class="form-control" id="h-username" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="h-email">
+                                        {{ 'EMAIL' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.email" placeholder="{{ 'EMAIL' | translate }}" class="form-control" id="h-email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="h-mobile">
+                                        {{ 'MOBILE' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.mobile" placeholder="{{ 'MOBILE' | translate }}" class="form-control" id="h-mobile" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="h-national_code">
+                                        {{ 'NATIONAL_CODE' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.national_code" placeholder="{{ 'NATIONAL_CODE' | translate }}" class="form-control" id="h-national_code" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="h-password">
+                                        {{ 'PASSWORD' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="password" ng-model="info.password" placeholder="{{ 'PASSWORD' | translate }}" class="form-control" id="h-password" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="user.role == 'admin' || user.role == 'agent'">
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-sm-4 control-label" for="h-national_code">
+                                            {{ 'ROLE' | translate }}
+                                        </label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <select class="form-control" ng-model="info.role">
+                                                <option value="1">{{ 'AGENT' | translate }}</option>
+                                                <option value="0">{{ 'USER' | translate }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-sm-4 control-label" for="h-national_code">
+                                            {{ 'PLAN' | translate }}
+                                        </label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <select class="form-control" ng-model="info.plan">
+                                                <option ng-repeat="plan in plans" value="{{ plan.id }}">{{ plan.title }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed" ng-if="info.role == 1"></div>
+                                <div class="form-group" ng-if="info.role == 1">
+                                    <div class="row">
+                                        <label class="col-sm-4 control-label" for="domain">
+                                            {{ 'DOMAIN' | translate }}
+                                        </label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <input type="text" ng-model="info.domain" class="form-control" placeholder="{{ 'DOMAIN' | translate }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-sm-4 control-label" for="h-national_code">
+                                            {{ 'CREDIT' | translate }}
+                                        </label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <input type="number" ng-model="info.credit" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <lines></lines> -->
+                            </div>
+                            <button class="btn btn-primary" type="submit" ng-click="info.type=0">{{ 'SUBMIT' | translate }}</button>
+                        </form>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-5">
+                        <h2>{{ 'CREATE_HOGHOOGHI_USER' | translate }}</h2>
+                        <form method="post"
+                            ng-controller="ajaxFormController as form"
+                            action="{{ createUserURL }}"
+                            ng-submit="form.submit($event)"
+                            class="form-horizontal"
+                        >
+                            <div ng-include="'views/includes/form_response.html'"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="o-name">
+                                        {{ 'NAME' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.name" placeholder="{{ 'NAME' | translate }}" class="form-control" id="o-name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="o-submit-code">
+                                        {{ 'SUBMIT_CODE' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.submit_code" placeholder="{{ 'SUBMIT_CODE' | translate }}" class="form-control" id="o-submit-code" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="o-link_first_name">
+                                        {{ 'LINK_FIRST_NAME' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.link_first_name" placeholder="{{ 'LINK_FIRST_NAME' | translate }}" class="form-control" id="o-link_first_name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="o-link_last_name">
+                                        {{ 'LINK_LAST_NAME' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.link_last_name" placeholder="{{ 'LINK_LAST_NAME' | translate }}" class="form-control" id="o-link_last_name" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="o-username">
+                                        {{ 'USERNAME' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.username" placeholder="{{ 'USERNAME' | translate }}" class="form-control" id="o-username" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="o-email">
+                                        {{ 'EMAIL' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.email" placeholder="{{ 'EMAIL' | translate }}" class="form-control" id="o-email" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="o-mobile">
+                                        {{ 'MOBILE' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.mobile" placeholder="{{ 'MOBILE' | translate }}" class="form-control" id="o-mobile" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="o-national_code">
+                                        {{ 'NATIONAL_CODE' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="text" ng-model="info.national_code" placeholder="{{ 'NATIONAL_CODE' | translate }}" class="form-control" id="o-national_code" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label" for="h-password">
+                                        {{ 'PASSWORD' | translate }}
+                                    </label>
+                                    <div class="col-md-8 col-sm-8 col-xs-12">
+                                        <input type="password" ng-model="info.password" placeholder="{{ 'PASSWORD' | translate }}" class="form-control" id="h-password" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div ng-if="user.role == 'admin' || user.role == 'agent'">
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-sm-4 control-label" for="h-national_code">
+                                            {{ 'ROLE' | translate }}
+                                        </label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <select  class="form-control" ng-model="info.role">
+                                                <option value="1">{{ 'AGENT' | translate }}</option>
+                                                <option value="0">{{ 'USER' | translate }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-sm-4 control-label" for="h-national_code">
+                                            {{ 'CREDIT' | translate }}
+                                        </label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <input type="number" ng-model="info.credit" max="{{ user.credit }}" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <lines></lines> -->
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <label class="col-sm-4 control-label" for="h-national_code">
+                                            {{ 'PLAN' | translate }}
+                                        </label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <select class="form-control" ng-model="info.plan">
+                                                <option ng-repeat="plan in plans" value="{{ plan.id }}">{{ plan.title }}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed" ng-if="info.role == 1"></div>
+                                <div class="form-group" ng-if="info.role == 1">
+                                    <div class="row">
+                                        <label class="col-sm-4 control-label" for="domain">
+                                            {{ 'DOMAIN' | translate }}
+                                        </label>
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                            <input type="text" ng-model="info.domain" class="form-control" placeholder="{{ 'DOMAIN' | translate }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit" ng-click="info.type=1">{{ 'SUBMIT' | translate }}</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

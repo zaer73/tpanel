@@ -1,0 +1,115 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'CREATE_PERMISSION_GROUP' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li>
+                <a ui-sref="permissions.groups">{{ 'PERMISSION_GROUPS' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'CREATE_PERMISSION_GROUP' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="createPermissionGroupsController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h2>{{ 'CREATE_PERMISSION_GROUP' | translate }}</h2>
+            </div>
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form method="post"
+                            ng-controller="ajaxFormController as form"
+                            action="{{ createPermissionGroupURL }}"
+                            ng-submit="form.submit($event)"
+                            class="form-horizontal"
+                            id="createNewPermissionGroup" 
+                        >
+                            <div ng-include="'views/includes/form_response.html'"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <label class="control-label" for="title">{{ 'TITLE' | translate }}</label>
+                                    </div>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" ng-model="info.title" placeholder="{{ 'TITLE' | translate }}" class="form-control" id="title" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <label class="control-label" for="description">{{ 'DESCRIPTION' | translate }}</label>
+                                    </div>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" ng-model="info.description" placeholder="{{ 'DESCRIPTION' | translate }}" class="form-control" id="description" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <label class="control-label" for="agent_limit">{{ 'agent_limit' | translate }}</label>
+                                    </div>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" ng-model="info.agent_limit" placeholder="{{ 'agent_limit' | translate }}" class="form-control" id="agent_limit" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <label class="control-label" for="user_limit">{{ 'user_limit' | translate }}</label>
+                                    </div>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" ng-model="info.user_limit" placeholder="{{ 'user_limit' | translate }}" class="form-control" id="user_limit" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <label class="control-label" for="lawyer_limit">{{ 'lawyer_limit' | translate }}</label>
+                                    </div>
+                                    <div class="col-md-9 col-sm-9 col-xs-12">
+                                        <input type="text" ng-model="info.lawyer_limit" placeholder="{{ 'lawyer_limit' | translate }}" class="form-control" id="lawyer_limit" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-12" ng-repeat="permission in permissions">
+                                        <label for="{{ permission }}">{{ permission | uppercase | translate }}</label>
+                                        <input icheck type="checkbox" ng-model="info[permission]" id="{{ permission }}">
+                                        <div class="hr-line-dashed"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-1 col-sm-1 col-xs-12">
+                                    
+                                </div>
+                                <div class="col-md-11 col-sm-11 col-xs-12 float_right">
+                                    <button class="btn btn-primary" type="submit" ng-disabled="!permissions">{{ 'ADD_PERMISSION_GROUP' | translate }}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

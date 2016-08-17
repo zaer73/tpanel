@@ -1,0 +1,80 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'POLL' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'POLL' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="pollsController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+
+            <div class="ibox-content">
+                <table datatable="ng" dt-options="dtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="selectAllRows">
+                        </th>
+                        <th>{{ 'title' | uppercase | translate }}</th>
+                        <th>{{ 'type' | uppercase | translate }}</th>
+                        <th>{{ 'started_at' | uppercase | translate }}</th>
+                        <th>{{ 'finished_at' | uppercase | translate }}</th>
+                        <th>{{ 'question' | uppercase | translate }}</th>
+                        <th>{{ 'answer' | uppercase | translate }}</th>
+                        <th>{{ 'reply' | uppercase | translate }}</th>
+                        <th>{{ 'show_results' | uppercase | translate }}</th>
+                        <th>{{ 'ACTIONS' | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,poll) in polls" ng-style="{'background-color': selectedRows.indexOf(key) != -1 ? '#F9F8CC' : ''}">
+                        <td>
+                            <input type="checkbox" class="selectRow" ng-click="selectRow(key, message.id)" ng-checked="selectedRows.indexOf(key) != -1">
+                        </td>
+                        <td>{{ poll.title }}</td>
+                        <td>{{ poll.type_name }}</td>
+                        <td>{{ poll.start_date }}</td>
+                        <td>{{ poll.finish_date }}</td>
+                        <td>{{ poll.question }}</td>
+                        <td>{{ poll.answer }}</td>
+                        <td>{{ poll.reply }}</td>
+                        <td>
+                            <a ui-sref="app.tools.polls.show({id: poll.id})">
+                                <i class="fa fa-pie-chart"></i>
+                            </a>
+                            <a href="/polls/export/{{ poll.id }}" target="_blank">
+                                <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                        <td>
+                            <a ui-sref="app.tools.polls.edit({id: poll.id})">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a href="" ng-click="delete(key, poll.id)">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                        <tr ng-show="selectedRows.length">
+                        <td colspan="9">
+                            <button ng-click="removeSelected()" class="btn btn-danger">{{ 'REMOVE_SELECTED' | translate }}</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,96 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'EDIT_PRICE_GROUP' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'EDIT_PRICE_GROUP' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="editPriceGroupController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="post"
+                    ng-controller="ajaxFormController as form"
+                    action="{{ editPriceGroupURL }}"
+                    ng-submit="form.submit($event)"
+                    class="form-horizontal"
+                    id="editPriceGroupForm" 
+                >
+                    <input type="hidden" name="_method" value="PUT">
+                    <div ng-include="'views/includes/form_response.html'"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="title">
+                            {{ 'TITLE' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" ng-model="info.title" placeholder="{{ 'TITLE' | translate }}" id="title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="description">
+                            {{ 'DESCRIPTION' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" id="description" ng-model="info.description" placeholder="{{ 'DESCRIPTION' | translate }}">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4" ng-repeat="group in groups">
+                        <label class="col-sm-3 control-label" for="{{ group }}">
+                            {{ group | uppercase | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="text" class="form-control" ng-model="info[group]" id="{{ group }}" ng-value="10">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12" for="tax_enabled">
+                                {{ 'TAX_ENABLE' | translate}}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="checkbox" ng-model="info.tax" class="form-control" id="tax_enabled" ng-checked="info.tax">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12" for="tax_percent">
+                                {{ 'TAX_PERCENT' | translate}}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.tax_percent" class="form-control" placeholder="{{ 'TAX_PERCENT' | translate }}" id="tax_percent">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="col-md-3 col-sm-3 col-xs-12" for="max_character">
+                                {{ 'MAX_CHARACTER' | translate}}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.character_limit" class="form-control" placeholder="{{ 'MAX_CHARACTER' | translate }}" id="max_character">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-primary" ng-disabled="!info.title || !info.description" type="submit">{{ 'SUBMIT' | translate }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

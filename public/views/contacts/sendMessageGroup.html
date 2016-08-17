@@ -1,0 +1,45 @@
+<div class="modal-body" ng-controller="ContactController">
+    <div class="row">
+        <div class="col-sm-12 b-r"><h3 class="m-t-none m-b" style="width:100%;text-align: right;">{{ 'SEND_MESSAGE_TO_CONTACT' | translate }}</h3>
+        	<form method="post"
+                    ng-controller="ajaxFormController as form"
+                    action="{{ sendGroupSMSURL }}"
+                    ng-submit="form.submit($event)"
+                    class="form-horizontal"
+                >
+                    <div ng-include="'views/includes/form_response.html'" style="float: right;width: 100%;direction: rtl;"></div>
+                    <div style="clear:both"></div>
+                    <lines></lines>
+                    <default-messages></default-messages>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="text">
+                            {{ 'TEXT' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea ng-model="info.text" placeholder="{{ 'TEXT' | translate }}" class="form-control" ng-change="calculateCharacters(info.text)" ng-disabled="!info.line" id="text" required></textarea>  
+                            <span>تعداد کاراکتر پیام: {{ messageCharacters }} | تعداد صفحات پیام:‌ {{ messagePages }}</span>
+                        </div>
+                    </div>
+                    <input type="hidden" ng-model="info.numbers" ng-init="info.numbers=contactsNumbers">
+                    
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="flash">
+                            {{ 'FLASH' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="checkbox" ng-model="info.flash" id="flash">
+                        </div>
+                    </div>
+                    <send-on></send-on>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-primary" ng-disabled="!info.text" type="submit">{{ 'SUBMIT' | translate }}</button>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>

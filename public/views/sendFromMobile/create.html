@@ -1,0 +1,48 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'PERMISSION_TOOLS_SEND_FROM_MOBILE' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'PERMISSION_TOOLS_SEND_FROM_MOBILE' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="sendFromMobileCreateController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="post"
+                    ng-controller="ajaxFormController as form"
+                    action="{{ createSendFromMobileURL }}"
+                    ng-submit="form.submit($event)"
+                    class="form-horizontal"
+                >
+                    <div ng-include="'views/includes/form_response.html'"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="number">
+                            {{ 'NUMBER' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="text" ng-model="info.number" placeholder="{{ 'NUMBER' | translate }}" id="number">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-primary" ng-disabled="!info.number" type="submit">{{ 'SUBMIT' | translate }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'CODEREADER' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'CODEREADER' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="codereaderController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+
+            <div class="ibox-content">
+                <table datatable="ng" dt-options="dtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="selectAllRows">
+                        </th>
+                        <th>{{ 'title' | uppercase | translate }}</th>
+                        <th>{{ 'line' | uppercase | translate }}</th>
+                        <th>{{ 'condition_type' | uppercase | translate }}</th>
+                        <th>{{ 'condition_text' | uppercase | translate }}</th>
+                        <th>{{ 'reaction_type' | uppercase | translate }}</th>
+                        <th>{{ 'reaction_text' | uppercase | translate }}</th>
+                        <th>{{ 'reaction_group' | uppercase | translate }}</th>
+                        <th>{{ 'create_date' | uppercase | translate }}</th>
+                        <th>{{ 'ACTIONS' | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,codereader) in codereaders" ng-style="{'background-color': selectedRows.indexOf(key) != -1 ? '#F9F8CC' : ''}">
+                        <td>
+                            <input type="checkbox" class="selectRow" ng-click="selectRow(key, message.id)" ng-checked="selectedRows.indexOf(key) != -1">
+                        </td>
+                        <td>{{ codereader.title }}</td>
+                        <td>{{ codereader.line.number }}</td>
+                        <td>{{ codereader.condition }}</td>
+                        <td>{{ codereader.condition_text }}</td>
+                        <td>{{ codereader.reaction }}</td>
+                        <td>{{ codereader.reaction_text }}</td>
+                        <td>{{ codereader.group.title }}</td>
+                        <td>{{ codereader.create_date }}</td>
+                        <td>
+                            <a ui-sref="app.tools.codereaders.edit({id: codereader.id})">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a href="" ng-if="codereader.status == 0" ng-click="delete(key, codereader.id)">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                            <a href="" ng-if="codereader.status == -1" ng-click="activate(key, codereader.id)">
+                                <i class="fa fa-check"></i>
+                            </a>
+                            <a href="" ng-click="trash(key, codereader.id)">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                        <tr ng-show="selectedRows.length">
+                        <td colspan="9">
+                            <button ng-click="removeSelected()" class="btn btn-danger">{{ 'REMOVE_SELECTED' | translate }}</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

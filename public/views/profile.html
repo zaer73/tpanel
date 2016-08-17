@@ -1,0 +1,211 @@
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="profileController as ctrl">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h2>{{ 'TITLE_CHANGE_PASSWORD' | translate }}</h2>
+                </div>
+                <div class="ibox-content">
+                    <form 
+                        method="post" 
+                        ng-controller="ajaxFormController as form"
+                        action="{{ changePasswordURL }}"
+                        ng-submit="form.submit($event)"
+                        class="form-horizontal" 
+                        id="resetPasswordForm" 
+                    >
+                        <div ng-include="'views/includes/form_response.html'"></div>
+                        <input type="hidden" name="_method" value="PUT">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" fo>
+                                {{ 'OLD_PASSWORD' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="password" ng-disabled="!canChangePassword" ng-model="info.old_password" placeholder="{{ 'OLD_PASSWORD' | translate }}" class="form-control" id="old-password" required>  
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="new-password">
+                                {{ 'NEW_PASSWORD' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="password" ng-disabled="!canChangePassword" ng-model="info.new_password" placeholder="{{ 'NEW_PASSWORD' | translate }}" class="form-control" id="new-password" required>  
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="repeat-new-password">
+                                {{ 'REPEAT_NEW_PASSWORD' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="password" ng-disabled="!canChangePassword" ng-model="info.repeat_new_password" placeholder="{{ 'REPEAT_NEW_PASSWORD' | translate }}" class="form-control" id="repeat-new-password" required>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-md-9 col-sm-9 col-xs-12 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit" ng-disabled="!changePasswordURL || ajaxInProcess || checkButton()">{{ 'TITLE_CHANGE_PASSWORD' | translate }}</button>
+                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h2>{{ 'TITLE_CHANGE_BIRTH' | translate }}</h2>
+                </div>
+                <div class="ibox-content">
+                    <form 
+                        method="post" 
+                        ng-controller="ajaxFormController as form"
+                        action="{{ changeBirthdayURL }}"
+                        ng-submit="form.submit($event)"
+                        class="form-horizontal" 
+                        id="resetPasswordForm" 
+                    >
+                        <div ng-include="'views/includes/form_response.html'"></div>
+                        <input type="hidden" name="_method" value="PUT">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="old-password">
+                                {{ 'BIRTH_DAY' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.birth_day" placeholder="{{ 'BIRTH_DAY' | translate }}" class="form-control" id="birth_day" required>  
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="new-password">
+                                {{ 'BIRTH_MONTH' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.birth_month" placeholder="{{ 'BIRTH_MONTH' | translate }}" class="form-control" id="birth_month" required>  
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="repeat-new-password">
+                                {{ 'BIRTH_YEAR' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.birth_year" placeholder="{{ 'BIRTH_YEAR' | translate }}" class="form-control" id="birth_year" required>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-md-9 col-sm-9 col-xs-12 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit" ng-disabled="!changePasswordURL || ajaxInProcess || !info">{{ 'SUBMIT' | translate }}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h2>{{ 'TITLE_CHANGE_INFO' | translate }}</h2>
+                </div>
+                <div class="ibox-content">
+                    <form 
+                        method="post" 
+                        ng-controller="ajaxFormController as form"
+                        action="{{ changeInfoURL }}"
+                        ng-submit="form.submit($event)"
+                        class="form-horizontal" 
+                        id="changeInfoForm" 
+                    >
+                        <div ng-include="'views/includes/form_response.html'"></div>
+                        <input type="hidden" name="_method" value="PUT">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                                {{ 'NAME' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.name" placeholder="{{ 'NAME' | translate }}" class="form-control" required>  
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                                {{ 'MOBILE' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.mobile" placeholder="{{ 'MOBILE' | translate }}" class="form-control">  
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                                {{ 'NATIONAL_CODE' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.national_code" placeholder="{{ 'NATIONAL_CODE' | translate }}" class="form-control">  
+                            </div>
+                        </div>
+                        <div ng-if="user.type == 1">
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                                {{ 'SUBMIT_CODE' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.submit_code" placeholder="{{ 'SUBMIT_CODE' | translate }}" class="form-control">  
+                            </div>
+                        </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                                {{ 'EMAIL' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.email" placeholder="{{ 'EMAIL' | translate }}" class="form-control">  
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                                {{ 'LINK_FIRST_NAME' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.link_first_name" placeholder="{{ 'LINK_FIRST_NAME' | translate }}" class="form-control">  
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                                {{ 'LINK_LAST_NAME' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.link_last_name" placeholder="{{ 'LINK_LAST_NAME' | translate }}" class="form-control">  
+                            </div>
+                        </div>
+                        <div ng-if="user.role == 'agent'">
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">
+                                {{ 'DOMAIN' | translate }}
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" ng-model="info.domain" placeholder="{{ 'DOMAIN' | translate }}" class="form-control">  
+                            </div>
+                        </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-md-9 col-sm-9 col-xs-12 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit" ng-disabled="ajaxInProcess || !info">{{ 'TITLE_CHANGE_INFO' | translate }}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

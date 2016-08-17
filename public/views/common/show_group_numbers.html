@@ -1,0 +1,25 @@
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12 b-r">
+            <table  datatable="ng" dt-options="dtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>{{ 'date' | uppercase | translate }}</th>
+                    <th>{{ 'status' | uppercase | translate }}</th>
+                    <th>{{ 'number' | uppercase | translate }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="(key,message) in groupMessages">
+                    <td>{{ message.id }}</td>
+                    <td>{{ message.created_at }}</td>
+                    <td>{{ message.sms_status}}</td>
+                    <td>{{ message.reciever}}</td>
+                </tr>
+                
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

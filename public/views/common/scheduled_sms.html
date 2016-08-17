@@ -1,0 +1,16 @@
+<div class="form-group">
+	<label class="col-sm-3 control-label" for="send_on">
+        {{ 'SCHEDULED_SEND' | translate }}
+    </label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+    	<input type="checkbox" id="send_on" ng-model="showScheculedSMS" ng-disabled="info.scheduled">
+    </div>	
+</div>
+<div class="form-group" ng-show="showScheculedSMS">
+    <label class="col-sm-3 control-label">
+        {{ 'SEND_ON' | translate }}
+    </label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <input type="text" class="form-control" persian-date-picker ng-model="info.sendOn" view="hours" auto-close="true" id="datetimeID" value="{{ sendOnRootScope }}" ng-disabled="info.scheduled">
+    </div>
+</div>

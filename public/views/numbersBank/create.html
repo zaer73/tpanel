@@ -1,0 +1,89 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'CREATE_NUMBERS_BANK' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'CREATE_NUMBERS_BANK' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="createNumbersBankController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="post"
+                    ng-controller="ajaxFormController as form"
+                    action="{{ createNumbersBankURL }}"
+                    ng-submit="form.submit($event)"
+                    class="form-horizontal"
+                    id="edit-number-bank-form" 
+                >
+                    <div ng-include="'views/includes/form_response.html'"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="number">
+                            {{ 'NUMBER' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="text" ng-model="info.number" placeholder="{{ 'NUMBER' | translate }}" id="number">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="province_id">
+                            {{ 'PROVINCE' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="text" ng-model="info.province_id" placeholder="{{ 'PROVINCE' | translate }}" id="province_id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="city_id">
+                            {{ 'CITY' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="text" ng-model="info.city_id" placeholder="{{ 'CITY' | translate }}" id="city_id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="job_id">
+                            {{ 'OCCUPATION' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="text" ng-model="info.job_id" placeholder="{{ 'OCCUPATION' | translate }}" id="job_id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="gender">
+                            {{ 'GENDER' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="text" ng-model="info.gender" placeholder="{{ 'GENDER' | translate }}" id="gender">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="postal_code_id">
+                            {{ 'POSTAL_CODE_ID' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="text" ng-model="info.postal_code_id" placeholder="{{ 'POSTAL_CODE_ID' | translate }}" id="postal_code_id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-primary" type="submit">{{ 'SUBMIT' | translate }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

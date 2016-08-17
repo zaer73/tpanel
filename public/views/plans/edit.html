@@ -1,0 +1,141 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'PLANS' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'PLANS' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="editPlansController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="post"
+                    ng-controller="ajaxFormController as form"
+                    action="{{ editPlansURL }}"
+                    ng-submit="form.submit($event)"
+                    class="form-horizontal"
+                    id="edit-plan-form" 
+                >
+                    <input type="hidden" name="_method" value="put">
+                    <div ng-include="'views/includes/form_response.html'"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="title">
+                            {{ 'TITLE' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="text" ng-model="info.title" placeholder="{{ 'TITLE' | translate }}" id="title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="description">
+                            {{ 'DESCRIPTION' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="text" ng-model="info.description" placeholder="{{ 'DESCRIPTION' | translate }}" id="description">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="line">
+                            {{ 'LINE' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <!-- <select class="form-control" ng-model="info.line_id">
+                                <option ng-repeat="line in data.lines" value="{{ line.id }}" ng-selected="info.line_id == line.id">
+                                    {{ line.number }}
+                                </option>
+                            </select> -->
+                            <ui-select ng-if="data.lines.length" multiple ng-model="info.line_id" theme="bootstrap" style="width: 100%;">
+                                <ui-select-match placeholder="{{ 'LINES' | translate }}">{{$item.number}}</ui-select-match>
+                                <ui-select-choices repeat="line in data.lines | filter:$select.search">
+                                    {{line.number}}
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="fluent_credit_group">
+                            {{ 'FLUENT_CREDIT' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" ng-model="info.fluent_credit_group">
+                                <option ng-repeat="group in fluentCreditGroups" value="{{ group.id }}">
+                                    {{ group.title }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="permission_group">
+                            {{ 'PERMISSION_GROUP' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control" ng-model="info.permission_group">
+                                <option ng-repeat="group in data.permission_groups" value="{{ group.id }}" ng-selected="info.permission_group == group.id">
+                                    {{ group.title }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="value">
+                            {{ 'VALUE' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="text" ng-model="info.value" placeholder="{{ 'VALUE' | translate }}" id="value">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="value">
+                            {{ 'EXPIRES_AT' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" persian-date-picker ng-model="info.expires_at" view="date" auto-close="true" min-view="date" format="YYYY-MM-DD">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="init_credit">
+                            {{ 'INIT_CREDIT' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="number" ng-model="info.init_credit" placeholder="{{ 'INIT_CREDIT' | translate }}" id="init_credit">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="type">
+                            {{ 'TYPE' | translate }}
+                        </label>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <label for="type_user">{{ 'USER' }}</label>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <input class="form-control" type="radio" ng-model="info.type" value="0" id="type_user">
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <label for="type_agent">{{ 'AGENT' }}</label>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-12">
+                            <input class="form-control" type="radio" ng-model="info.type" value="1" id="type_agent">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-primary" ng-disabled="!info.title || !info.line_id || !info.fluent_credit_group || !info.permission_group || !info.value" type="submit">{{ 'SUBMIT' | translate }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

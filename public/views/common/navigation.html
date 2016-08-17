@@ -1,0 +1,517 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+
+                <div class="dropdown profile-element" dropdown>
+                    <a class="dropdown-toggle" dropdown-toggle href>
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold">{{ user.name }}</strong>
+                                </span>
+                            </span>
+                    </a>
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+            <!-- <li ng-class="{active: $state.includes('app.dashboards')}">
+                <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">{{ 'DASHBOARD' | translate }}</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.dashboards')}">
+                    <li ui-sref-active="active"><a ui-sref="app.dashboards.dashboard_1">{{ 'DASHBOARD' | translate }} v.1</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.dashboards.dashboard_2">{{ 'DASHBOARD' | translate }} v.2</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.dashboards.dashboard_3">{{ 'DASHBOARD' | translate }} v.3</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.dashboards.dashboard_4_1">{{ 'DASHBOARD' | translate }} v.4</a></li>
+                    <li ui-sref-active="active"><a ui-sref="app.dashboards.dashboard_5">{{ 'DASHBOARD' | translate }} v.5 <span class="label label-primary pull-right">NEW</span></a></li>
+                </ul>
+            </li> -->
+            <!-- <li ui-sref-active="active">
+                <a ui-sref="app.layouts"><i class="fa fa-diamond"></i> <span class="nav-label">{{ 'LAYOUTS' | translate }}</span> </a>
+            </li> -->
+            <li ng-class="{active: $state.includes('app.sms')}">
+                <a ui-sref="app.dashboards.dashboard_2"><i class="fa fa-home"></i> <span class="nav-label">{{ 'DASHBOARD' | translate }}</span></a>
+            </li>
+            <li ng-class="{active: $state.includes('app.sms')}">
+                <a href=""><i class="fa fa-mobile"></i> <span class="nav-label">{{ 'SMS' | translate }}</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.sms')}">
+                    <li ng-if="check_permission('send_single_sms')" ui-sref-active="active">
+                        <a ui-sref="app.sms.single">{{ 'SEND_SINGLE' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('send_group_sms')" ui-sref-active="active">
+                        <a ui-sref="app.sms.group">{{ 'SEND_GROUP' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('send_sms_by_city')" ui-sref-active="active">
+                        <a ui-sref="app.sms.city">{{ 'SEND_CITY' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('send_sms_by_occupation')" ui-sref-active="active">
+                        <a ui-sref="app.sms.occupation">{{ 'SEND_OCCUPATION' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('send_sms_by_postal_code')" ui-sref-active="active">
+                        <a ui-sref="app.sms.postalCode">{{ 'SEND_POSTAL_CODE' | translate }}</a>
+                    </li>
+                    <li ng-show="check_permission('send_sms_by_gender')" ng-class="{active: $state.includes('app.sms.gender')}">
+                        <a href=""><span class="nav-label">{{ 'SEND_GENDER' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.sms.gender')}">
+                            <li ui-sref-active="active">
+                                <a ng-if="check_permission('send_sms_by_gender')" ui-sref="app.sms.gender.list">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ng-if="check_permission('send_sms_by_gender')" ui-sref="app.sms.gender.add">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="check_permission('send_sms_by_map')" ui-sref-active="active">
+                        <a ui-sref="app.sms.map">{{ 'SEND_MAP' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('send_sms_by_brand')" ui-sref-active="active">
+                        <a ui-sref="app.sms.brand">{{ 'SEND_BRAND' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('send_international_sms')" ui-sref-active="active">
+                        <a ui-sref="app.sms.international">{{ 'SEND_INTERNATIONAL' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('report_for_sms')" ui-sref-active="active">
+                        <a ui-sref="app.sms.report">{{ 'REPORT' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('receive_sms')" ui-sref-active="active">
+                        <a ui-sref="app.sms.received">{{ 'RECEIVED' | translate }}</a>
+                    </li>
+                    <li ng-class="{active: $state.includes('app.sms.schedules')}">
+                        <a href=""><span class="nav-label">{{ 'SCHEDULES' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.sms.schedules')}">
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.sms.schedules.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.sms.schedules.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-class="{active: $state.includes('app.sms.defaultMessages')}">
+                        <a href=""><span class="nav-label">{{ 'default_messages' | uppercase | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.sms.defaultMessages')}">
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.sms.defaultMessages.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.sms.defaultMessages.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="check_permission('deleted_sms')" ui-sref-active="active">
+                        <a ui-sref="app.sms.trash">{{ 'TRASH' | translate }}</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li ng-class="{active: $state.includes('app.contacts') || $state.includes('app.contactsGroups')}">
+                <a href=""><i class="fa fa-user"></i> <span class="nav-label">{{ 'CONTACTS' | translate }}</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.contacts') || $state.includes('app.contactsGroups')}">
+                    <li ui-sref-active="active">
+                        <a ui-sref="app.contacts.home">{{ 'HOME' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('contacts_contacts')" ui-sref-active="active">
+                        <a ui-sref="app.contacts.create">{{ 'CREATE' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('contacts_removed')" ui-sref-active="active">
+                        <a ui-sref="app.contacts.trash">{{ 'TRASH' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('contacts_group')" ui-sref-active="active">
+                        <a ui-sref="app.contactsGroups.home">{{ 'GROUPS' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('contacts_group')" ui-sref-active="active">
+                        <a ui-sref="app.contactsGroups.create">{{ 'CREATE_GROUPS' | translate }}</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li ng-class="{active: $state.includes('app.tools')}">
+                <a href=""><i class="fa fa-wrench"></i> <span class="nav-label">{{ 'TOOLS' | translate }}</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.polls')}">
+                    <li ng-show="check_permission('tools_poll')" ng-class="{active: $state.includes('app.tools.polls')}">
+                        <a href=""><span class="nav-label">{{ 'POLLS' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.polls')}">
+                            <li ng-if="check_permission('tools_poll')" ui-sref-active="active">
+                                <a ui-sref="app.tools.polls.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('tools_poll')" ui-sref-active="active">
+                                <a ui-sref="app.tools.polls.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('tools_auto_answer_list') || check_permission('tools_auto_answer')" ng-class="{active: $state.includes('app.tools.autoreplies')}">
+                        <a href=""><span class="nav-label">{{ 'AUTOREPLIES' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.autoreplies')}">
+                            <li ng-if="check_permission('tools_auto_answer_list')" ui-sref-active="active"><a ui-sref="app.tools.autoreplies.home">{{ 'HOME' | translate }}</a></li>
+                            <li ng-if="check_permission('tools_auto_answer')" ui-sref-active="active"><a ui-sref="app.tools.autoreplies.create">{{ 'CREATE' | translate }}</a></li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('tools_barcode')" ng-class="{active: $state.includes('app.tools.codereaders')}">
+                        <a href=""><span class="nav-label">{{ 'CODEREADER' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.codereaders')}">
+                            <li ng-if="check_permission('tools_barcode')" ui-sref-active="active">
+                                <a ui-sref="app.tools.codereaders.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('tools_barcode')" ui-sref-active="active">
+                                <a ui-sref="app.tools.codereaders.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('tools_send_from_mobile')" ng-class="{active: $state.includes('app.tools.sendFromMobile')}">
+                        <a href=""><span class="nav-label">{{ 'permission_tools_send_from_mobile' | uppercase | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.codereaders')}">
+                            <li ng-if="check_permission('tools_send_from_mobile')" ui-sref-active="active">
+                                <a ui-sref="app.tools.sendFromMobile.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('tools_barcode')" ui-sref-active="active">
+                                <a ui-sref="app.tools.sendFromMobile.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('tools_blacklist')" ng-class="{active: $state.includes('app.tools.blacklist')}">
+                        <a href=""><span class="nav-label">{{ 'BLACKLIST' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.tools.blacklist')}">
+                            <li ng-if="check_permission('tools_blacklist')" ui-sref-active="active">
+                                <a ui-sref="app.tools.blacklist.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('tools_blacklist')" ui-sref-active="active">
+                                <a ui-sref="app.tools.blacklist.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('tools_send_to_email')" ng-class="{active: $state.includes('app.tools.transferToEmail')}">
+                        <a href=""><span class="nav-label">{{ 'TRANSFER_TO_EMAIL' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.tools.transferToEmail')}">
+                            <li ng-if="check_permission('tools_send_to_email')" ui-sref-active="active">
+                                <a ui-sref="app.tools.transferToEmail.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('tools_send_to_email')" ui-sref-active="active">
+                                <a ui-sref="app.tools.transferToEmail.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="check_permission('tools_recieve_setting')" ui-sref-active="active">
+                        <a ui-sref="app.tools.receiveSettings.home">{{ 'SMS_RECEIVERS' | translate }}</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li ng-class="{active: $state.includes('app.users')}">
+                <a href=""><i class="fa fa-group"></i> <span class="nav-label">{{ 'USER_AREA' | translate }}</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.users')}">
+                    <li ng-show="check_permission('users_profile')" ng-class="{active: $state.includes('app.users')}">
+                        <a href="">
+                            <span class="nav-label">{{ 'LAWYER' | translate }}</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.users')}">
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.users.lawyers">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ui-sref-active="active">
+                                <a ui-sref="app.users.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="check_permission('users_profile')" ui-sref-active="active">
+                        <a ui-sref="app.users.profile">{{ 'PROFILE' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('users_settings')" ui-sref-active="active">
+                        <a ui-sref="app.users.settings">{{ 'SETTINGS' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('users_report')" ui-sref-active="active">
+                        <a ui-sref="app.users.report">{{ 'REPORT' | translate }}</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li ng-class="{active: $state.includes('app.admin')}" ng-if="user.role != 'user'">
+                <a href=""><i class="fa fa-cog"></i> <span class="nav-label">{{ 'ADMIN' | translate }}</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li ng-class="{active: $state.includes('app.users')}">
+                        <a href=""><span class="nav-label">{{ 'USER_AREA' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.users')}">
+                            <li ng-if="check_permission('users_list')" ui-sref-active="active">
+                                <a ui-sref="app.users.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('users_create')" ui-sref-active="active">
+                                <a ui-sref="app.admin.users_create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('permissions')" ng-class="{active: $state.includes('app.admin.permissions')}">
+                        <a href=""><span class="nav-label">{{ 'PERMISSIONS' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.admin.permissions')}">
+                            <li ng-if="check_permission('permissions')" ui-sref-active="active">
+                                <a ui-sref="app.admin.permissions.groups.home">{{ 'GROUPS' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('permissions')" ui-sref-active="active">
+                                <a ui-sref="app.admin.permissions.groups.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('lines_view')" ng-class="{active: $state.includes('app.admin.lines')}">
+                        <a href=""><span class="nav-label">{{ 'LINES' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.admin.lines')}">
+                            <li ng-if="check_permission('lines_view')" ui-sref-active="active"><a ui-sref="app.admin.lines.show">{{ 'HOME' | translate }}</a></li>
+                            <li ng-if="check_permission('lines')" ui-sref-active="active"><a ui-sref="app.admin.lines.create">{{ 'CREATE' | translate }}</a></li>
+                            <li ng-if="check_permission('lines')" ui-sref-active="active"><a ui-sref="app.admin.lines.import">{{ 'IMPORT' | translate }}</a></li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('news_create_list')" ng-class="{active: $state.includes('app.admin.news')}">
+                        <a href=""><span class="nav-label">{{ 'NEWS' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.admin.news')}">
+                            <li ng-if="check_permission('news_create_list')" ui-sref-active="active">
+                                <a ui-sref="app.admin.news.show">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('news_create_list')" ui-sref-active="active">
+                                <a ui-sref="app.admin.news.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="check_permission('price_groups')" ui-sref-active="active"><a ui-sref="app.admin.priceGroup.create">{{ 'PRICE_GROUP' | translate }}</a></li>
+                    <li ng-if="check_permission('customization')" ui-sref-active="active">
+                        <a ui-sref="app.admin.customizations.home"><span class="nav-label">{{ 'CUSTOMIZATIONS' | translate }}</span> </a>
+                    </li>
+                    <li ng-if="check_permission('admin_settings')" ui-sref-active="active">
+                        <a ui-sref="app.admin.settings.home"><span class="nav-label">{{ 'SETTINGS' | translate }}</span> </a>
+                    </li>
+                    <li ng-show="check_permission('tools_pretext')" ng-class="{active: $state.includes('app.tools.preTexts')}">
+                        <a href=""><span class="nav-label">{{ 'PRE_TEXTS' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.preTexts')}">
+                            <li ng-if="check_permission('tools_pretext')" ui-sref-active="active"><a ui-sref="app.tools.preTexts.home">{{ 'HOME' | translate }}</a></li>
+                            <li ng-if="check_permission('tools_pretext')" ui-sref-active="active"><a ui-sref="app.tools.preTexts.create">{{ 'CREATE' | translate }}</a></li>
+                            <li ng-if="check_permission('tools_pretext')" ui-sref-active="active"><a ui-sref="app.tools.preTexts.group.home">{{ 'HOME_GROUP' | translate }}</a></li>
+                            <li ng-if="check_permission('tools_pretext')" ui-sref-active="active"><a ui-sref="app.tools.preTexts.group.create">{{ 'CREATE_GROUP' | translate }}</a></li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('numbers_bank')" ng-class="{active: $state.includes('app.admin.numbersBank')}">
+                        <a href=""><span class="nav-label">{{ 'NUMBERS_BANK' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.admin.numbersBank')}">
+                            <li ng-if="check_permission('numbers_bank')" ui-sref-active="active">
+                                <a ui-sref="app.admin.numbersBank.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('numbers_bank')" ui-sref-active="active">
+                                <a ui-sref="app.admin.numbersBank.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('numbers_bank')" ui-sref-active="active">
+                                <a ui-sref="app.admin.numbersBank.import">{{ 'IMPORT' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('create_occupations')" ng-class="{active: $state.includes('app.admin.occupations')}">
+                        <a href=""><span class="nav-label">{{ 'OCCUPATIONS' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.admin.occupations')}">
+                            <li ng-if="check_permission('create_occupations')" ui-sref-active="active">
+                                <a ui-sref="app.admin.occupations.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('create_occupations')" ui-sref-active="active">
+                                <a ui-sref="app.admin.occupations.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('create_postal_codes')" ng-class="{active: $state.includes('app.admin.postalCode')}">
+                        <a href=""><span class="nav-label">{{ 'POSTAL_CODE' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.admin.postalCode')}">
+                            <li ng-if="check_permission('create_postal_codes')" ui-sref-active="active">
+                                <a ui-sref="app.admin.postalCode.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('create_postal_codes')" ui-sref-active="active">
+                                <a ui-sref="app.admin.postalCode.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('managing_modules')" ng-class="{active: $state.includes('app.admin.modules')}">
+                        <a href=""><span class="nav-label">{{ 'MODULES' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.admin.modules')}">
+                            <li ng-if="check_permission('managing_modules')" ui-sref-active="active">
+                                <a ui-sref="app.admin.modules.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('managing_modules')" ui-sref-active="active">
+                                <a ui-sref="app.admin.modules.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('managing_specials')" ng-class="{active: $state.includes('app.admin.specials')}">
+                        <a href=""><span class="nav-label">{{ 'SPECIALS' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-third-level collapse" ng-class="{in: $state.includes('app.admin.specials')}">
+                            <li ng-if="check_permission('managing_specials')" ui-sref-active="active">
+                                <a ui-sref="app.admin.specials.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('managing_specials')" ui-sref-active="active">
+                                <a ui-sref="app.admin.specials.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('managing_plans')" ng-class="{active: $state.includes('app.admin.plans')}">
+                        <a href=""><span class="nav-label">{{ 'PLAN' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.admin.plans')}">
+                            <li ng-if="check_permission('managing_plans')" ui-sref-active="active">
+                                <a ui-sref="app.admin.plans.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('managing_plans')" ui-sref-active="active">
+                                <a ui-sref="app.admin.plans.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="check_permission('backup')" ui-sref-active="active">
+                        <a ui-sref="app.admin.backup"><span class="nav-label">{{ 'BACKUP' | translate }}</span> </a>
+                    </li>
+                    <li ng-show="check_permission('managing_filterings')" ng-class="{active: $state.includes('app.admin.filterings')}">
+                        <a href=""><span class="nav-label">{{ 'FILTERINGS' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.admin.filterings')}">
+                            <li ng-if="check_permission('managing_filterings')" ui-sref-active="active">
+                                <a ui-sref="app.admin.filterings.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('managing_filterings')" ui-sref-active="active">
+                                <a ui-sref="app.admin.filterings.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('create_faqs')" ng-class="{active: $state.includes('app.admin.faqs')}">
+                        <a href=""><span class="nav-label">{{ 'FAQS' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.admin.faqs')}">
+                            <li ng-if="check_permission('create_faqs')" ui-sref-active="active">
+                                <a ui-sref="app.admin.faqs.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('create_faqs')" ui-sref-active="active">
+                                <a ui-sref="app.admin.faqs.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('create_charges')" ng-class="{active: $state.includes('app.admin.charges')}">
+                        <a href=""><span class="nav-label">{{ 'CHARGES' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.admin.charges')}">
+                            <li ng-if="check_permission('create_charges')" ui-sref-active="active">
+                                <a ui-sref="app.admin.charges.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('create_charges')" ui-sref-active="active">
+                                <a ui-sref="app.admin.charges.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('fluent_credit')" ng-class="{active: $state.includes('app.admin.fluent_credit')}">
+                        <a href=""><span class="nav-label">{{ 'FLUENT_CREDIT' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.admin.fluent_credit')}">
+                            <li ng-if="check_permission('fluent_credit')" ui-sref-active="active">
+                                <a ui-sref="app.admin.fluent_credit.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('fluent_credit')" ui-sref-active="active">
+                                <a ui-sref="app.admin.fluent_credit.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('fluent_credit')" ui-sref-active="active">
+                                <a ui-sref="app.admin.fluent_credit.groups.home">{{ 'GROUPS' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('fluent_credit')" ui-sref-active="active">
+                                <a ui-sref="app.admin.fluent_credit.groups.create">{{ 'CREATE_GROUP' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-if="check_permission('marketing_codes')" ui-sref-active="active">
+                        <a ui-sref="app.admin.marketingCodes.home">{{ 'MARKETING_CODE' | translate }}</a>
+                    </li>
+                    <li ng-show="check_permission('line_patterns')" ng-class="{active: $state.includes('app.admin.line_patterns')}">
+                        <a href=""><span class="nav-label">{{ 'LINE_PATTERNS' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.admin.line_patterns')}">
+                            <li ng-if="check_permission('line_patterns')" ui-sref-active="active">
+                                <a ui-sref="app.admin.line_patterns.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('line_patterns')" ui-sref-active="active">
+                                <a ui-sref="app.admin.line_patterns.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li ng-show="check_permission('languages')" ng-class="{active: $state.includes('app.admin.languages')}">
+                        <a href=""><span class="nav-label">{{ 'LANGUAGES' | translate }}</span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.admin.languages')}">
+                            <li ng-if="check_permission('languages')" ui-sref-active="active">
+                                <a ui-sref="app.admin.languages.home">{{ 'HOME' | translate }}</a>
+                            </li>
+                            <li ng-if="check_permission('languages')" ui-sref-active="active">
+                                <a ui-sref="app.admin.languages.create">{{ 'CREATE' | translate }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- <li ng-if="check_permission('marketing_codes')" ui-sref-active="active">
+                        <a ui-sref="app.marketingCodes.create">{{ 'CREATE' | translate }}</a>
+                    </li> -->
+                </ul>
+            </li>
+
+            <li ng-class="{active: $state.includes('app.shop')}">
+                <a href=""><i class="fa fa-shopping-cart"></i> <span class="nav-label">{{ 'SHOP' | translate }}</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.shop')}">
+                    <li ng-if="check_permission('shop_buy_lines')" ui-sref-active="active">
+                        <a ui-sref="app.shop.lines">{{ 'BUY_LINES' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('shop_buy_modules')" ui-sref-active="active">
+                        <a ui-sref="app.shop.modules">{{ 'BUY_MODULES' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('shop_extend_lines')" ui-sref-active="active">
+                        <a ui-sref="app.shop.lineExtension">{{ 'LINE_EXTENSION' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('shop_special_plans')" ui-sref-active="active">
+                        <a ui-sref="app.shop.specials">{{ 'SPECIALS' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('shop_invoice')" ui-sref-active="active">
+                        <a ui-sref="app.shop.invoice">{{ 'INVOICE' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('shop_upgrade_credit')" ui-sref-active="active">
+                        <a ui-sref="app.shop.upgrade_credit">{{ 'UPGRADE_CREDIT' | translate }}</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li ng-class="{active: $state.includes('app.support')}">
+                <a href=""><i class="fa fa-support"></i> <span class="nav-label">{{ 'SUPPORT' | translate }}</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.support')}">
+                    <li ng-if="check_permission('support_tickets')" ui-sref-active="active">
+                        <a ui-sref="app.support.tickets">{{ 'TICKETS' | translate }}</a>
+                    </li>
+                    <!-- <li ng-if="check_permission('support_online')" ui-sref-active="active">
+                        <a ui-sref="app.support.online.list">{{ 'ONLINE_SUPPORT' | translate }}</a>
+                    </li> -->
+                    <li ng-if="check_permission('support_aboutUs')" ui-sref-active="active">
+                        <a ui-sref="app.support.aboutUs">{{ 'ABOUT_US' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('support_contactUs')" ui-sref-active="active">
+                        <a ui-sref="app.support.contactUs">{{ 'CONTACT_US' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('support_ourServices')" ui-sref-active="active">
+                        <a ui-sref="app.support.ourServices">{{ 'OUR_SERVICES' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('support_faq')" ui-sref-active="active">
+                        <a ui-sref="app.support.faq">{{ 'FAQ' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('support_marketing')" ui-sref-active="active">
+                        <a ui-sref="app.support.marketing">{{ 'MARKETING' | translate }}</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li ng-class="{active: $state.includes('app.financial')}">
+                <a href=""><i class="fa fa-dollar"></i> <span class="nav-label">{{ 'FINANCIAL' | translate }}</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.financial')}">
+<!--                     <li ng-if="check_permission('financial_charge')" ui-sref-active="active">
+                        <a ui-sref="app.financial.onlineCharge">{{ 'ONLINE_CHARGE' | translate }}</a>
+                    </li> -->
+                    <li ng-if="user.role != 'user'" ui-sref-active="active">
+                        <a ui-sref="app.financial.submittedBills">{{ 'SUBMITTED_BILLS' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('financial_receipt')" ui-sref-active="active">
+                        <a ui-sref="app.financial.submitBill">{{ 'SUBMIT_BILL' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('financial_transactions')" ui-sref-active="active">
+                        <a ui-sref="app.financial.transactions">{{ 'TRANSACTIONS' | translate }}</a>
+                    </li>
+                    <li ng-if="check_permission('financial_credit_report')" ui-sref-active="active">
+                        <a ui-sref="app.financial.report">{{ 'REPORT' | translate }}</a>
+                    </li>
+                </ul>
+            </li>
+
+            
+        </ul>
+
+    </div>
+</nav>

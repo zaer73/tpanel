@@ -1,0 +1,71 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'SMS_RECEIVERS' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'SMS_RECEIVERS' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="smsReceiversController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+
+            <div class="ibox-content">
+                <table datatable="ng" dt-options="dtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="selectAllRows">
+                        </th>
+                        <th>{{ 'number' | uppercase | translate }}</th>
+                        <th>{{ 'receive_url' | uppercase | translate }}</th>
+                        <th>{{ 'receiver_number' | uppercase | translate }}</th>
+                        <th>{{ 'ACTIONS' | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,line) in lines" ng-style="{'background-color': selectedRows.indexOf(key) != -1 ? '#F9F8CC' : ''}">
+                        <td>
+                            <input type="checkbox" class="selectRow" ng-click="selectRow(key, message.id)" ng-checked="selectedRows.indexOf(key) != -1">
+                        </td>
+                        <td>{{ line.number }}</td>
+                        <td>
+                            <input type="text" ng-model="editURL[line.id]" ng-if="editURLID == line.id" ng-init="editURL[line.id]=line.receivers.redirect_url">
+                            <button class="btn btn-primary" ng-if="editURLID == line.id" ng-click="saveEditURL(line)">{{ 'SAVE' | translate }}</button>
+                            <span ng-if="editURLID != line.id">{{ line.receivers.redirect_url }}</span>
+                        </td>
+                        <td>
+                            <input type="text" ng-model="editNumber[line.id]" ng-if="editNumberID == line.id" ng-init="editNumber[line.id]=line.receivers.receiver_number">
+                            <button class="btn btn-primary" ng-if="editNumberID == line.id" ng-click="saveEditURL(line)">{{ 'SAVE' | translate }}</button>
+                            <span ng-if="editNumberID != line.id">{{ line.receivers.receiver_number }}</span>
+                        </td>
+                        <td>
+                            <a ui-sref="app.tools.receiveSettings.edit({id: line.id})">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a href="" ng-if="line.receivers.redirect_url || line.receivers.receiver_number" ng-click="delete(line.id)">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                        <tr ng-show="selectedRows.length">
+                            <td colspan="9">
+                                <button ng-click="removeSelected()" class="btn btn-danger">{{ 'REMOVE_SELECTED' | translate }}</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

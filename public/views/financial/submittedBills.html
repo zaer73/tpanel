@@ -1,0 +1,43 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'SUBMITTED_BILLS' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'SUBMITTED_BILLS' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="submittedBillsController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+
+            <div class="ibox-content">
+                <table datatable="ng" dt-options="dtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                    <thead>
+                    <tr>
+                        <th>{{ 'BANK_NAME' | uppercase | translate }}</th>
+                        <th>{{ 'BANK_CODE' | uppercase | translate }}</th>
+                        <th>{{ 'user' | uppercase | translate }}</th>
+                        <th>{{ 'create_date' | uppercase | translate }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="(key,bill) in bills" >
+                        <td>{{ bill.bill.bank_name }}</td>
+                        <td>{{ bill.bill.bank_code }}</td>
+                        <td>{{ bill.user.username }}</td>
+                        <td>{{ bill.bill.created_at }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

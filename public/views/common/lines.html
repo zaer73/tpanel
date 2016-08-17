@@ -1,0 +1,14 @@
+<div class="form-group">
+    <label class="col-sm-3 control-label">
+        {{ 'LINE' | translate }}
+    </label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+        <select class="form-control" ng-model="info.line" ng-change="lineChanged(info.line);calculateCharacters(info.text)">
+            <option value=""></option>
+            <option ng-repeat="line in linesToSend" value="{{ line.id }}">
+                {{ line.number }}
+            </option>
+        </select>
+        <input type="hidden" ng-repeat="line in linesToSend" ng-model="lineNumber[line.id]" value="{{ line.number }}">
+    </div>
+</div>

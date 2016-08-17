@@ -1,0 +1,83 @@
+<div ng-controller="reportSMSController as ctrl">    
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>{{ 'SMS_REPORT' | translate }}</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="index.html">{{ 'HOME' | translate }}</a>
+                </li>
+                <li class="active">
+                    <strong>{{ 'SMS_REPORT' | translate }}</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2" style="padding: 35px">
+            <a href="" ng-click="retry()" ng-if="user.role == 'admin'" class="btn btn-primary" ng-disabled="resendProcessing">
+                {{ 'RESEND' | translate }}
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content">
+                    <table datatable="ng" dt-options="dtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="selectAllRows">
+                            </th>
+                            <th>ID</th>
+                            <th>{{ 'text' | uppercase | translate }}</th>
+                            <th>{{ 'date' | uppercase | translate }}</th>
+                            <th>{{ 'status' | uppercase | translate }}</th>
+                            <th>{{ 'resend' | uppercase | translate }}</th>
+                            <th>{{ 'type' | uppercase | translate }}</th>
+                            <th>{{ 'number' | uppercase | translate }}</th>
+                            <th>{{ 'sms_amount' | uppercase | translate }}</th>
+                            <th>{{ 'actions' | uppercase | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(key,message) in messages" ng-style="{'background-color': selectedRows.indexOf(key) != -1 ? '#F9F8CC' : ''}">
+                            <td>
+                                <input type="checkbox" class="selectRow" ng-click="selectRow(key, message.id)" ng-checked="selectedRows.indexOf(key) != -1">
+                            </td>
+                            <td>{{ message.id }}</td>
+                            <td>{{ message.text}}</td>
+                            <td>{{ message.created_at }}</td>
+                            <td>{{ message.sms_status}}</td>
+                            <td>
+                                <a href="" ng-click="resend(message.queue_name, message.input_id)">
+                                    <i class="fa fa-send"></i>
+                                </a>
+                            </td>
+                            <td>{{ message.sms_type }}</td>
+                            <td>
+                                <a href="" ng-click="showGroupMessages(message.group_hash)" ng-show="message.reciever == 0">{{ 'NUMBERS' | translate }}</a>
+                                <span ng-show="message.reciever != 0">{{ message.reciever }}</span>
+                            </td>
+                            <td>{{ message.amount }}</td>
+
+                            <td>
+                                <a href="" ng-click="delete(key,message.id)">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        
+                        </tbody>
+                        <tbody>
+                            <tr ng-show="selectedRows.length">
+                            <td colspan="9">
+                                <button ng-click="removeSelected()" class="btn btn-danger">{{ 'REMOVE_SELECTED' | translate }}</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

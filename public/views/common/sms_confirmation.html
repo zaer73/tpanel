@@ -1,0 +1,29 @@
+<div class="modal-body">
+    <div class="form-group">
+        <div class="row">
+        	<label class="col-sm-12 control-label" for="text" style="text-align: right;direction: rtl;">
+                {{ 'SMS_CONFIRMATION_TEXT' | translate }}
+            </label>
+        </div>
+        <div class="row">
+            <label class="col-sm-3 control-label" style="text-align: right;direction: rtl;">
+                {{ 'CREDIT' | translate }}: 
+            </label>
+            <span class="col-sm-9" style="text-align: right;direction: rtl;">{{ sms_confirmation_credit }}</span>
+        </div>
+        <div class="row">
+            <label class="col-sm-3 control-label" style="text-align: right;direction: rtl;">
+                {{ 'sms_amount' | uppercase | translate }}: 
+            </label>
+            <span class="col-sm-9" style="text-align: right;direction: rtl;">{{ sms_confirmation_amount }}</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: right;direction: rtl;">
+                <button class="btn btn-primary" ng-click="acceptConfirmation()">{{ 'SEND' }}</button>
+                <button class="btn btn-white" ng-click="cancelConfirmation()">{{ 'CANCEL' }}</button>
+            </div>
+        </div>
+    </div>
+</div>

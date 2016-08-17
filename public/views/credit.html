@@ -1,0 +1,37 @@
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="creditController as ctrl">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h2>{{ 'TITLE_CHANGE_CREDIT' | translate }}</h2>
+                </div>
+                <div class="ibox-content">
+                    <form 
+                        method="post" 
+                        ng-controller="ajaxFormController as form"
+                        action="{{ changeCreditURL }}"
+                        ng-submit="form.submit($event)"
+                        class="form-horizontal" 
+                        id="resetPasswordForm" 
+                    >
+                        <div ng-include="'views/includes/form_response.html'"></div>
+                        <input type="hidden" name="_method" value="PUT">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="credit">
+                                {{ 'CREDIT' | translate }}
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="text" ng-model="info.credit" placeholder="{{ 'CREDIT' | translate }}" class="form-control" id="credit" required> 
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-9 col-sm-9 col-xs-12 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit" ng-disabled="!changeCreditURL || ajaxInProcess || !info">{{ 'TITLE_CHANGE_CREDIT' | translate }}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

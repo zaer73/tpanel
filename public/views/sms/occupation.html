@@ -1,0 +1,95 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'SEND_SMS_OCCUPATION' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'SEND_SMS_OCCUPATION' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="sendOccupationSMSController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="post"
+                    ng-controller="ajaxFormController as form"
+                    action="{{ sendOccupationSMSURL }}"
+                    ng-submit="form.submit($event)"
+                    class="form-horizontal"
+                >
+                    <input type="hidden" ng-model="info.is_confirmed" ng-init="info.is_confirmed = 'not'">
+                    <div ng-include="'views/includes/form_response.html'"></div>
+                    <lines></lines>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'OCCUPATION' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select class="form-control m-b" ng-model="info.occupation" ng-disabled="!occupations.length" ng-change="occupationChanged(info.occupation)">
+                                <option ng-repeat="occupation in occupations" value="{{ occupation.id }}">
+                                    {{ occupation.title }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <default-messages></default-messages>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="text">
+                            {{ 'TEXT' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea ng-model="info.text" placeholder="{{ 'TEXT' | translate }}" class="form-control" id="text" ng-change="calculateCharacters(info.text)" ng-disabled="!info.line"  required></textarea>  
+                            <span>تعداد کاراکتر پیام: {{ messageCharacters }} | تعداد صفحات پیام:‌ {{ messagePages }}</span>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'SENDING_COUNT' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <select class="form-control m-b" ng-model="info.sendingCountRelative" ng-disabled="info.sendingCountAbsolute || !maxSendingCount">
+                                    <option ng-repeat="(key,range) in sendingCountRelative" value="{{ key }}">
+                                        {{ range }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-12">
+                                <input style="width:100%" type="number" min="0" max="{{ maxSendingCount }}" ng-model="info.sendingCountAbsoluteMin" ng-disabled="(info.sendingCountRelative && info.sendingCountRelative != 0) || !maxSendingCount">
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-12">
+                                {{ 'TILL' | translate }}
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-12">
+                                <input style="width:100%" type="number" min="{{ info.sendingCountAbsoluteMin }}" max="{{ maxSendingCount }}" ng-model="info.sendingCountAbsoluteMax" ng-disabled="(info.sendingCountRelative && info.sendingCountRelative != 0) || !maxSendingCount || !info.sendingCountAbsoluteMin">
+                            </div>
+                            <div class="col-md-4 col-sm-2 col-xs-12">
+                                <span>{{ 'MAX_SENDING_COUNT' | translate }}: {{ maxSendingCount }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <send-on></send-on>
+                    <test-sms></test-sms>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-primary" ng-disabled="!info.occupation || !info.text" type="submit">{{ 'SUBMIT' | translate }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

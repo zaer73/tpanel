@@ -1,0 +1,10 @@
+<div class="alert alert-danger" ng-show="formErrors && !formSuccess">
+    <ul>
+        <li ng-repeat="error in formErrors">
+            {{ error }}
+        </li>
+    </ul>
+</div>
+<div class="alert alert-success" ng-show="formSuccess && !formErrors">
+    {{ formSuccess }}
+</div>

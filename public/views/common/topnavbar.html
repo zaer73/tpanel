@@ -1,0 +1,26 @@
+<div class="row border-bottom">
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <ul class="nav navbar-top-links navbar-right">
+            <li ng-show="user.adminLoginBy">
+                <a href="/admin/loginGoBack" class="m-r-sm text-muted credit">{{ 'GO_BACK' | translate }}</a>
+            </li>
+            <li>
+                <span class="m-r-sm text-muted credit">{{ 'CREDIT' | translate }}: {{ userTotalCredit }}</span>
+            </li>
+            <li class="dropdown" dropdown>
+                <a class="dropdown-toggle count-info" href dropdown-toggle>
+                    {{ 'Language' | uppercase | translate }}
+                </a>
+                <ul class="dropdown-menu animated fadeInRight m-t-xs" ng-controller="translateCtrl">
+                    <li ng-repeat="lang in user.languages"><a ng-click="changeLanguage(lang)">{{ lang | uppercase | translate }}</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="users/logout">
+                    <i class="fa fa-sign-out"></i> {{ 'Logout' | uppercase | translate }}
+                </a>
+            </li>
+        </ul>
+
+    </nav>
+</div>

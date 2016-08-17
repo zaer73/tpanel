@@ -1,0 +1,99 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'LINES' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'LINES' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="editLineController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+
+            <div class="ibox-content">
+                <form 
+                    method="post" 
+                    ng-controller="ajaxFormController as form"
+                    action="{{ editLineURL }}"
+                    ng-submit="form.submit($event)"
+                    class="form-horizontal" 
+                    id="editLineForm" 
+                >
+                    <div ng-include="'views/includes/form_response.html'"></div>
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="form-group" ng-if="user.role == 'admin'">
+                        <label class="col-sm-3 control-label" for="line-number">
+                            {{ 'LINE_NUMBER' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="text" ng-model="info.number" placeholder="{{ 'LINE_NUMBER' | translate }}" class="form-control" id="line-number" ng-change="rahyabDetector()" required>  
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="line-value">
+                            {{ 'VALUE' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="text" ng-model="info.value" placeholder="{{ 'VALUE' | translate }}" ng-disabled="info.general" class="form-control" id="line-value" required>  
+                        </div>
+                    </div>
+                    <!--
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="agent-id">
+                            {{ 'AGENT' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select chosen id="states" class="chosen-select-agent" style="width:350px;" tabindex="4" ng-model="info.agent_id" ng-options="item.id as item.username for item in agents track by item.id" ng-change="selectUsers()">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="user-id">
+                            {{ 'USER' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select chosen id="states" class="chosen-select-user" style="width:350px;" tabindex="4" ng-model="info.user_id" ng-options="item.id as item.username for item in users track by item.id" ng-disabled="info.agent_id || !users.length">
+                            </select>
+                        </div>
+                    </div> -->
+                    <div class="hr-line-dashed" ng-if="user.role == 'admin'"></div>
+                    <div class="form-group" ng-if="user.role == 'admin'">
+                        <label class="col-sm-3 control-label" for="general">
+                            {{ 'general' | uppercase | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="checkbox" ng-model="info.general" id="general" ng-checked="info.general">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed" ng-if="user.role == 'admin'"></div>
+                    <div class="form-group" ng-if="user.role == 'admin'">
+                        <label class="col-sm-3 control-label" for="rahyab">
+                            {{ 'rahyab' | uppercase | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input class="form-control" type="checkbox" ng-disabled="!canBeRahyab" ng-model="info.rahyab" id="rahyab">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="form-group col-md-11">
+                            <button class="btn btn-primary" type="submit" ng-disabled="!info.number || info.number == 0 || !info.value || info.value == 0">{{ 'SUBMIT' | translate }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

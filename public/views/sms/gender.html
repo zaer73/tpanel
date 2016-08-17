@@ -1,0 +1,191 @@
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'SMS_GENDER' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">{{ 'HOME' | translate }}</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'SMS_GENDER' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="row" ng-controller="sendGenderSMSController as ctrl">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <form method="post"
+                    ng-controller="ajaxFormController as form"
+                    action="{{ sendGenderSMSURL }}"
+                    ng-submit="form.submit($event)"
+                    class="form-horizontal"
+                    name="sendGenderSMSForm" 
+                    novalidate
+                >
+                    <input type="hidden" ng-model="info.is_confirmed" ng-init="info.is_confirmed = 'not'">
+                    <div ng-include="'views/includes/form_response.html'"></div>
+                    <lines rahyab="true"></lines>
+                    <default-messages></default-messages>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="text">
+                            {{ 'TEXT' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <textarea ng-model="info.text" placeholder="{{ 'TEXT' | translate }}" class="form-control" id="text" ng-change="calculateCharacters(info.text)" ng-disabled="!info.line"  required></textarea>  
+                             <span>تعداد کاراکتر پیام: {{ messageCharacters }} | تعداد صفحات پیام:‌ {{ messagePages }}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'PROVINCE' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select 
+                                class="form-control m-b" 
+                                ng-model="info.province" 
+                                ng-change="getCities()"
+                            >
+                                <option ng-repeat="(key,province) in provinces" value="{{ key }}">{{ province }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'CITY' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select 
+                                class="form-control m-b" 
+                                ng-model="info.city" 
+                                ng-disable="!info.province || !cities.length"
+                            >
+                                <option ng-repeat="(key,city) in cities" value="{{ key }}">{{ city }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'AGE' | translate }}
+                        </label>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <select 
+                                class="form-control m-b" 
+                                ng-model="info.fromAge" 
+                                ng-change="ageFromChanged()"
+                            >
+                                <option ng-repeat="age in agesFrom" value="{{ age }}">{{ age }}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1 col-sm-1 col-xs-12">
+                            <label class="control-label">
+                                {{ 'TILL' | translate }}
+                            </label>
+                        </div>
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <select 
+                                class="form-control m-b" 
+                                ng-model="info.toAge" 
+                            >
+                                <option ng-repeat="age in agesTo" value="{{ age }}">{{ age }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'GENDER' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select 
+                                class="form-control m-b" 
+                                ng-model="info.gender" 
+                            >
+                                <option value="0">{{ 'MALE' }}</option>
+                                <option value="1">{{ 'FEMALE' }}</option>
+                                <option value="2">{{ '‌BOTH' }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'SIM_CARD_TYPE' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <select 
+                                class="form-control m-b" 
+                                ng-model="info.sim" 
+                            >
+                                <option value="0">{{ 'SIM_PERM' }}</option>
+                                <option value="1">{{ 'SIM_CRED' }}</option>
+                                <option value="2">{{ 'BOTH' }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'PRE_NUMBER' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="text" ng-model="info.preNumber" ng-init="info.preNumber='91'" ng-change="checkPreNumber()" class="form-control">
+                            <span ng-show="preNumberInvalid">{{ 'PRE_NUMBER_INVALID' | translate }}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'AMOUNT' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <span>{{ availableNumbers }}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'AMOUNT' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="number" ng-model="info.sendingCountAbsoluteMin" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'SORTED' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="checkbox" ng-model="info.sort" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'FIRST_NUMBER' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="number" ng-model="info.first_number" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            {{ 'LAST_NUMBER' | translate }}
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <input type="number" ng-model="info.last_number" class="form-control">
+                        </div>
+                    </div>
+                    <send-on></send-on>
+                    <div class="form-group">
+                        <div class="col-md-3 col-sm-3 col-xs-12">
+                            
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <button class="btn btn-primary" ng-disabled="!info.province || !info.city || !info.fromAge || !info.toAge || !info.gender || !info.sim || !info.preNumber" ng-click="calculateMessageCount($event)">{{ 'CALCULATE' | translate }}</button>
+                            <button ng-if="availableNumbers" class="btn btn-primary" ng-disabled="!info.text" type="submit">{{ 'SUBMIT' | translate }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

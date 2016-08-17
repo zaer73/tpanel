@@ -1,0 +1,17 @@
+<div class="form-group">
+	<label class="col-sm-3 control-label" for="text">
+        {{ 'DEFAULT_MESSAGES' | translate }}
+    </label>
+    <div class="col-md-9 col-sm-9 col-xs-12">
+    	<select ng-model="info.defualt_message" class="form-control" ng-change="defaultMessageChanged(info.defualt_message)">
+    		<option ng-repeat="(key,message) in defaultMessages.defaults" value="{{ message.text }}">
+    			{{ message.title }}
+    		</option>
+            <optgroup ng-repeat="(key,preText) in defaultMessages.preTexts" label="{{ preText[0].group.title }}">
+                <option ng-repeat="text in preText" value="{{ text.text }}">
+                    {{ text.text }}
+                </option>
+            </optgroup>
+    	</select>
+    </div>
+</div>

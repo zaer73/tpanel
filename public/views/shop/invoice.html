@@ -1,0 +1,95 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>{{ 'INVOICE' | translate }}</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li class="active">
+                <strong>{{ 'INVOICE' | translate }}</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight" ng-controller="invoiceController">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="ibox" ng-if="shopping_result">
+                <div class="alert alert-{{ shopping_result.result }}">
+                    <p>{{ shopping_result.message }}</p>
+                </div>
+            </div>
+            <div class="ibox">
+                <div class="ibox-title">
+                    <span class="pull-right">(<strong>{{ invoice.transactions_connections.length }}</strong>) {{ 'ITEMS' | translate }}</span>
+                    <h5>{{ 'ITEMS_IN_YOUR_CART' | translate }}</h5>
+                </div>
+                <div class="ibox-content" ng-repeat="(key, connection) in invoice.transactions_connections">
+                    <div class="table-responsive">
+                        <table class="table shoping-cart-table">
+                            <tbody>
+                            <tr>
+                                <td class="desc">
+                                    <h3>
+                                        <a href="" class="text-navy">
+                                            {{ connection.transaction.description }}
+                                        </a>
+                                    </h3>
+                                    <div class="m-t-sm">
+                                        <a href="" class="text-muted" ng-click="delete(key, connection.transaction.id)"><i class="fa fa-trash"></i> {{ 'REMOVE_ITEM' | translate }}</a>
+                                    </div>
+                                </td>
+
+                                <td>
+                                </td>
+                                <td>
+                                    <h4>
+                                        {{ connection.transaction.abs_value }}
+                                    </h4>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="ibox-content">
+                    <a ng-click="checkout()" class="btn btn-primary pull-right"><i class="fa fa fa-shopping-cart"></i> {{ 'CHECKOUT' | translate }}</a>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>{{ 'CART_SUMMARY' | translate }}</h5>
+                </div>
+                <div class="ibox-content">
+                            <span>
+                                {{ 'TOTAL' | translate }}
+                            </span>
+                    <h2 class="font-bold">
+                        {{ invoice.abs_value }}
+                    </h2>
+
+                    <hr/>
+                    <div class="m-t-sm">
+                        <div class="btn-group">
+                            <a ng-click="checkout()" class="btn btn-primary btn-sm"><i class="fa fa-shopping-cart"></i> {{ 'CHECKOUT' | translate }}</a>
+                            <a href="" ui-sref="app.shop.modules" class="btn btn-white btn-sm"> {{ 'CANCEL' | translate }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</div>

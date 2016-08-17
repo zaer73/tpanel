@@ -1,0 +1,27 @@
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12 b-r">
+        	<h3 class="m-t-none m-b">{{ 'REPLY_MESSAGE' }}</h3>
+            <form role="form"
+            	ng-controller="ajaxFormController as form"
+                action="{{ sendSingleSMSURL }}"
+            	ng-submit="form.submit($event)"
+            	method="post" 
+          	>
+            	<div ng-include="'views/includes/form_response.html'"></div>
+            	<div class="form-group">
+                	<textarea class="form-control" ng-model="info.text"></textarea>
+                </div>
+                <input type="hidden" ng-model="info.line" ng-init="info.line=message.to">
+                <input type="hidden" ng-model="info.confirm" ng-init="info.confirm='no_confirm'">
+                <div class="form-group">
+                	<input type="text" ng-model="info.customNumber" class="form-control" ng-init="info.customNumber=message.from">
+                </div>
+	            <button type="submit" class="btn btn-primary">{{ 'SEND' | translate }}</button>
+            </form>
+            <div class="form-group">
+	            <button ng-click="cancel()" class="btn btn-white">{{ 'CANCEL' | translate }}</button>
+	        </div>
+        </div>
+    </div>
+</div>

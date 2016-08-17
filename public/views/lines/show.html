@@ -1,0 +1,83 @@
+<div ng-controller="linesController as ctrl">    
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>{{ 'LINES' | translate }}</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="index.html">{{ 'HOME' | translate }}</a>
+                </li>
+                <li class="active">
+                    <strong>{{ 'LINES' | translate }}</strong>
+                </li>
+            </ol>
+        </div>
+        <div class="col-lg-2" style="padding: 35px;">
+            <a href="" ui-sref="app.admin.lines.toUser({id: targetId})" class="btn btn-primary">
+                {{ 'CREATE' | translate }}
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+
+                <div class="ibox-content">
+                    <table datatable="ng" dt-options="dtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>{{ 'LINE_NUMBER' | translate }}</th>
+                            <th>{{ 'AGENT' | translate }}</th>
+                            <th>{{ 'LINE_AGENT_EXPIRATION' | translate }}</th>
+                            <th>{{ 'USER' | translate }}</th>
+                            <th>{{ 'LINE_USER_EXPIRATION' | translate }}</th>
+                            <th ng-if="user.role == 'admin' || user.role == 'agent'">{{ 'ACTIONS' | translate }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="(key,line) in lines">
+                            <td>{{ line.id }}</td>
+                            <td>{{ line.number }}</td>
+                            <td>{{ line.agent.username }}</td>
+                            <td>{{ line.agent_expires_at }}</td>
+                            <td>{{ line.user.username }}</td>
+                            <td>{{ line.user_expires_at }}</td>
+                            <td ng-if="user.role == 'agent'">
+                                <a href="" ng-click="toggleNotifier(key, line.id)" title="{{ 'NOTIFIER' | translate }}" ng-if="!line.notifier">
+                                    <i class="fa fa-info"></i>
+                                </a>
+                                <a href="" ng-click="toggleOwner(line.id, 'user')" title="{{ 'REMOVE_USER' | translate }}" ng-if="line.user.username">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="" ui-sref="app.admin.lines.edit({line_id:line.id})">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                <a href="" ng-click="toggleShoppable(key, line.id)">
+                                    <i class="fa fa-shopping-cart" ng-style="(!line.shoppable) ? {'opacity': 0.5} : {}"></i>
+                                </a>
+                                <a href="" ng-if="user.role == 'admin'" title="{{ 'delete' | uppercase | translate}}" ng-if="!line.agent && !line.user" ng-click="delete(key)">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                                <a href="" ng-if="user.role == 'admin'" title="{{ 'make_line_general' | uppercase | translate}}" ng-if="!line.agent && !line.user && line.general==0" ng-click="makeGeneral(key)">
+                                    <i class="fa fa-group"></i>
+                                </a>
+                                <a href="" ng-if="user.role == 'admin'" title="{{ 'remove_line_general' | uppercase | translate}}" ng-if="!line.agent && !line.user && line.general==1" ng-click="makeGeneral(key)">
+                                    <i class="fa fa-lock"></i>
+                                </a>
+                                <a href="" ng-if="user.role == 'admin'" ng-click="toggleOwner(line.id, 'user')" title="{{ 'REMOVE_USER' | translate }}">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                                <a href="" ng-if="user.role == 'admin'" ng-click="toggleOwner(line.id, 'agent')" title="{{ 'REMOVE_AGENT' | translate }}">
+                                    <i class="fa fa-remove"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="modal-body" ng-controller="sendMessageToUserController">
+    <div class="row">
+        <div class="col-sm-12 b-r"><h3 class="m-t-none m-b" style="width:100%;direction:rtl;float:none">{{ 'SEND_SMS' | translate }}</h3>
+
+            <form method="post"
+                    ng-controller="ajaxFormController as form"
+                    action="{{ sendSingleSMSURL }}"
+                    ng-submit="form.submit($event)"
+                    class="form-horizontal"
+                >
+                <div style="direction: rtl;" ng-include="'views/includes/form_response.html'"></div>
+                <input type="hidden" ng-model="info.confirm" ng-init="info.confirm='no_confirm'">
+                <div class="form-group">
+                    <label class="col-md-3 col-sm-3 col-xs-12 control-label">
+                        {{ 'NUMBER' | translate }}
+                    </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input class="form-control" type="text" ng-model="info.customNumber" placeholder="{{ 'NUMBER' | translate }}" id="receiver" ng-init="info.customNumber=sendMessageToMobile">
+                    </div>
+                </div>
+                <lines></lines>
+                <default-messages></default-messages>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="text">
+                        {{ 'TEXT' | translate }}
+                    </label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <textarea ng-model="info.text" placeholder="{{ 'TEXT' | translate }}" class="form-control" id="text" ng-change="calculateCharacters(info.text)" ng-disabled="!info.line" required></textarea> 
+                         <span>تعداد کاراکتر پیام: {{ messageCharacters }} | تعداد صفحات پیام:‌ {{ messagePages }}</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-3 col-sm-3 col-xs-12">
+                        
+                    </div>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <button class="btn btn-primary" ng-disabled="!info.line || !info.customNumber" type="submit">{{ 'SUBMIT' | translate }}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
