@@ -369,14 +369,19 @@ class SMSController extends Controller
 
     public function sendMap(Request $request){
         if(Auth::user()->cannot('send_sms_by_map', Auth::user()->permissions)) abort('403');
+
         $this->validate($request, [
             'text' => 'required|max:500',
-            'line' => $this->lineValidator()
+            'line' => $this->lineValidator(),
+            'amount' => 'required|numeric|min:1'
         ]);
-        $province = \App\Province::where('name', 'LIKE', "%{$request->province}%")->first();
-        if(!$province) abort('404');
+
+        $selectedRegions = $request->get('selectedPolygon');
+
         $input_id = $this->saveInput($request->all());
-        event(new \App\Events\SMS\City($input_id, $request->text, $request->line, $province->id, '', $request->sendOn));
+
+        event(new \App\Events\SMS\Map($input_id, $request->text, $request->line, $selectedRegions, $request->sendOn, $request->all()));
+
         return [
             'result' => 'success',
             'message' => trans('sms_to_city_sent'),

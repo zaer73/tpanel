@@ -14,11 +14,21 @@
 
     </div>
 </div>
+<style>
+      #map {
+        height: 500px;
+      }
+    </style>
 <div class="row" ng-controller="createNumbersBankController as ctrl">
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-content">
-                <form action="numbers-bank/import" class="dropzone" drop-zone="" id="file-dropzone">
+                <t-drawing></t-drawing>
+                <form action="numbers-bank/import" class="dropzone" drop-zone="" id="file-dropzone" ng-controller="ajaxFormController as form">
+    
+                    <input type="hidden" name="selectedPolygon" value="{{ info.selectedPolygon }}">
+                    <input type="hidden" name="selectedShapeIsNew" value="{{ info.selectedShapeIsNew }}">
+
                 </form>
                 <div class="form-group" style="padding: 25px 0;">
                     <div class="col-md-3 col-sm-3 col-xs-12">

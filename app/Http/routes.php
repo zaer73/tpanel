@@ -158,6 +158,8 @@ Route::group(['middleware' => 'web'], function(){
 			Route::resource('default-messages', 'DefaultMessageController');
 
 			Route::get('input/{id}', 'SMSController@getInfo');
+
+			Route::controller('map', 'MapController');
 		});
 
 		//price group
@@ -367,6 +369,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'api'], function(){
 	Route::post('gender/count', '\App\Http\Controllers\IncomingAPIController@genderCount');
 	Route::post('gender/provinces', '\App\Http\Controllers\IncomingAPIController@genderProvince');
 	Route::post('gender/cities', '\App\Http\Controllers\IncomingAPIController@genderCities');
+
 	Route::any('{any}', '\App\Http\Controllers\IncomingAPIController@notFound');
 });
 

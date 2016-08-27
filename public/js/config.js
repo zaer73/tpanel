@@ -1314,8 +1314,12 @@ function config($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, IdlePro
                     return $ocLazyLoad.load([
                         {
                             files: ['css/plugins/dropzone/basic.css','css/plugins/dropzone/dropzone.css','js/plugins/dropzone/dropzone.js']
+                        },
+                        {
+                            serie: true,
+                            files: ['js/numbersBank/drawing.js', 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBjV4WKBw71vXdR8KXZTKFLOAa_laPdUd4&libraries=drawing&callback=initMap']
                         }
-                    ])
+                    ]) 
                 }
             }
         })
