@@ -54,7 +54,6 @@
 <!-- Custom and plugin javascript -->
 <script src="{{ asset('js/inspinia.js') }}"></script>
 
-
 <!-- Main Angular scripts-->
 <script src="{{ asset('js/angular/angular.min.js') }}"></script>
 <script src="{{ asset('js/angular/angular-sanitize.js') }}"></script>

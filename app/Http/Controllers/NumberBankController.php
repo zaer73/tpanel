@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use Auth, Validator;
+use App\Http\Requests;
 use \App\NumberBank as Bank;
+use App\Services\PolygonService;
+use App\Http\Controllers\Controller;
 
 class NumberBankController extends Controller
 {
@@ -175,7 +176,16 @@ class NumberBankController extends Controller
 
     use \App\Helpers\Upload\ExcelImporter;
 
-    public function import(Request $request){
+    public function import(Request $request, PolygonService $polygonService){
+
+
+        if ($request->selectedShapeIsNew == 'true') {
+
+            $polygonService->create($request);
+
+        }
+
+
         $rows = $this->importNumbersBank($request->uploadfile);
         foreach($rows as $row){
             $NumberBank = new Bank;

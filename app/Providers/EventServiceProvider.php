@@ -47,6 +47,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SMS\PostalCode' => [
             'App\Listeners\SMS\SendPostalCodeSMS'
         ],
+        'App\Events\SMS\Map' => [
+            'App\Listeners\SMS\SendMapSMS'
+        ],
         'App\Events\SMS\Gender' => [
             'App\Listeners\SMS\SendGenderSMS'
         ],
