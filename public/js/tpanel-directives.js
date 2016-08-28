@@ -19,7 +19,7 @@ angular
     });
 angular
     .module('inspinia')
-    .service('polygonMapService', function($rootScope) {
+    .service('polygonMapDrawingService', function($rootScope) {
 
         return {
 
@@ -41,7 +41,7 @@ angular
 
                 var triangleCoords = [];
 
-                var polygonMapService = this;
+                var polygonMapDrawingService = this;
 
                 jQuery.ajax({
                     url: '/sms/map/polygons',
@@ -49,7 +49,7 @@ angular
                     type: 'json',
                     success: function(res) {
                         triangleCoords = res;
-                        polygonMapService.constructMap(res);
+                        polygonMapDrawingService.constructMap(res);
                     }
                 });
 
@@ -59,7 +59,7 @@ angular
 
             constructMap: function(polygons) {
 
-                var polygonMapService = this;
+                var polygonMapDrawingService = this;
 
                 for (var index in polygons) {
                     var smsPolygons = new google.maps.Polygon({
@@ -72,15 +72,15 @@ angular
                         fillColor: '#FF0000',
                         fillOpacity: 0.35
                     });
-                    smsPolygons.setMap(polygonMapService.map);
+                    smsPolygons.setMap(polygonMapDrawingService.map);
 
                     google.maps.event.addListener(smsPolygons, 'click', function(event) {
 
-                        polygonMapService.selectedShapeIsNew = false;
+                        polygonMapDrawingService.selectedShapeIsNew = false;
 
-                        polygonMapService.selectedPolygon = this.map_state_id;
+                        polygonMapDrawingService.selectedPolygon = this.map_state_id;
 
-                        $rootScope.$broadcast('shapeSelected', polygonMapService);
+                        $rootScope.$broadcast('shapeSelected', polygonMapDrawingService);
 
                     });
                 }
@@ -88,7 +88,7 @@ angular
 
             constructDrawings: function() {
 
-                var polygonMapService = this;
+                var polygonMapDrawingService = this;
 
                 var drawingManager = new google.maps.drawing.DrawingManager({
                     drawingMode: google.maps.drawing.OverlayType.MARKER,
@@ -99,17 +99,17 @@ angular
                     }
                 });
 
-                drawingManager.setMap(polygonMapService.map);
+                drawingManager.setMap(polygonMapDrawingService.map);
 
                 google.maps.event.addListener(drawingManager, 'overlaycomplete', function(e) {
                     var newShape = e.overlay;
                     newShape.type = e.type;
                     google.maps.event.addListener(newShape, 'click', function() {
 
-                        polygonMapService.selectedShapeIsNew = true;
-                        polygonMapService.selectedPolygon = polygonMapService.shapeSelected(newShape.getPath().b);
+                        polygonMapDrawingService.selectedShapeIsNew = true;
+                        polygonMapDrawingService.selectedPolygon = polygonMapDrawingService.shapeSelected(newShape.getPath().b);
 
-                        $rootScope.$broadcast('shapeSelected', polygonMapService);
+                        $rootScope.$broadcast('shapeSelected', polygonMapDrawingService);
 
                     });
                 });
@@ -133,11 +133,11 @@ angular
     .directive('tDrawing', function() {
         return {
             templateUrl: 'views/common/map.html',
-            controller: function($rootScope, $scope, $http, polygonMapService) {
+            controller: function($rootScope, $scope, $http, polygonMapDrawingService) {
 
                 $rootScope.info = {};
 
-                polygonMapService.construct();
+                polygonMapDrawingService.construct();
 
                 $rootScope.$on('shapeSelected', function(event, data){
                     

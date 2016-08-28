@@ -776,96 +776,6 @@ angular
 	});	
 angular
 	.module('inspinia')
-	.controller('createBlacklistController', function($rootScope, $scope){
-		
-		$scope.createBlacklistURL = 'blacklist';
-
-	});	
-angular
-	.module('inspinia')
-	.controller('editBlacklistController', function($rootScope, $scope, $http, $stateParams){
-		
-		$scope.id = $stateParams.id;
-
-		$scope.editBlacklistURL = 'blacklist/'+$scope.id;
-
-		$http({
-			url: 'blacklist/'+$scope.id+'/edit',
-			method: 'get'
-		}).then(function(res){
-			$rootScope.info = res.data;
-		});
-
-		$scope.createBlacklistURL = 'blacklist';
-
-	});	
-angular
-	.module('inspinia')
-	.controller('blacklistController', function($rootScope, $scope, $http, DTOptionsBuilder){
-		
-		$scope.selectedRows = [];
-		
-		$scope.getBlacklist = function()
-		{
-			$http({
-				url: 'blacklist',
-				method: 'get'
-			}).then(function(res){
-				$scope.blacklists = res.data;
-				$scope.selectedRows = [];
-			});
-		}
-		$scope.getBlacklist();
-
-		$scope.delete = function(key, index){
-			$http({
-				url: 'blacklist/'+index,
-				method: 'delete'
-			});
-			$scope.blacklists.splice(key, 1);
-		}
-
-		$scope.selectRow = function(key, id){
-	    	if($scope.selectedRows.indexOf(key) !== -1){
-	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
-	    		return;
-	    	}
-	    	$scope.selectedRows[id] = key;
-	    }
-
-	    $scope.removeSelected = function(){
-	    	for(selected in $scope.selectedRows){
-	    		$scope.delete($scope.selectedRows[selected], selected, true);
-	    	}
-	    	$scope.getBlacklist();
-	    }
-
-		jQuery('body').on('click', '#selectAllRows', function(){
-    		jQuery('input[type=checkbox].selectRow').trigger('click');
-    	});
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-	});	
-angular
-	.module('inspinia')
 	.controller('createAutoreplyController', function($rootScope, $scope, $http){
 		
 		$scope.createAutoreplyURL = 'autoreplies';
@@ -995,6 +905,96 @@ angular
 	});	
 angular
 	.module('inspinia')
+	.controller('createBlacklistController', function($rootScope, $scope){
+		
+		$scope.createBlacklistURL = 'blacklist';
+
+	});	
+angular
+	.module('inspinia')
+	.controller('editBlacklistController', function($rootScope, $scope, $http, $stateParams){
+		
+		$scope.id = $stateParams.id;
+
+		$scope.editBlacklistURL = 'blacklist/'+$scope.id;
+
+		$http({
+			url: 'blacklist/'+$scope.id+'/edit',
+			method: 'get'
+		}).then(function(res){
+			$rootScope.info = res.data;
+		});
+
+		$scope.createBlacklistURL = 'blacklist';
+
+	});	
+angular
+	.module('inspinia')
+	.controller('blacklistController', function($rootScope, $scope, $http, DTOptionsBuilder){
+		
+		$scope.selectedRows = [];
+		
+		$scope.getBlacklist = function()
+		{
+			$http({
+				url: 'blacklist',
+				method: 'get'
+			}).then(function(res){
+				$scope.blacklists = res.data;
+				$scope.selectedRows = [];
+			});
+		}
+		$scope.getBlacklist();
+
+		$scope.delete = function(key, index){
+			$http({
+				url: 'blacklist/'+index,
+				method: 'delete'
+			});
+			$scope.blacklists.splice(key, 1);
+		}
+
+		$scope.selectRow = function(key, id){
+	    	if($scope.selectedRows.indexOf(key) !== -1){
+	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
+	    		return;
+	    	}
+	    	$scope.selectedRows[id] = key;
+	    }
+
+	    $scope.removeSelected = function(){
+	    	for(selected in $scope.selectedRows){
+	    		$scope.delete($scope.selectedRows[selected], selected, true);
+	    	}
+	    	$scope.getBlacklist();
+	    }
+
+		jQuery('body').on('click', '#selectAllRows', function(){
+    		jQuery('input[type=checkbox].selectRow').trigger('click');
+    	});
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+	});	
+angular
+	.module('inspinia')
 	.controller('createChargesController', function($rootScope, $scope){
 		
 		$scope.createChargesURL = 'charges';
@@ -1036,6 +1036,150 @@ angular
 			});
 			$scope.charges.splice(key, 1);
 		};
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+	});	
+angular
+	.module('inspinia')
+	.controller('createCodereaderController', function($rootScope, $scope, $http){
+		
+		$scope.createCodereaderURL = 'codereaders';
+
+		$scope.conditions = [{condition: '', reaction: ''}];
+
+		$scope.addRow = function($event){
+			$event.preventDefault();
+			$scope.conditions.push({condition: '', reaction: ''});
+		}
+
+		$http({
+			url: 'lines',
+			method: 'get'
+		}).then(function(res){
+			$scope.lines = res.data;
+		});
+
+		$http({
+			url: 'contacts/groups',
+			method: 'get'
+		}).then(function(res){
+			$scope.groups = res.data;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('editCodereaderController', function($rootScope, $scope, $http, $stateParams){
+		
+		$scope.id = $stateParams.id;
+
+		$scope.editCodereaderURL = 'codereaders/'+$scope.id;
+
+		$scope.conditions = [{condition: '', reaction: ''}];
+
+		$http({
+			url: 'lines',
+			method: 'get'
+		}).then(function(res){
+			$scope.lines = res.data;
+		});
+
+
+		$http({
+			url: 'codereaders/'+$scope.id+'/edit',
+			method: 'get'
+		}).then(function(res){
+			$rootScope.info = res.data;
+			$scope.conditions = res.data.conditions;
+		});
+
+		$scope.addRow = function($event){
+			$event.preventDefault();
+			$scope.conditions.push({condition: '', reaction: ''});
+		}
+
+	});	
+angular
+	.module('inspinia')
+	.controller('codereaderController', function($rootScope, $scope, $http, DTOptionsBuilder){
+		
+		$scope.selectedRows = [];
+		
+		$http({
+			url: 'codereaders',
+			method: 'get'
+		}).then(function(res){
+			$scope.codereaders = res.data;
+		});
+
+		$scope.delete = function(key, index){
+			$http({
+				url: 'codereaders/'+index,
+				method: 'delete'
+			});
+			$scope.codereaders[key].status = -1;
+		};
+
+		$scope.activate = function(key, index){
+			$http({
+				url: 'codereaders/enable/'+index,
+				method: 'put'
+			});
+			$scope.codereaders[key].status = 0;
+		};
+
+		$scope.trash = function(key, index){
+			$http({
+				url: 'codereaders/trash/'+index,
+				method: 'delete'
+			});
+			$scope.codereaders.splice(key, 1);
+		}
+
+		$scope.selectRow = function(key, id){
+	    	if($scope.selectedRows.indexOf(key) !== -1){
+	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
+	    		return;
+	    	}
+	    	$scope.selectedRows[id] = key;
+	    }
+
+	    $scope.removeSelected = function(){
+	    	for(selected in $scope.selectedRows){
+	    		$scope.delete($scope.selectedRows[selected], selected, true);
+	    	}
+	    	setTimeout(function(){
+	    		$scope.selectedRows = [];
+		    	$http({
+					url: 'codereaders',
+					method: 'get'
+				}).then(function(res){
+					$scope.codereaders = res.data;
+				});
+	    	}, 500);
+	    }
+
+	    jQuery('body').on('click', '#selectAllRows', function(){
+    		jQuery('input[type=checkbox].selectRow').trigger('click');
+    	});
 
 		$scope.dtOptions = DTOptionsBuilder.newOptions()
 		    .withDOM('<"html5buttons"B>lTfgitp')
@@ -1371,150 +1515,6 @@ angular
 			});
 		});
 
-	});	
-angular
-	.module('inspinia')
-	.controller('createCodereaderController', function($rootScope, $scope, $http){
-		
-		$scope.createCodereaderURL = 'codereaders';
-
-		$scope.conditions = [{condition: '', reaction: ''}];
-
-		$scope.addRow = function($event){
-			$event.preventDefault();
-			$scope.conditions.push({condition: '', reaction: ''});
-		}
-
-		$http({
-			url: 'lines',
-			method: 'get'
-		}).then(function(res){
-			$scope.lines = res.data;
-		});
-
-		$http({
-			url: 'contacts/groups',
-			method: 'get'
-		}).then(function(res){
-			$scope.groups = res.data;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('editCodereaderController', function($rootScope, $scope, $http, $stateParams){
-		
-		$scope.id = $stateParams.id;
-
-		$scope.editCodereaderURL = 'codereaders/'+$scope.id;
-
-		$scope.conditions = [{condition: '', reaction: ''}];
-
-		$http({
-			url: 'lines',
-			method: 'get'
-		}).then(function(res){
-			$scope.lines = res.data;
-		});
-
-
-		$http({
-			url: 'codereaders/'+$scope.id+'/edit',
-			method: 'get'
-		}).then(function(res){
-			$rootScope.info = res.data;
-			$scope.conditions = res.data.conditions;
-		});
-
-		$scope.addRow = function($event){
-			$event.preventDefault();
-			$scope.conditions.push({condition: '', reaction: ''});
-		}
-
-	});	
-angular
-	.module('inspinia')
-	.controller('codereaderController', function($rootScope, $scope, $http, DTOptionsBuilder){
-		
-		$scope.selectedRows = [];
-		
-		$http({
-			url: 'codereaders',
-			method: 'get'
-		}).then(function(res){
-			$scope.codereaders = res.data;
-		});
-
-		$scope.delete = function(key, index){
-			$http({
-				url: 'codereaders/'+index,
-				method: 'delete'
-			});
-			$scope.codereaders[key].status = -1;
-		};
-
-		$scope.activate = function(key, index){
-			$http({
-				url: 'codereaders/enable/'+index,
-				method: 'put'
-			});
-			$scope.codereaders[key].status = 0;
-		};
-
-		$scope.trash = function(key, index){
-			$http({
-				url: 'codereaders/trash/'+index,
-				method: 'delete'
-			});
-			$scope.codereaders.splice(key, 1);
-		}
-
-		$scope.selectRow = function(key, id){
-	    	if($scope.selectedRows.indexOf(key) !== -1){
-	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
-	    		return;
-	    	}
-	    	$scope.selectedRows[id] = key;
-	    }
-
-	    $scope.removeSelected = function(){
-	    	for(selected in $scope.selectedRows){
-	    		$scope.delete($scope.selectedRows[selected], selected, true);
-	    	}
-	    	setTimeout(function(){
-	    		$scope.selectedRows = [];
-		    	$http({
-					url: 'codereaders',
-					method: 'get'
-				}).then(function(res){
-					$scope.codereaders = res.data;
-				});
-	    	}, 500);
-	    }
-
-	    jQuery('body').on('click', '#selectAllRows', function(){
-    		jQuery('input[type=checkbox].selectRow').trigger('click');
-    	});
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
 	});	
 angular
 	.module('inspinia')
@@ -2003,6 +2003,67 @@ angular
 		        }
 		    ]);
 	});	
+angular
+	.module('inspinia')
+	.controller('createLinePatternController', function($rootScope, $scope, $http, $stateParams){
+		
+		$scope.createLinePatternURL = 'line-patterns';
+
+		$http({
+			url: 'api/operators',
+			method: 'post'
+		}).then(function(res){
+			$scope.operators = res.data;
+		});
+
+		if($stateParams.id){
+			$http({
+				url: 'line-patterns/'+$stateParams.id+'/edit',
+				method: 'get'
+			}).then(function(res){
+				$rootScope.info = res.data;
+			})
+		}
+
+	});	
+angular
+	.module('inspinia')
+	.controller('linePatternController', function($rootScope, $scope, $http, DTOptionsBuilder){
+		
+		$http({
+			url: 'line-patterns',
+			method: 'get'
+		}).then(function(res){
+			$scope.linePatterns = res.data;
+		});
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+	});	
+angular
+	.module('inspinia')
+	.controller('importLineController', function($scope){
+		
+		$scope.importLineURL = 'lines/import';
+
+	});	
 
 angular
 	.module('inspinia')
@@ -2166,13 +2227,6 @@ angular
 	                }
 	            }
 	        ]);
-	});	
-angular
-	.module('inspinia')
-	.controller('importLineController', function($scope){
-		
-		$scope.importLineURL = 'lines/import';
-
 	});	
 angular
 	.module('inspinia')
@@ -2357,150 +2411,6 @@ angular
 	});	
 angular
 	.module('inspinia')
-	.controller('createLinePatternController', function($rootScope, $scope, $http, $stateParams){
-		
-		$scope.createLinePatternURL = 'line-patterns';
-
-		$http({
-			url: 'api/operators',
-			method: 'post'
-		}).then(function(res){
-			$scope.operators = res.data;
-		});
-
-		if($stateParams.id){
-			$http({
-				url: 'line-patterns/'+$stateParams.id+'/edit',
-				method: 'get'
-			}).then(function(res){
-				$rootScope.info = res.data;
-			})
-		}
-
-	});	
-angular
-	.module('inspinia')
-	.controller('linePatternController', function($rootScope, $scope, $http, DTOptionsBuilder){
-		
-		$http({
-			url: 'line-patterns',
-			method: 'get'
-		}).then(function(res){
-			$scope.linePatterns = res.data;
-		});
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-	});	
-angular
-	.module('inspinia')
-	.controller('createPostalCodeController', function($rootScope, $scope, $http){
-		
-		$scope.createPostalCodeURL = 'postal-code';
-
-	});	
-angular
-	.module('inspinia')
-	.controller('editPostalCodeController', function($rootScope, $scope, $http, $stateParams){
-			
-		$scope.id = $stateParams.id;
-			
-		$scope.editPostalCodeURL = 'postal-code/'+$scope.id;
-
-		$http({
-			method: 'get',
-			url: 'postal-code/'+$scope.id+'/edit'
-		}).then(function(res){
-			$rootScope.info = res.data;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('postalCodeController', function($rootScope, $scope, $http, DTOptionsBuilder){
-
-		$scope.selectedRows = [];
-		
-		$scope.getPostalCodes = function()
-		{
-			$http({
-				url: 'postal-code/api',
-				method: 'get'
-			}).then(function(res){
-				$scope.postalCodes = res.data;
-				$scope.selectedRows = [];
-			});
-		}
-		$scope.getPostalCodes();
-
-		$scope.delete = function(key, index){
-			$http({
-				method: 'delete',
-				url: 'postal-code/'+index
-			});
-			$scope.postalCodes.splice(key, 1);
-		}
-
-		$scope.selectRow = function(key, id){
-	    	if($scope.selectedRows.indexOf(key) !== -1){
-	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
-	    		return;
-	    	}
-	    	$scope.selectedRows[id] = key;
-	    }
-
-	    $scope.removeSelected = function(){
-	    	for(selected in $scope.selectedRows){
-	    		$scope.delete($scope.selectedRows[selected], selected, true);
-	    	}
-	    	$scope.getPostalCodes();
-	    }
-
-		jQuery('body').on('click', '#selectAllRows', function(){
-    		jQuery('input[type=checkbox].selectRow').trigger('click');
-    	});
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-
-				    
-	});	
-angular
-	.module('inspinia')
 	.controller('createPlansController', function($rootScope, $scope, $http){
 		
 		$scope.createPlansURL = 'plans';
@@ -2622,111 +2532,6 @@ angular
 		            }
 		        }
 		    ]);
-	});	
-angular
-	.module('inspinia')
-	.controller('createPreTextController', function($rootScope, $scope, $http){
-		
-		$scope.createPreTextURL = 'pre-texts';
-
-		$http({
-			url: 'pre-texts/api',
-			method: 'get',
-		}).then(function(res){
-			$scope.groups = res.data;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('editPreTextController', function($rootScope, $scope, $http, $stateParams){
-		
-		$scope.id = $stateParams.id;
-		$scope.editPreTextURL = 'pre-texts/'+$scope.id;
-
-		$http({
-			url: 'pre-texts/'+$scope.id+'/edit',
-			method: 'get',
-		}).then(function(res){
-			$rootScope.info = res.data;
-		});
-
-		$http({
-			url: 'pre-texts/api',
-			method: 'get',
-		}).then(function(res){
-			$scope.groups = res.data;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('preTextController', function($rootScope, $scope, $http, DTOptionsBuilder){
-		
-		$scope.selectedRows = [];
-			
-		$http({
-			url: 'pre-texts',
-			method: 'get'
-		}).then(function(res){
-			$scope.preTexts = res.data;
-		});
-
-		$scope.selectRow = function(key, id){
-	    	if($scope.selectedRows.indexOf(key) !== -1){
-	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
-	    		return;
-	    	}
-	    	$scope.selectedRows[id] = key;
-	    }
-
-	    $scope.removeSelected = function(){
-	    	for(selected in $scope.selectedRows){
-	    		$scope.delete($scope.selectedRows[selected], selected, true);
-	    	}
-	    	setTimeout(function(){
-	    		$scope.selectedRows = [];
-		    	$http({
-					url: 'pre-texts',
-					method: 'get'
-				}).then(function(res){
-					$scope.preTexts = res.data;
-				});
-	    	}, 500);
-	    }
-
-		jQuery('body').on('click', '#selectAllRows', function(){
-    		jQuery('input[type=checkbox].selectRow').trigger('click');
-    	});
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-	        .withDOM('<"html5buttons"B>lTfgitp')
-	        .withButtons([
-	            {extend: 'copy'},
-	            {extend: 'csv'},
-	            {extend: 'excel', title: 'ExampleFile'},
-	            
-
-	            {extend: 'print',
-	                customize: function (win){
-	                    $(win.document.body).addClass('white-bg');
-	                    $(win.document.body).css('font-size', '10px');
-
-	                    $(win.document.body).find('table')
-	                        .addClass('compact')
-	                        .css('font-size', 'inherit');
-	                }
-	            }
-	        ]);
-
-	    $scope.delete = function(key, id){
-	    	$http({
-	    		url: 'pre-texts/' + id,
-	    		method: 'delete'
-	    	});
-	    	$scope.preTexts.splice(key, 1);
-	    }
-
 	});	
 angular
 	.module('inspinia')
@@ -2890,6 +2695,201 @@ angular
 
 
 	});
+angular
+	.module('inspinia')
+	.controller('createPostalCodeController', function($rootScope, $scope, $http){
+		
+		$scope.createPostalCodeURL = 'postal-code';
+
+	});	
+angular
+	.module('inspinia')
+	.controller('editPostalCodeController', function($rootScope, $scope, $http, $stateParams){
+			
+		$scope.id = $stateParams.id;
+			
+		$scope.editPostalCodeURL = 'postal-code/'+$scope.id;
+
+		$http({
+			method: 'get',
+			url: 'postal-code/'+$scope.id+'/edit'
+		}).then(function(res){
+			$rootScope.info = res.data;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('postalCodeController', function($rootScope, $scope, $http, DTOptionsBuilder){
+
+		$scope.selectedRows = [];
+		
+		$scope.getPostalCodes = function()
+		{
+			$http({
+				url: 'postal-code/api',
+				method: 'get'
+			}).then(function(res){
+				$scope.postalCodes = res.data;
+				$scope.selectedRows = [];
+			});
+		}
+		$scope.getPostalCodes();
+
+		$scope.delete = function(key, index){
+			$http({
+				method: 'delete',
+				url: 'postal-code/'+index
+			});
+			$scope.postalCodes.splice(key, 1);
+		}
+
+		$scope.selectRow = function(key, id){
+	    	if($scope.selectedRows.indexOf(key) !== -1){
+	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
+	    		return;
+	    	}
+	    	$scope.selectedRows[id] = key;
+	    }
+
+	    $scope.removeSelected = function(){
+	    	for(selected in $scope.selectedRows){
+	    		$scope.delete($scope.selectedRows[selected], selected, true);
+	    	}
+	    	$scope.getPostalCodes();
+	    }
+
+		jQuery('body').on('click', '#selectAllRows', function(){
+    		jQuery('input[type=checkbox].selectRow').trigger('click');
+    	});
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+
+				    
+	});	
+angular
+	.module('inspinia')
+	.controller('createPreTextController', function($rootScope, $scope, $http){
+		
+		$scope.createPreTextURL = 'pre-texts';
+
+		$http({
+			url: 'pre-texts/api',
+			method: 'get',
+		}).then(function(res){
+			$scope.groups = res.data;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('editPreTextController', function($rootScope, $scope, $http, $stateParams){
+		
+		$scope.id = $stateParams.id;
+		$scope.editPreTextURL = 'pre-texts/'+$scope.id;
+
+		$http({
+			url: 'pre-texts/'+$scope.id+'/edit',
+			method: 'get',
+		}).then(function(res){
+			$rootScope.info = res.data;
+		});
+
+		$http({
+			url: 'pre-texts/api',
+			method: 'get',
+		}).then(function(res){
+			$scope.groups = res.data;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('preTextController', function($rootScope, $scope, $http, DTOptionsBuilder){
+		
+		$scope.selectedRows = [];
+			
+		$http({
+			url: 'pre-texts',
+			method: 'get'
+		}).then(function(res){
+			$scope.preTexts = res.data;
+		});
+
+		$scope.selectRow = function(key, id){
+	    	if($scope.selectedRows.indexOf(key) !== -1){
+	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
+	    		return;
+	    	}
+	    	$scope.selectedRows[id] = key;
+	    }
+
+	    $scope.removeSelected = function(){
+	    	for(selected in $scope.selectedRows){
+	    		$scope.delete($scope.selectedRows[selected], selected, true);
+	    	}
+	    	setTimeout(function(){
+	    		$scope.selectedRows = [];
+		    	$http({
+					url: 'pre-texts',
+					method: 'get'
+				}).then(function(res){
+					$scope.preTexts = res.data;
+				});
+	    	}, 500);
+	    }
+
+		jQuery('body').on('click', '#selectAllRows', function(){
+    		jQuery('input[type=checkbox].selectRow').trigger('click');
+    	});
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+	        .withDOM('<"html5buttons"B>lTfgitp')
+	        .withButtons([
+	            {extend: 'copy'},
+	            {extend: 'csv'},
+	            {extend: 'excel', title: 'ExampleFile'},
+	            
+
+	            {extend: 'print',
+	                customize: function (win){
+	                    $(win.document.body).addClass('white-bg');
+	                    $(win.document.body).css('font-size', '10px');
+
+	                    $(win.document.body).find('table')
+	                        .addClass('compact')
+	                        .css('font-size', 'inherit');
+	                }
+	            }
+	        ]);
+
+	    $scope.delete = function(key, id){
+	    	$http({
+	    		url: 'pre-texts/' + id,
+	    		method: 'delete'
+	    	});
+	    	$scope.preTexts.splice(key, 1);
+	    }
+
+	});	
 angular
 	.module('inspinia')
 	.controller('createPriceGroupController', function($rootScope, $scope, $http){
@@ -3097,6 +3097,57 @@ angular
 		            }
 		        }
 		    ]);
+	});	
+angular
+	.module('inspinia')
+	.controller('sendFromMobileCreateController', function($scope){
+		
+		$scope.createSendFromMobileURL = 'send-from-mobile';
+
+	});	
+angular
+	.module('inspinia')
+	.controller('sendFromMobileHomeController', function($scope, $http, DTOptionsBuilder){
+		$http({
+			url: 'send-from-mobile',
+			method: 'get'
+		}).then(function(res){
+			$scope.sendFromMobiles = res.data; 
+		});
+
+		$scope.delete = function(key, id){
+			$http({
+				url: 'send-from-mobile/'+id,
+				method: 'delete'
+			});
+			$http({
+				url: 'send-from-mobile',
+				method: 'get'
+			}).then(function(res){
+				$scope.sendFromMobiles = res.data; 
+			});
+		}
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+
 	});	
 angular
 	.module('inspinia')
@@ -3404,57 +3455,6 @@ angular
 			}
 			$scope.smsFee = fee;
 		}
-
-	});	
-angular
-	.module('inspinia')
-	.controller('sendFromMobileCreateController', function($scope){
-		
-		$scope.createSendFromMobileURL = 'send-from-mobile';
-
-	});	
-angular
-	.module('inspinia')
-	.controller('sendFromMobileHomeController', function($scope, $http, DTOptionsBuilder){
-		$http({
-			url: 'send-from-mobile',
-			method: 'get'
-		}).then(function(res){
-			$scope.sendFromMobiles = res.data; 
-		});
-
-		$scope.delete = function(key, id){
-			$http({
-				url: 'send-from-mobile/'+id,
-				method: 'delete'
-			});
-			$http({
-				url: 'send-from-mobile',
-				method: 'get'
-			}).then(function(res){
-				$scope.sendFromMobiles = res.data; 
-			});
-		}
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
 
 	});	
 angular
@@ -4309,6 +4309,89 @@ angular
 	});
 angular
 	.module('inspinia')
+	.controller('socketController', function($rootScope, $scope){
+		console.log('i');
+	});	
+angular
+	.module('inspinia')
+	.controller('createSpecialsController', function($rootScope, $scope){
+		
+		$scope.createSpecialsURL = 'specials';
+
+	});	
+angular
+	.module('inspinia')
+	.controller('editSpecialsController', function($rootScope, $scope, $http, $stateParams){
+		
+		$scope.id = $stateParams.id;
+
+		$scope.editSpecialsURL = 'specials/'+$scope.id;
+
+		$http({
+			url: 'specials/'+$scope.id+'/edit',
+			method: 'get',
+		}).then(function(res){
+			$rootScope.info = res.data;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('specialsController', function($rootScope, $scope, $http, DTOptionsBuilder){
+		
+		$http({
+			url: 'specials',
+			method: 'get'
+		}).then(function(res){
+			$scope.specials = res.data;
+		});
+
+		$scope.delete = function(key, index){
+			$http({
+				method: 'delete',
+				url: 'specials/'+index
+			});
+			$scope.specials.splice(key, 1);
+		};
+
+		$scope.disable = function(key, index){
+			$http({
+				method: 'delete',
+				url: 'specials/disable/'+index
+			});
+			$scope.specials[key].status = -1;
+		};
+
+		$scope.enable = function(key, index){
+			$http({
+				method: 'put',
+				url: 'specials/enable/'+index
+			});
+			$scope.specials[key].status = 0;
+		};
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+	});	
+angular
+	.module('inspinia')
 	.controller('aboutUsController', function($rootScope, $scope, $http){
 		
 		$scope.aboutUs = '';
@@ -4528,89 +4611,6 @@ angular
 				});
 	    	}, 500);
 	    }
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-	});	
-angular
-	.module('inspinia')
-	.controller('socketController', function($rootScope, $scope){
-		console.log('i');
-	});	
-angular
-	.module('inspinia')
-	.controller('createSpecialsController', function($rootScope, $scope){
-		
-		$scope.createSpecialsURL = 'specials';
-
-	});	
-angular
-	.module('inspinia')
-	.controller('editSpecialsController', function($rootScope, $scope, $http, $stateParams){
-		
-		$scope.id = $stateParams.id;
-
-		$scope.editSpecialsURL = 'specials/'+$scope.id;
-
-		$http({
-			url: 'specials/'+$scope.id+'/edit',
-			method: 'get',
-		}).then(function(res){
-			$rootScope.info = res.data;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('specialsController', function($rootScope, $scope, $http, DTOptionsBuilder){
-		
-		$http({
-			url: 'specials',
-			method: 'get'
-		}).then(function(res){
-			$scope.specials = res.data;
-		});
-
-		$scope.delete = function(key, index){
-			$http({
-				method: 'delete',
-				url: 'specials/'+index
-			});
-			$scope.specials.splice(key, 1);
-		};
-
-		$scope.disable = function(key, index){
-			$http({
-				method: 'delete',
-				url: 'specials/disable/'+index
-			});
-			$scope.specials[key].status = -1;
-		};
-
-		$scope.enable = function(key, index){
-			$http({
-				method: 'put',
-				url: 'specials/enable/'+index
-			});
-			$scope.specials[key].status = 0;
-		};
 
 		$scope.dtOptions = DTOptionsBuilder.newOptions()
 		    .withDOM('<"html5buttons"B>lTfgitp')
@@ -5015,23 +5015,6 @@ angular
 	});	
 angular
 	.module('inspinia')
-	.controller('onlineSupportHomeController', ['$rootScope', '$scope', '$state', '$http', function($rootScope, $scope, $state, $http){
-		$rootScope.$watch('user', function(val){
-			if(typeof val == 'undefined') return;
-			if($rootScope.user.role == 'user') {
-				$state.go('app.support.online.chat', {id: $rootScope.user.agent_id});
-			}
-		});
-
-		$http({
-			url: 'support/chat/chats',
-			method: 'get'
-		}).then(function(res){
-			$scope.chats = res.data;
-		})
-	}]);	
-angular
-	.module('inspinia')
 	.controller('createSchedulesController', function($rootScope, $scope, $http, $stateParams){
 		
 		$scope.creaetSchedulesURL = 'sms/schedules';
@@ -5155,4 +5138,21 @@ angular
         	});
 
 	});	
+angular
+	.module('inspinia')
+	.controller('onlineSupportHomeController', ['$rootScope', '$scope', '$state', '$http', function($rootScope, $scope, $state, $http){
+		$rootScope.$watch('user', function(val){
+			if(typeof val == 'undefined') return;
+			if($rootScope.user.role == 'user') {
+				$state.go('app.support.online.chat', {id: $rootScope.user.agent_id});
+			}
+		});
+
+		$http({
+			url: 'support/chat/chats',
+			method: 'get'
+		}).then(function(res){
+			$scope.chats = res.data;
+		})
+	}]);	
 //# sourceMappingURL=tpanel-controllers.js.map
