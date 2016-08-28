@@ -16,7 +16,11 @@ class PolygonService
 	public function create(Request $request)
 	{
 
-		$polygon = json_decode($request->selectedPolygon);
+		if (json_decode($request->selectedPolygon)) {	
+			$polygon = json_decode($request->selectedPolygon);
+		} else {
+			$polygon = $request->selectedPolygon;
+		}
 		$polygonToSave = [];
 
 		foreach ($polygon as $singleLatLng) {

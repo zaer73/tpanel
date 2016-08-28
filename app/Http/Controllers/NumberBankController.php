@@ -181,7 +181,12 @@ class NumberBankController extends Controller
 
         if ($request->selectedShapeIsNew == 'true') {
 
-            $polygonService->create($request);
+           $polygon = $polygonService->create($request);
+           $polygon = $polygon->rangeid;
+
+        } else {
+
+            $polygon = $request->selectedPolygon;
 
         }
 
@@ -220,6 +225,10 @@ class NumberBankController extends Controller
                 }
                 if($col_key == 'gender'){
                     $NumberBank->gender = ($col_val == 'مرد') ? 1 : 2;
+                }
+
+                if (isset($polygon)) {
+                    $NumberBank->polygon = $polygon;
                 }
             }
             try{
