@@ -16,13 +16,13 @@ class SMSReportController extends Controller
     }
 
     public function index(){
-    	$messages = Auth::user()->sms()->selectRaw('count(group_hash) as amount')->where('trashed', 0)->orderBy('id', 'desc')->get();
+    	$messages = Auth::user()->sms()->selectRaw('count(group_hash) as amount')->where('trashed', 0)->orderBy('id', 'desc')->with(['line'])->get();
         return $messages;
     	// return view('sms.report.index')->with(['messages' => $messages]);
     }
 
     public function received(){
-    	$messages = Auth::user()->received;
+    	$messages = Auth::user()->received()->where('status', '!=', -1)->get();
         return $messages;
     	// return view('sms.report.received')->with(['messages' => $messages]);
     }
@@ -38,7 +38,7 @@ class SMSReportController extends Controller
     }
 
     public function deleteReceived($id){
-        Auth::user()->received()->whereId($id)->delete();
+        Auth::user()->received()->whereId($id)->update(['status' => -1]);
     }
 
 }

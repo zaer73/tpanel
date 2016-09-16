@@ -59,6 +59,7 @@ class ImportUsers extends Command
             $user->date_of_birth =  date('Y-m-d H:i:s', strtotime($oldUser->birthdate));
             $user->mobile =  $oldUser->cellphone;
             $user->credit =  $oldUser->credit;
+            $user->password = (!empty($oldUser->nationalcode)) ? $oldUser->nationalcode : 123456;
             try{
                 $user->save();
             } catch(\Exception $e) {

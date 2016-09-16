@@ -194,7 +194,6 @@ class PollController extends Controller
 
     public function export($id)
     {
-
         $data = Poll::whereId($id)->select('id', 'type', 'started_at', 'finished_at', 'answer')->with(['answers.user', 'answers.replies' => function ($query) {
             $query->select('id', 'user_id', 'text', 'created_at');
         }])->first();

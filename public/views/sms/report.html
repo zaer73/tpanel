@@ -32,7 +32,7 @@
                             <th>{{ 'text' | uppercase | translate }}</th>
                             <th>{{ 'date' | uppercase | translate }}</th>
                             <th>{{ 'status' | uppercase | translate }}</th>
-                            <th>{{ 'resend' | uppercase | translate }}</th>
+                            <th>{{ 'send_number' | uppercase | translate }}</th>
                             <th>{{ 'type' | uppercase | translate }}</th>
                             <th>{{ 'number' | uppercase | translate }}</th>
                             <th>{{ 'sms_amount' | uppercase | translate }}</th>
@@ -49,9 +49,7 @@
                             <td>{{ message.created_at }}</td>
                             <td>{{ message.sms_status}}</td>
                             <td>
-                                <a href="" ng-click="resend(message.queue_name, message.input_id)">
-                                    <i class="fa fa-send"></i>
-                                </a>
+                                {{ message.line.number }}
                             </td>
                             <td>{{ message.sms_type }}</td>
                             <td>
@@ -61,6 +59,9 @@
                             <td>{{ message.amount }}</td>
 
                             <td>
+                                <a href="" ng-click="resend(message.queue_name, message.input_id)">
+                                    <i class="fa fa-send"></i>
+                                </a>
                                 <a href="" ng-click="delete(key,message.id)">
                                     <i class="fa fa-remove"></i>
                                 </a>

@@ -14,7 +14,7 @@ angular
                     line: $rootScope.info.line
                 }
             }).then(function(res) {
-                alert(res.data.message);
+                // alert(res.data.message);
             });
         }
     });

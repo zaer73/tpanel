@@ -36,4 +36,9 @@ class SMS extends Model
     public function setScheduledOnAttribute($val){
         $this->attributes['scheduled_on'] = shamsi_to_greg($val);
     }
+
+    public function line()
+    {
+        return $this->belongsTo('App\Line', 'sender', 'id');
+    }
 }

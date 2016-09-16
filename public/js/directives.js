@@ -345,7 +345,8 @@ function dropZone() {
                     scope.files.push({file: 'added'});
                 }
                 this.on('success', function(file, json) {
-                    alert(json.message);
+                    // alert(json.message);
+                    scope.$parent.modal.close();
                 });
                 this.on('addedfile', function(file) {
                     scope.$apply(function(){
@@ -355,7 +356,8 @@ function dropZone() {
                     });
                 });
                 this.on('drop', function(file) {
-                    alert('file');
+                    // alert('file');
+                    scope.$parent.modal.close();
                 });
             },
             sending: function(file, xhr, formData){
