@@ -48,3 +48,6 @@ table{
 select.form-control{
 	background-color: #fcfcfc;
 }
+.col-lg-6 {
+    direction: rtl;
+}
