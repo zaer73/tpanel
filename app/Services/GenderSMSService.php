@@ -15,10 +15,10 @@ class GenderSMSService {
 	}
 
 	public function getProvinces(){
-		$redis = Redis::connection();
-		if($redis->hget('rahyabbulk', 'provinces')){
-			return unserialize($redis->hget('rahyabbulk', 'provinces'));
-		}
+		// $redis = Redis::connect([]);
+		// if($redis->hget('rahyabbulk', 'provinces')){
+		// 	return unserialize($redis->hget('rahyabbulk', 'provinces'));
+		// }
 		$response = $this->client->Province([]);
 		$provinces_str = $response->ProvinceResult;
 		$result = [];
@@ -29,15 +29,15 @@ class GenderSMSService {
 			$name = str_replace('</Name>', '', str_replace('<Name>', '', explode('</ID>', $province)[1]));
 			$result[$id] = $name;
 		}
-		$redis->hset('rahyabbulk', 'provinces', serialize($result));
+		// $redis->hset('rahyabbulk', 'provinces', serialize($result));
 		return $result;
 	}
 
 	public function getCities($province){
-		$redis = Redis::connection();
-		if($redis->hget('rahyabbulk', 'province_'.$province)){
-			return unserialize($redis->hget('rahyabbulk', 'province_'.$province));
-		}
+		// $redis = Redis::connection();
+		// if($redis->hget('rahyabbulk', 'province_'.$province)){
+		// 	return unserialize($redis->hget('rahyabbulk', 'province_'.$province));
+		// }
 		$response = $this->client->City([
 			'Province_ID' => $province
 		]);
@@ -50,7 +50,7 @@ class GenderSMSService {
 			$name = str_replace('</Name>', '', str_replace('<Name>', '', explode('</ID>', $city)[1]));
 			$result[$id] = $name;
 		}
-		$redis->hset('rahyabbulk', 'province_'.$province, serialize($result));
+		// $redis->hset('rahyabbulk', 'province_'.$province, serialize($result));
 		return $result;
 	}
 

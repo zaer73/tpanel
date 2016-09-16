@@ -90,7 +90,9 @@ angular
 	    }
 
     	jQuery('body').on('click', '#selectAllRows', function(){
-    		jQuery('input[type=checkbox].selectRow').trigger('click');
+    		jQuery('input[type=checkbox].selectRow').each(function(){
+				jQuery(this).trigger('click');
+			});
     	});
 
         $scope.showGroupMessages = function(id){

@@ -500,10 +500,14 @@ class SMSController extends Controller
     use \App\Helpers\API\SMS;
 
     public function retry(){
-        if(Auth::user()->role != 2) abort(403);
+        // if(Auth::user()->role != 2) abort(403);
         $failedMessages = \App\SMS::where('status', '-1')->orderBy('id', 'asc')->get();
         foreach($failedMessages as $message){
-            $this->sendSMS($message->reciever, $message->text, $message->sender, $message->id, '0000-00-00 00:00:00', 'singleSMS');
+            try {
+                $this->sendSMS($message->reciever, $message->text, $message->sender, $message->id, '0000-00-00 00:00:00', 'singleSMS');
+            } catch (\Exception $e) {
+               
+            }
         }
     }
 

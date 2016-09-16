@@ -39,8 +39,9 @@ angular
 			};
 		}
 
-		$scope.openDropzoneModal = function(){
-			$modal.open({
+		$scope.openDropzoneModal = function(e){
+			e.preventDefault();
+			$rootScope.modal = $modal.open({
                 templateUrl: 'views/sms/import_contacts.html',
             });
 		}

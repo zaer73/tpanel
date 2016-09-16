@@ -60,6 +60,7 @@ class ImportUsers extends Command
             $user->mobile =  $oldUser->cellphone;
             $user->credit =  $oldUser->credit;
             $user->password = (!empty($oldUser->nationalcode)) ? $oldUser->nationalcode : 123456;
+
             //try{
                 $user->save();
            // } catch(\Exception $e) {

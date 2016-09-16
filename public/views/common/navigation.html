@@ -408,9 +408,9 @@
                             </li>
                         </ul>
                     </li>
-                    <li ng-if="check_permission('marketing_codes')" ui-sref-active="active">
+                    <!-- <li ng-if="check_permission('marketing_codes')" ui-sref-active="active">
                         <a ui-sref="app.admin.marketingCodes.home">{{ 'MARKETING_CODE' | translate }}</a>
-                    </li>
+                    </li> -->
                     <li ng-show="check_permission('line_patterns')" ng-class="{active: $state.includes('app.admin.line_patterns')}">
                         <a href=""><span class="nav-label">{{ 'LINE_PATTERNS' | translate }}</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('app.admin.line_patterns')}">
@@ -451,9 +451,9 @@
                     <li ng-if="check_permission('shop_extend_lines')" ui-sref-active="active">
                         <a ui-sref="app.shop.lineExtension">{{ 'LINE_EXTENSION' | translate }}</a>
                     </li>
-                    <li ng-if="check_permission('shop_special_plans')" ui-sref-active="active">
+                   <!--  <li ng-if="check_permission('shop_special_plans')" ui-sref-active="active">
                         <a ui-sref="app.shop.specials">{{ 'SPECIALS' | translate }}</a>
-                    </li>
+                    </li> -->
                     <li ng-if="check_permission('shop_invoice')" ui-sref-active="active">
                         <a ui-sref="app.shop.invoice">{{ 'INVOICE' | translate }}</a>
                     </li>

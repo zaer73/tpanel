@@ -220,7 +220,6 @@ Route::group(['middleware' => 'web'], function(){
 			Route::resource('contact', 'ContactController');
 		});
 
-		Route::get('polls/export/{id}', 'PollController@export');
 
 		Route::resource('polls', 'PollController');
 
@@ -358,7 +357,11 @@ Route::group(['middleware' => 'web'], function(){
 
 	Route::get('sms/send/from/lumen', 'APIController@sendAutoreply');
 
+	Route::get('polls/export/{id}', 'PollController@export');
+
 });
+
+
 
 Route::group(['middleware' => 'api', 'prefix' => 'api'], function(){
 	Route::post('send-sms', '\App\Http\Controllers\IncomingAPIController@postSendSMS');

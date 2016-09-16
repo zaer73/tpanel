@@ -54,6 +54,7 @@ return array(
     'AddStatusToPreTextGroupsTable' => $baseDir . '/database/migrations/2016_02_14_225335_add_status_to_pre_text_groups_table.php',
     'AddStatusToPreTextsTable' => $baseDir . '/database/migrations/2016_02_14_223205_add_status_to_pre_texts_table.php',
     'AddStatusToPriceGroupsTable' => $baseDir . '/database/migrations/2016_02_16_124830_add_status_to_price_groups_table.php',
+    'AddStatusToReceivedSMS' => $baseDir . '/database/migrations/2016_09_16_132914_add_status_to_received_s_m_s.php',
     'AddStatusToTransferToEmailsTable' => $baseDir . '/database/migrations/2016_03_04_210038_add_status_to_transfer_to_emails_table.php',
     'AddStatusToUsersTables' => $baseDir . '/database/migrations/2016_04_03_234212_add_status_to_users_tables.php',
     'AddSubmitCodeToUsersTable' => $baseDir . '/database/migrations/2016_02_05_172021_add_submit_code_to_users_table.php',

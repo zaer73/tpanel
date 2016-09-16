@@ -60,7 +60,7 @@ trait ExcelImporter{
 	            	\Auth::user()->contacts()->create([
 	            		'name' => $contact['name'],
 	            		'number' => $contact['number'],
-	            		'description' => $contact['description'],
+	            		// 'description' => $contact['description'],
 	            		'group_id' => $group->id
 	            	]);
 	            } catch(\Exception $e){

@@ -13,11 +13,12 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\Inspire::class,
         Commands\ScheduledMessages::class,
         Commands\ImportTables::class,
         Commands\UserIdContactsConverter::class,
-        Commands\ImportUsers::class
+        Commands\ImportUsers::class,
+        Commands\ScanLinesExpiration::class,
+        Commands\RetryMessages::class
     ];
 
     /**
