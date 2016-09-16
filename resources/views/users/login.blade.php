@@ -48,10 +48,10 @@
                 	class="btn btn-primary block full-width m-b" 
                 >{{ trans('login') }}</button>
 
-                <a href="{{ route('users.resetPassword') }}">
+                <a class="btn" href="{{ route('users.resetPassword') }}" style="width: 50%; background: #ec4758; color: white;">
                 	<small>{{ trans('forgotten_password') }}</small>
                 </a>
-                <a href="{{ route('users.secureLogin') }}">
+                <a class="btn" href="{{ route('users.secureLogin') }}" style="width: 48%; color: white; background: #3399ca;">
                 	{{ trans('secure_login') }}
                 </a>
             </form>

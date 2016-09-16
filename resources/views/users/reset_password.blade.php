@@ -8,6 +8,7 @@
 	<div class="middle-box text-center loginscreen animated fadeInDown">
         <div>
         	<h2>{{ trans('title_reset_password') }}</h2>
+			<h3>بازیابی با ایمیل</h3>
 			<form 
 				method="post" 
 				class="m-t" 
@@ -35,7 +36,8 @@
                 	ng-disabled="ajaxInProcess"
 				>{{ trans('reset_password') }}</button>
 			</form>
-
+            
+			<h3>بازیابی با پیامک</h3>
 			<form 
 				method="post" 
 				action="{{ route('users.resetPassword.mobile') }}"
