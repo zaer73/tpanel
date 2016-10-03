@@ -33,8 +33,13 @@ class ContactGroupController extends Controller
      */
     public function index()
     {
-        $groups = Auth::user()->contact_groups()->where('status', 0)->with(['contacts'])->get();
-        return $groups;
+        $dataTable = \Yajra\Datatables\Facades\Datatables::usingEloquent(
+            ContactGroup::where('status', 0)->with(['contacts'])
+        )->make(true);
+        return $dataTable;
+
+        // $groups = Auth::user()->contact_groups()->where('status', 0)->with(['contacts'])->get();
+        // return $groups;
         // return view('contacts.groups.index')->with(['groups' => $groups]);
     }
 

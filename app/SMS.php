@@ -27,7 +27,7 @@ class SMS extends Model
     	return sms_type($type);
     }
 
-    protected $appends = ['sms_status', 'sms_type'];
+    protected $appends = ['sms_status', 'sms_type', 'selectBox', 'amount', 'actions', 'numbers'];
 
     public function user(){
         return $this->belongsTo('\App\User')->select('username', 'name', 'id');
@@ -40,5 +40,35 @@ class SMS extends Model
     public function line()
     {
         return $this->belongsTo('App\Line', 'sender', 'id');
+    }
+
+    public function getSelectBoxAttribute()
+    {
+        return '<input type="checkbox" id="selectAllRows">';
+    }
+
+    public function getAmountAttribute()
+    {
+        $count = $this->where('group_hash', $this->group_hash)->count();
+
+        if ($count == 0) return 1;
+    }
+
+    public function getNumbersAttribute()
+    {
+        if ($this->reciever == 0) {
+            '<a href="" ng-click="showGroupMessages(message.group_hash)">'.trans('NUMBERS').'</a>';
+        }
+        return '<span>'.$this->reciever.'</span>';
+    }
+
+    public function getActionsAttribute()
+    {
+        return '<a href="" ng-click="resend('.$this->queue_name.', '.$this->input_id.')">
+                                    <i class="fa fa-send"></i>
+                                </a>
+                                <a href="" ng-click="delete(0,'.$this->id.')">
+                                    <i class="fa fa-remove"></i>
+                                </a>'; 
     }
 }

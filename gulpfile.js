@@ -31,6 +31,10 @@ elixir(function(mix) {
     // ], 'public/js/assets.js');
     
     mix.scripts([
+        'resources/assets/js/services',
+    ], 'public/js/tpanel-services.js');
+
+    mix.scripts([
     	'resources/assets/js/controllers',
     ], 'public/js/tpanel-controllers.js');
 

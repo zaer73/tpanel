@@ -1,0 +1,25 @@
+<tbody>
+                    <tr ng-repeat="(key,group) in groups" ng-style="{'background-color': selectedRows.indexOf(key) != -1 ? '#F9F8CC' : ''}">
+                        <td>
+                            <input type="checkbox" class="selectRow" ng-click="selectRow(key, group.id)" ng-checked="selectedRows.indexOf(key) != -1">
+                        </td>
+                        <td>{{ group.id }}</td>
+                        <td>{{ group.title }}</td>
+                        <td>{{ group.description }}</td>
+                        <td>
+                            <a ui-sref="app.contactsGroups.edit({id: group.id})" >
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a ng-if="!group.contacts.length" href="" ng-click="delete(key,group.id)">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                        <tr ng-show="selectedRows.length">
+                            <td colspan="7">
+                                <button ng-click="removeSelected()" class="btn btn-danger">{{ 'REMOVE_SELECTED' | translate }}</button>
+                            </td>
+                        </tr>
+                    </tbody>

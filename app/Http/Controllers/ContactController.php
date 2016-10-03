@@ -36,8 +36,12 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Auth::user()->contacts()->whereTrashed(0)->with(['group'])->get();
-        return $contacts;
+        // $contacts = Auth::user()->contacts()->whereTrashed(0)->with(['group'])->get();
+        $dataTable = \Yajra\Datatables\Facades\Datatables::usingEloquent(
+            Contact::whereTrashed(0)->where('user_id', auth()->id())->with(['group'])
+        )->make(true);
+        return $dataTable;
+        // return $contacts;
         // return view('contacts.index')->with(['contacts' => $contacts]);
     }
 
@@ -169,8 +173,12 @@ class ContactController extends Controller
     }
 
     public function getTrashed(){
-        $contacts = Auth::user()->deleted_contacts;
-        return $contacts;
+        // $contacts = Auth::user()->deleted_contacts;
+        $dataTable = \Yajra\Datatables\Facades\Datatables::usingEloquent(
+            Contact::where('trashed', 1)->where('user_id', auth()->id())
+        )->make(true);
+        return $dataTable;
+        // return $contacts;
         // return view('contacts.trash')->with(['contacts' => $contacts]);
     }
 

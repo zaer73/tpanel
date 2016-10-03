@@ -1,20 +1,20 @@
 angular
 	.module('inspinia')
-	.controller('trashContactController', function($rootScope, $scope, $http, DTOptionsBuilder){
+	.controller('trashContactController', function($rootScope, $scope, $http, DTOptionsBuilder, DataTableService){
 		
 		$scope.selectedRows = [];
 
-		$scope.getContacts = function()
-		{
-			$http({
-				method: 'get',
-				url: 'contacts/trash'
-			}).then(function(res){
-				$scope.contacts = res.data;
-				$scope.selectedRows = [];
-			});
-		}	
-		$scope.getContacts();
+		// $scope.getContacts = function()
+		// {
+		// 	$http({
+		// 		method: 'get',
+		// 		url: 'contacts/trash'
+		// 	}).then(function(res){
+		// 		$scope.contacts = res.data;
+		// 		$scope.selectedRows = [];
+		// 	});
+		// }	
+		// $scope.getContacts();
 
 		$scope.restore = function(key, index){
 			$http({
@@ -55,23 +55,54 @@ angular
     	});
 
 
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
+		// $scope.dtOptions = DTOptionsBuilder.newOptions()
+		//     .withDOM('<"html5buttons"B>lTfgitp')
+		//     .withButtons([
+		//         {extend: 'copy'},
+		//         {extend: 'csv'},
+		//         {extend: 'excel', title: 'ExampleFile'},
 		        
 		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
+		//         {extend: 'print',
+		//             customize: function (win){
+		//                 $(win.document.body).addClass('white-bg');
+		//                 $(win.document.body).css('font-size', '10px');
 		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
+		//                 $(win.document.body).find('table')
+		//                     .addClass('compact')
+		//                     .css('font-size', 'inherit');
+		//             }
+		//         }
+		//     ]);
+
+		$scope.dataTableColumns = [
+		{
+			data: 'select_box',
+			name: 'select_box',
+			sortable: false
+		},
+		{
+	        data: 'id',
+	        name: 'id'
+	    }, {
+	        data: 'name',
+	        name: 'name'
+	    }, {
+	        data: 'number',
+	        name: 'number'
+	    }, {
+	        data: 'description',
+	        name: 'description'
+	    }, {
+	        data: 'trash_actions',
+	        name: 'trash_actions'
+	    }];
+
+	 	$rootScope.getTableData = function() {
+
+	        $scope.dtOptions = DataTableService.build('/contacts/trash', $scope.dataTableColumns, $scope);
+
+	    }
+
+	    $rootScope.getTableData();
 	});	

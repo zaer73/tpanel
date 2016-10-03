@@ -22,7 +22,7 @@
             <div class="ibox float-e-margins">
 
                 <div class="ibox-content">
-                    <table datatable="ng" dt-options="dtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                    <table class="DataTable table table-striped table-bordered table-hover dataTables-example" style="width: 100%">
                         <thead>
                         <tr>
                             <th>
@@ -39,43 +39,7 @@
                             <th>{{ 'actions' | uppercase | translate }}</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        <tr ng-repeat="(key,message) in messages" ng-style="{'background-color': selectedRows.indexOf(key) != -1 ? '#F9F8CC' : ''}">
-                            <td>
-                                <input type="checkbox" class="selectRow" ng-click="selectRow(key, message.id)" ng-checked="selectedRows.indexOf(key) != -1">
-                            </td>
-                            <td>{{ message.id }}</td>
-                            <td>{{ message.text}}</td>
-                            <td>{{ message.created_at }}</td>
-                            <td>{{ message.sms_status}}</td>
-                            <td>
-                                {{ message.line.number }}
-                            </td>
-                            <td>{{ message.sms_type }}</td>
-                            <td>
-                                <a href="" ng-click="showGroupMessages(message.group_hash)" ng-show="message.reciever == 0">{{ 'NUMBERS' | translate }}</a>
-                                <span ng-show="message.reciever != 0">{{ message.reciever }}</span>
-                            </td>
-                            <td>{{ message.amount }}</td>
-
-                            <td>
-                                <a href="" ng-click="resend(message.queue_name, message.input_id)">
-                                    <i class="fa fa-send"></i>
-                                </a>
-                                <a href="" ng-click="delete(key,message.id)">
-                                    <i class="fa fa-remove"></i>
-                                </a>
-                            </td>
-                        </tr>
                         
-                        </tbody>
-                        <tbody>
-                            <tr ng-show="selectedRows.length">
-                            <td colspan="9">
-                                <button ng-click="removeSelected()" class="btn btn-danger">{{ 'REMOVE_SELECTED' | translate }}</button>
-                            </td>
-                        </tr>
-                        </tbody>
                     </table>
                 </div>
             </div>

@@ -25,13 +25,17 @@ class UserController extends Controller
     public function index()
     {   
         if(isAdmin(Auth::user())){
-            $users = User::where('status', '!=', '-2')->with([
+            $users = User::DataTable(function ($where) {
+                $where->where('status', '!=', '-2');
+            },[
                 'parentUser' => function($query){
                     $query->select('name', 'id', 'parent', 'username');
                 }, 'plan' => function($query){
                     $query->select('expires_at', 'id', 'user_id');
                 }
-            ])->get();
+            ]);
+
+            return $users;
         }
         if(isAgent(Auth::user())){
             $users = User::where('status', '!=', '-2')->where('parent', Auth::id())->with([

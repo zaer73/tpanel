@@ -15,7 +15,7 @@ class API
      */
     public function handle($request, Closure $next)
     {
-        if(!$request->ajax()) abort('404');
+        // if(!$request->ajax()) abort('404');
         return $next($request);
     }
 }
