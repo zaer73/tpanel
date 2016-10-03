@@ -21,7 +21,10 @@ angular
 	    		method: 'delete',
 	    		url: 'contacts/groups/'+id,
 	    	});
-	    	$scope.groups.splice(key, 1);
+	    	
+	    	DataTableService.destroy();
+
+			$rootScope.getTableData();
 	    }
 
 	    $scope.selectRow = function(key, id){
@@ -40,7 +43,7 @@ angular
 	    }
 
 	    jQuery('body').on('click', '#selectAllRows', function(){
-    		jQuery('input[type=checkbox].selectRow').each(function(){
+    		jQuery('body').each('input[type=checkbox].selectRow', function(){
 				jQuery(this).trigger('click');
 			});
     	});

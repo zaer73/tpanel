@@ -64,7 +64,7 @@ class SMS extends Model
 
     public function getActionsAttribute()
     {
-        return '<a href="" ng-click="resend('.$this->queue_name.', '.$this->input_id.')">
+        return '<a href="" ng-click="resend('.(($this->queue_name) ?: 0).', '.$this->input_id.')">
                                     <i class="fa fa-send"></i>
                                 </a>
                                 <a href="" ng-click="delete(0,'.$this->id.')">

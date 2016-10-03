@@ -32,6 +32,10 @@ angular
 				'method': 'delete',
 				'url': 'contacts/contact/'+index
 			});
+
+			DataTableService.destroy();
+
+			$rootScope.getTableData();
 		}
 
 		$scope.sendMessage = function(key, contact){
