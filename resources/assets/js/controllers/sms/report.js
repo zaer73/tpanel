@@ -97,6 +97,10 @@ angular
 	    		method: 'delete',
 	    		url: 'sms/delete/sent/'+message_id,
 	    	});
+
+	    	DataTableService.destroy();
+
+	    	$rootScope.getTableData();
 	    }
 
 	    $scope.resend = function(queueName, inputId){

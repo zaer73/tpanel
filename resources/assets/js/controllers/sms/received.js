@@ -73,7 +73,7 @@ angular
 
 	    $rootScope.getTableData();
 
-	    $scope.forward = function(event, message){
+	    $scope.forward = function(message){
 	    	$rootScope.messageToForward = message;
 	    	$modal.open({
 	    		templateUrl: 'views/sms/forward-modal.html',
@@ -81,7 +81,7 @@ angular
 	    	});
 	    }
 
-	    $scope.reply = function(event, message){
+	    $scope.reply = function(message){
 	    	$rootScope.messageToReply = message;
 	    	$modal.open({
 	    		templateUrl: 'views/sms/reply-modal.html',
@@ -89,13 +89,19 @@ angular
 	    	});
 	    }
 
-	    $scope.delete = function(key, index, multi){
+	    $scope.delete = function(index){
 	    	$http({
 				'method': 'delete',
 				'url': 'sms/report/received/'+index
 			}).then(function () {
-				$scope.getMessages();
+				
+				DataTableService.destroy();
+
+				$rootScope.getTableData();
 			});
+
+			
+
 	    }
 
 	    $scope.selectRow = function(key, id){

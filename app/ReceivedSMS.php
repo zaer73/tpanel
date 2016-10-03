@@ -27,21 +27,21 @@ class ReceivedSMS extends Model
 
     public function getForwardAttribute()
     {
-    	return '<a href="" ng-click="forward($event, message)">
+    	return '<a href="" ng-click="forward(message)">
             <i class="fa fa-mail-forward"></i>
         </a>';
     }
 
     public function getReplyAttribute()
     {
-    	return '<a href="" ng-click="reply($event, message)">
+    	return '<a href="" ng-click="reply(message)">
                                 <i class="fa fa-send"></i>
                             </a>';
     }
 
     public function getDeleteAttribute()
     {
-    	return '<a href="" ng-click="delete($event,message.id)">
+    	return '<a href="" ng-click="delete('.$this->id.')">
                                 <i class="fa fa-remove"></i>
                             </a>';
     }

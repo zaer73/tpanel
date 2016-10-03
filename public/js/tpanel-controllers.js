@@ -1325,7 +1325,10 @@ angular
 	    		method: 'delete',
 	    		url: 'contacts/groups/'+id,
 	    	});
-	    	$scope.groups.splice(key, 1);
+	    	
+	    	DataTableService.destroy();
+
+			$rootScope.getTableData();
 	    }
 
 	    $scope.selectRow = function(key, id){
@@ -1344,7 +1347,7 @@ angular
 	    }
 
 	    jQuery('body').on('click', '#selectAllRows', function(){
-    		jQuery('input[type=checkbox].selectRow').each(function(){
+    		jQuery('body').each('input[type=checkbox].selectRow', function(){
 				jQuery(this).trigger('click');
 			});
     	});
@@ -1432,6 +1435,10 @@ angular
 				'method': 'delete',
 				'url': 'contacts/contact/'+index
 			});
+
+			DataTableService.destroy();
+
+			$rootScope.getTableData();
 		}
 
 		$scope.sendMessage = function(key, contact){
@@ -4161,7 +4168,7 @@ angular
 
 	    $rootScope.getTableData();
 
-	    $scope.forward = function(event, message){
+	    $scope.forward = function(message){
 	    	$rootScope.messageToForward = message;
 	    	$modal.open({
 	    		templateUrl: 'views/sms/forward-modal.html',
@@ -4169,7 +4176,7 @@ angular
 	    	});
 	    }
 
-	    $scope.reply = function(event, message){
+	    $scope.reply = function(message){
 	    	$rootScope.messageToReply = message;
 	    	$modal.open({
 	    		templateUrl: 'views/sms/reply-modal.html',
@@ -4177,13 +4184,19 @@ angular
 	    	});
 	    }
 
-	    $scope.delete = function(key, index, multi){
+	    $scope.delete = function(index){
 	    	$http({
 				'method': 'delete',
 				'url': 'sms/report/received/'+index
 			}).then(function () {
-				$scope.getMessages();
+				
+				DataTableService.destroy();
+
+				$rootScope.getTableData();
 			});
+
+			
+
 	    }
 
 	    $scope.selectRow = function(key, id){
@@ -4333,6 +4346,10 @@ angular
 	    		method: 'delete',
 	    		url: 'sms/delete/sent/'+message_id,
 	    	});
+
+	    	DataTableService.destroy();
+
+	    	$rootScope.getTableData();
 	    }
 
 	    $scope.resend = function(queueName, inputId){
