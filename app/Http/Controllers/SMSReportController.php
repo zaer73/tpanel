@@ -16,14 +16,24 @@ class SMSReportController extends Controller
     }
 
     public function index(){
-    	$messages = Auth::user()->sms()->selectRaw('count(group_hash) as amount')->where('trashed', 0)->orderBy('id', 'desc')->with(['line'])->get();
-        return $messages;
+    	// $messages = Auth::user()->sms()->selectRaw('count(group_hash) as amount')->where('trashed', 0)->orderBy('id', 'desc')->with(['line'])->get();
+        $dataTable = \Yajra\Datatables\Facades\Datatables::usingEloquent(
+            SMS::where([
+                'trashed' => 0,
+                'user_id' => auth()->id()
+            ])->with(['line'])
+        )->make(true);
+        return $dataTable;
     	// return view('sms.report.index')->with(['messages' => $messages]);
     }
 
     public function received(){
-    	$messages = Auth::user()->received()->where('status', '!=', -1)->get();
-        return $messages;
+        $dataTable = \Yajra\Datatables\Facades\Datatables::usingEloquent(
+            \App\ReceivedSMS::where('status', '!=', -1)
+        )->make(true);
+        return $dataTable;
+    	// $messages = Auth::user()->received()->where('status', '!=', -1)->get();
+     //    return $messages;
     	// return view('sms.report.received')->with(['messages' => $messages]);
     }
 

@@ -1,17 +1,17 @@
 angular
 	.module('inspinia')
-	.controller('usersController', function($rootScope, $scope, $http, DTOptionsBuilder, $modal, SweetAlert, $filter){
+	.controller('usersController', function($rootScope, $scope, $http, DTOptionsBuilder, $modal, SweetAlert, $filter, DataTableService){
 
 		$scope.selectedRows = [];
 		$scope.selectedNumbers = [];
 
-		$http({
-			method: 'get',
-			url: 'users',
-			data: []
-		}).then(function(res){
-			$scope.users = res.data;
-		});
+		// $http({
+		// 	method: 'get',
+		// 	url: 'users',
+		// 	data: []
+		// }).then(function(res){
+		// 	$scope.users = res.data;
+		// });
 
 		$scope.enable = function(key, id){
 			SweetAlert.swal({
@@ -153,24 +153,55 @@ angular
 			});
     	});
 
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-	        .withDOM('<"html5buttons"B>lTfgitp')
-	        .withButtons([
-	            {extend: 'copy'},
-	            {extend: 'csv'},
-	            {extend: 'excel', title: 'ExampleFile'},
+		// $scope.dtOptions = DTOptionsBuilder.newOptions()
+	 //        .withDOM('<"html5buttons"B>lTfgitp')
+	 //        .withButtons([
+	 //            {extend: 'copy'},
+	 //            {extend: 'csv'},
+	 //            {extend: 'excel', title: 'ExampleFile'},
 	            
 
-	            {extend: 'print',
-	                customize: function (win){
-	                    $(win.document.body).addClass('white-bg');
-	                    $(win.document.body).css('font-size', '10px');
+	 //            {extend: 'print',
+	 //                customize: function (win){
+	 //                    $(win.document.body).addClass('white-bg');
+	 //                    $(win.document.body).css('font-size', '10px');
 
-	                    $(win.document.body).find('table')
-	                        .addClass('compact')
-	                        .css('font-size', 'inherit');
-	                }
-	            }
-	        ]);
+	 //                    $(win.document.body).find('table')
+	 //                        .addClass('compact')
+	 //                        .css('font-size', 'inherit');
+	 //                }
+	 //            }
+	 //        ]);
+	 
+	$scope.dataTableColumns = [{
+        data: 'username',
+        name: 'username'
+    }, {
+        data: 'name',
+        name: 'name'
+    }, {
+        data: 'mobile',
+        name: 'mobile'
+    }, {
+        data: 'plan',
+        name: 'plan'
+    }, {
+        data: 'parent_user',
+        name: 'parent_user'
+    }, {
+        data: 'last_login',
+        name: 'last_login'
+    }, {
+        data: 'actions',
+        name: 'actions'
+    }];
+
+ 	$rootScope.getTableData = function() {
+
+        $scope.dtOptions = DataTableService.build('/users', $scope.dataTableColumns, $scope);
+
+    }
+
+    $rootScope.getTableData();
 
 	});	

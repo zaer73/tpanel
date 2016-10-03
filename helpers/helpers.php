@@ -109,9 +109,9 @@ if (!function_exists('online_status')){
      * @return string
      */
     function online_status($user){
-        if(
-            $user->last_logout > $user->last_login 
-            || strtotime('now') > strtotime($user->last_login) + 2*3600
+        if(isset($user->last_logout) && 
+            ($user->last_logout > $user->last_login 
+            || strtotime('now') > strtotime($user->last_login) + 2*3600)
         ) return trans('offline');
         return trans('online');
     }

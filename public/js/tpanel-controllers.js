@@ -602,18 +602,18 @@ angular.module('inspinia')
 	});
 angular
 	.module('inspinia')
-	.controller('usersController', function($rootScope, $scope, $http, DTOptionsBuilder, $modal, SweetAlert, $filter){
+	.controller('usersController', function($rootScope, $scope, $http, DTOptionsBuilder, $modal, SweetAlert, $filter, DataTableService){
 
 		$scope.selectedRows = [];
 		$scope.selectedNumbers = [];
 
-		$http({
-			method: 'get',
-			url: 'users',
-			data: []
-		}).then(function(res){
-			$scope.users = res.data;
-		});
+		// $http({
+		// 	method: 'get',
+		// 	url: 'users',
+		// 	data: []
+		// }).then(function(res){
+		// 	$scope.users = res.data;
+		// });
 
 		$scope.enable = function(key, id){
 			SweetAlert.swal({
@@ -755,25 +755,56 @@ angular
 			});
     	});
 
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-	        .withDOM('<"html5buttons"B>lTfgitp')
-	        .withButtons([
-	            {extend: 'copy'},
-	            {extend: 'csv'},
-	            {extend: 'excel', title: 'ExampleFile'},
+		// $scope.dtOptions = DTOptionsBuilder.newOptions()
+	 //        .withDOM('<"html5buttons"B>lTfgitp')
+	 //        .withButtons([
+	 //            {extend: 'copy'},
+	 //            {extend: 'csv'},
+	 //            {extend: 'excel', title: 'ExampleFile'},
 	            
 
-	            {extend: 'print',
-	                customize: function (win){
-	                    $(win.document.body).addClass('white-bg');
-	                    $(win.document.body).css('font-size', '10px');
+	 //            {extend: 'print',
+	 //                customize: function (win){
+	 //                    $(win.document.body).addClass('white-bg');
+	 //                    $(win.document.body).css('font-size', '10px');
 
-	                    $(win.document.body).find('table')
-	                        .addClass('compact')
-	                        .css('font-size', 'inherit');
-	                }
-	            }
-	        ]);
+	 //                    $(win.document.body).find('table')
+	 //                        .addClass('compact')
+	 //                        .css('font-size', 'inherit');
+	 //                }
+	 //            }
+	 //        ]);
+	 
+	$scope.dataTableColumns = [{
+        data: 'username',
+        name: 'username'
+    }, {
+        data: 'name',
+        name: 'name'
+    }, {
+        data: 'mobile',
+        name: 'mobile'
+    }, {
+        data: 'plan',
+        name: 'plan'
+    }, {
+        data: 'parent_user',
+        name: 'parent_user'
+    }, {
+        data: 'last_login',
+        name: 'last_login'
+    }, {
+        data: 'actions',
+        name: 'actions'
+    }];
+
+ 	$rootScope.getTableData = function() {
+
+        $scope.dtOptions = DataTableService.build('/users', $scope.dataTableColumns, $scope);
+
+    }
+
+    $rootScope.getTableData();
 
 	});	
 angular
@@ -1211,23 +1242,6 @@ angular
 	});	
 angular
 	.module('inspinia')
-	.controller('customizationController', function($rootScope, $scope, $http){
-		
-		$rootScope.$watch('user.id', function(res){	
-			if(typeof res == 'undefined') return;
-			$scope.customizationURL = 'customization/'+$rootScope.user.id;
-
-			$http({
-				url: 'customization/' + $rootScope.user.id + '/edit',
-				method: 'get'
-			}).then(function(res){
-				$rootScope.info = res.data;
-			});
-		});
-
-	});	
-angular
-	.module('inspinia')
 	.controller('createContactController', function($rootScope, $scope, $http, $modal, SweetAlert, $filter){
 		
 		$scope.createContactURL = 'contacts/contact';
@@ -1290,21 +1304,21 @@ angular
 	});	
 angular
 	.module('inspinia')
-	.controller('contactGroupController', function($rootScope, $scope, $http, DTOptionsBuilder){
+	.controller('contactGroupController', function($rootScope, $scope, $http, DTOptionsBuilder, DataTableService){
 
 		$scope.selectedRows = [];
 
-		$scope.getGroups = function()
-		{
-			$http({
-				url: 'contacts/groups',
-				method: 'get'
-			}).then(function(res){
-				$scope.groups = res.data;
-				$scope.selectedRows = [];
-			});
-		}
-		$scope.getGroups();
+		// $scope.getGroups = function()
+		// {
+		// 	$http({
+		// 		url: 'contacts/groups',
+		// 		method: 'get'
+		// 	}).then(function(res){
+		// 		$scope.groups = res.data;
+		// 		$scope.selectedRows = [];
+		// 	});
+		// }
+		// $scope.getGroups();
 
 		$scope.delete = function(key, id){
 	    	$http({
@@ -1335,30 +1349,58 @@ angular
 			});
     	});
 
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
+		// $scope.dtOptions = DTOptionsBuilder.newOptions()
+		//     .withDOM('<"html5buttons"B>lTfgitp')
+		//     .withButtons([
+		//         {extend: 'copy'},
+		//         {extend: 'csv'},
+		//         {extend: 'excel', title: 'ExampleFile'},
 		        
 		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
+		//         {extend: 'print',
+		//             customize: function (win){
+		//                 $(win.document.body).addClass('white-bg');
+		//                 $(win.document.body).css('font-size', '10px');
 		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
+		//                 $(win.document.body).find('table')
+		//                     .addClass('compact')
+		//                     .css('font-size', 'inherit');
+		//             }
+		//         }
+		//     ]);
+		
+		$scope.dataTableColumns = [
+		{
+	        data: 'select_box',
+	        name: 'select_box',
+	        sortable: false
+	    },
+		{
+	        data: 'id',
+	        name: 'id'
+	    }, {
+	        data: 'title',
+	        name: 'title'
+	    }, {
+	        data: 'description',
+	        name: 'description'
+	    }, {
+	        data: 'actions',
+	        name: 'actions'
+	    }];
+
+	 	$rootScope.getTableData = function() {
+
+	        $scope.dtOptions = DataTableService.build('/contacts/groups', $scope.dataTableColumns, $scope);
+
+	    }
+
+	    $rootScope.getTableData();
 		
 	});	
 angular
 	.module('inspinia')
-	.controller('ContactController', function($rootScope, $scope, $http, $modal, DTOptionsBuilder, charactersFactory){
+	.controller('ContactController', function($rootScope, $scope, $http, $modal, DTOptionsBuilder, charactersFactory, DataTableService){
 
 		$rootScope.contactNumber = '';
 		$scope.messageCharacters = 0;
@@ -1372,18 +1414,18 @@ angular
 		$rootScope.sendGroupSMSURL =  'sms/send/to/group';
 		$scope.selectedRows = [];
 		
-		$scope.getContacts = function()
-		{
-			$http({
-				url: 'contacts/contact',
-				method: 'get'
-			}).then(function(res){
-				$scope.contacts = res.data;
-				$scope.selectedRows = [];
-			});
-		}
+		// $scope.getContacts = function()
+		// {
+		// 	$http({
+		// 		url: 'contacts/contact',
+		// 		method: 'get'
+		// 	}).then(function(res){
+		// 		$scope.contacts = res.data;
+		// 		$scope.selectedRows = [];
+		// 	});
+		// }
 
-		$scope.getContacts();
+		// $scope.getContacts();
 
 		$scope.delete = function(key, index, multi){
 			$http({
@@ -1426,25 +1468,59 @@ angular
             });
 	    }
 
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-        .withDOM('<"html5buttons"B>lTfgitp')
-        .withButtons([
-            {extend: 'copy'},
-            {extend: 'csv'},
-            {extend: 'excel', title: 'ExampleFile'},
+		// $scope.dtOptions = DTOptionsBuilder.newOptions()
+  //       .withDOM('<"html5buttons"B>lTfgitp')
+  //       .withButtons([
+  //           {extend: 'copy'},
+  //           {extend: 'csv'},
+  //           {extend: 'excel', title: 'ExampleFile'},
             
 
-            {extend: 'print',
-                customize: function (win){
-                    $(win.document.body).addClass('white-bg');
-                    $(win.document.body).css('font-size', '10px');
+  //           {extend: 'print',
+  //               customize: function (win){
+  //                   $(win.document.body).addClass('white-bg');
+  //                   $(win.document.body).css('font-size', '10px');
 
-                    $(win.document.body).find('table')
-                        .addClass('compact')
-                        .css('font-size', 'inherit');
-                }
-            }
-        ]);
+  //                   $(win.document.body).find('table')
+  //                       .addClass('compact')
+  //                       .css('font-size', 'inherit');
+  //               }
+  //           }
+  //       ]);
+  		
+  		$scope.dataTableColumns = [
+  		{
+	        data: 'select_box',
+	        name: 'select_box',
+	        sortable: false
+	    },
+  		{
+	        data: 'id',
+	        name: 'id'
+	    }, {
+	        data: 'group.title',
+	        name: 'group'
+	    }, {
+	        data: 'name',
+	        name: 'name'
+	    }, {
+	        data: 'number',
+	        name: 'number'
+	    }, {
+	        data: 'description',
+	        name: 'description'
+	    }, {
+	        data: 'actions',
+	        name: 'actions'
+	    }];
+
+	 	$rootScope.getTableData = function() {
+
+	        $scope.dtOptions = DataTableService.build('/contacts/contact', $scope.dataTableColumns, $scope);
+
+	    }
+
+	    $rootScope.getTableData();
 
         	jQuery('body').on('click', '#selectAllRows', function(){
         		jQuery('input[type=checkbox].selectRow').each(function(){
@@ -1456,21 +1532,21 @@ angular
 	});	
 angular
 	.module('inspinia')
-	.controller('trashContactController', function($rootScope, $scope, $http, DTOptionsBuilder){
+	.controller('trashContactController', function($rootScope, $scope, $http, DTOptionsBuilder, DataTableService){
 		
 		$scope.selectedRows = [];
 
-		$scope.getContacts = function()
-		{
-			$http({
-				method: 'get',
-				url: 'contacts/trash'
-			}).then(function(res){
-				$scope.contacts = res.data;
-				$scope.selectedRows = [];
-			});
-		}	
-		$scope.getContacts();
+		// $scope.getContacts = function()
+		// {
+		// 	$http({
+		// 		method: 'get',
+		// 		url: 'contacts/trash'
+		// 	}).then(function(res){
+		// 		$scope.contacts = res.data;
+		// 		$scope.selectedRows = [];
+		// 	});
+		// }	
+		// $scope.getContacts();
 
 		$scope.restore = function(key, index){
 			$http({
@@ -1511,25 +1587,73 @@ angular
     	});
 
 
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
+		// $scope.dtOptions = DTOptionsBuilder.newOptions()
+		//     .withDOM('<"html5buttons"B>lTfgitp')
+		//     .withButtons([
+		//         {extend: 'copy'},
+		//         {extend: 'csv'},
+		//         {extend: 'excel', title: 'ExampleFile'},
 		        
 		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
+		//         {extend: 'print',
+		//             customize: function (win){
+		//                 $(win.document.body).addClass('white-bg');
+		//                 $(win.document.body).css('font-size', '10px');
 		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
+		//                 $(win.document.body).find('table')
+		//                     .addClass('compact')
+		//                     .css('font-size', 'inherit');
+		//             }
+		//         }
+		//     ]);
+
+		$scope.dataTableColumns = [
+		{
+			data: 'select_box',
+			name: 'select_box',
+			sortable: false
+		},
+		{
+	        data: 'id',
+	        name: 'id'
+	    }, {
+	        data: 'name',
+	        name: 'name'
+	    }, {
+	        data: 'number',
+	        name: 'number'
+	    }, {
+	        data: 'description',
+	        name: 'description'
+	    }, {
+	        data: 'trash_actions',
+	        name: 'trash_actions'
+	    }];
+
+	 	$rootScope.getTableData = function() {
+
+	        $scope.dtOptions = DataTableService.build('/contacts/trash', $scope.dataTableColumns, $scope);
+
+	    }
+
+	    $rootScope.getTableData();
+	});	
+angular
+	.module('inspinia')
+	.controller('customizationController', function($rootScope, $scope, $http){
+		
+		$rootScope.$watch('user.id', function(res){	
+			if(typeof res == 'undefined') return;
+			$scope.customizationURL = 'customization/'+$rootScope.user.id;
+
+			$http({
+				url: 'customization/' + $rootScope.user.id + '/edit',
+				method: 'get'
+			}).then(function(res){
+				$rootScope.info = res.data;
+			});
+		});
+
 	});	
 angular
 	.module('inspinia')
@@ -1876,6 +2000,85 @@ angular
 	});	
 angular
 	.module('inspinia')
+	.controller('createFluentCreditController', function($rootScope, $scope, $http){
+		
+		$scope.createFluentCreditURL = 'fluent-credits';
+
+		$http({
+			url: 'fluent-credits/groups',
+			method: 'get'
+		}).then(function(res){
+			$scope.groups = res.data;
+		})
+
+	});	
+angular
+	.module('inspinia')
+	.controller('editFluentCreditController', function($rootScope, $scope, $http, $stateParams){
+
+		$scope.id = $stateParams.id;
+		
+		$scope.editFluentCreditURL = 'fluent-credits/'+$scope.id;
+
+		$http({
+			url: 'fluent-credits/'+$scope.id+'/edit',
+			method: 'get'
+		}).then(function(res){
+			$rootScope.info = res.data
+		});
+
+		$http({
+			url: 'fluent-credits/groups',
+			method: 'get'
+		}).then(function(res){
+			$scope.groups = res.data;
+		})
+
+	});	
+angular
+	.module('inspinia')
+	.controller('fluentCreditController', function($scope, $http, DTOptionsBuilder){
+
+		$scope.fluentCredits = [];
+		
+		$http({
+			url: 'fluent-credits',
+			method: 'get'
+		}).then(function(res){
+			$scope.fluentCredits = res.data;
+		});
+
+		$scope.delete = function(key, index){
+			$scope.fluentCredits.splice(key, 1);
+			$http({
+				url: 'fluent-credits/'+index,
+				method: 'delete'
+			});
+		}
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+
+	});	
+angular
+	.module('inspinia')
 	.controller('createLanguageController', function($rootScope, $scope, $http){
 		
 		$scope.createLanguageURL = 'languages';
@@ -1995,81 +2198,9 @@ angular
 	});	
 angular
 	.module('inspinia')
-	.controller('createFluentCreditController', function($rootScope, $scope, $http){
+	.controller('importLineController', function($scope){
 		
-		$scope.createFluentCreditURL = 'fluent-credits';
-
-		$http({
-			url: 'fluent-credits/groups',
-			method: 'get'
-		}).then(function(res){
-			$scope.groups = res.data;
-		})
-
-	});	
-angular
-	.module('inspinia')
-	.controller('editFluentCreditController', function($rootScope, $scope, $http, $stateParams){
-
-		$scope.id = $stateParams.id;
-		
-		$scope.editFluentCreditURL = 'fluent-credits/'+$scope.id;
-
-		$http({
-			url: 'fluent-credits/'+$scope.id+'/edit',
-			method: 'get'
-		}).then(function(res){
-			$rootScope.info = res.data
-		});
-
-		$http({
-			url: 'fluent-credits/groups',
-			method: 'get'
-		}).then(function(res){
-			$scope.groups = res.data;
-		})
-
-	});	
-angular
-	.module('inspinia')
-	.controller('fluentCreditController', function($scope, $http, DTOptionsBuilder){
-
-		$scope.fluentCredits = [];
-		
-		$http({
-			url: 'fluent-credits',
-			method: 'get'
-		}).then(function(res){
-			$scope.fluentCredits = res.data;
-		});
-
-		$scope.delete = function(key, index){
-			$scope.fluentCredits.splice(key, 1);
-			$http({
-				url: 'fluent-credits/'+index,
-				method: 'delete'
-			});
-		}
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
+		$scope.importLineURL = 'lines/import';
 
 	});	
 
@@ -2087,13 +2218,6 @@ angular
 
 		
 	});
-angular
-	.module('inspinia')
-	.controller('importLineController', function($scope){
-		
-		$scope.importLineURL = 'lines/import';
-
-	});	
 angular
 	.module('inspinia')
 	.controller('createModuleController', function($rootScope, $scope, $http){
@@ -2171,6 +2295,77 @@ angular
 		            }
 		        }
 		    ]);
+	});	
+angular
+	.module('inspinia')
+	.controller('createNewsController', function($rootScope, $scope, $http){
+		$scope.createNewsURL = 'news';
+	});	
+angular
+	.module('inspinia')
+	.controller('editNewsController', function($rootScope, $scope, $http, $stateParams){
+		
+		$scope.editNewsURL = 'news/'+$stateParams.news_id;
+		$http({
+			method: 'get',
+			url: 'news/'+$stateParams.news_id+'/edit'
+		}).then(function(res){
+			$rootScope.info = res.data;
+		});
+	});	
+angular
+	.module('inspinia')
+	.controller('showNewsController', function($rootScope, $scope, $http, DTOptionsBuilder){
+		$http({
+			method: 'get',
+			url: 'news'
+		}).then(function(res){
+			$scope.news = res.data;
+		});
+
+		$scope.changeStatus = function(key){
+			$scope.news[key].status = ($scope.news[key].status == 0) ? 1 : 0;
+			$http({
+				method: 'put',
+				url: 'news/'+$scope.news[key].id,
+				data: $scope.news[key]
+			});
+		}
+
+		$scope.delete = function(id){
+			$http({
+				method: 'delete',
+				url: 'news/'+id
+			}).then(function(){
+				$http({
+					method: 'get',
+					url: 'news'
+				}).then(function(res){
+					$scope.news = res.data;
+				});
+			});
+
+		}
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+	        .withDOM('<"html5buttons"B>lTfgitp')
+	        .withButtons([
+	            {extend: 'copy'},
+	            {extend: 'csv'},
+	            {extend: 'excel', title: 'ExampleFile'},
+	            
+
+	            {extend: 'print',
+	                customize: function (win){
+	                    $(win.document.body).addClass('white-bg');
+	                    $(win.document.body).css('font-size', '10px');
+
+	                    $(win.document.body).find('table')
+	                        .addClass('compact')
+	                        .css('font-size', 'inherit');
+	                }
+	            }
+	        ]);
 	});	
 angular
 	.module('inspinia')
@@ -2483,77 +2678,6 @@ angular
 	});	
 angular
 	.module('inspinia')
-	.controller('createNewsController', function($rootScope, $scope, $http){
-		$scope.createNewsURL = 'news';
-	});	
-angular
-	.module('inspinia')
-	.controller('editNewsController', function($rootScope, $scope, $http, $stateParams){
-		
-		$scope.editNewsURL = 'news/'+$stateParams.news_id;
-		$http({
-			method: 'get',
-			url: 'news/'+$stateParams.news_id+'/edit'
-		}).then(function(res){
-			$rootScope.info = res.data;
-		});
-	});	
-angular
-	.module('inspinia')
-	.controller('showNewsController', function($rootScope, $scope, $http, DTOptionsBuilder){
-		$http({
-			method: 'get',
-			url: 'news'
-		}).then(function(res){
-			$scope.news = res.data;
-		});
-
-		$scope.changeStatus = function(key){
-			$scope.news[key].status = ($scope.news[key].status == 0) ? 1 : 0;
-			$http({
-				method: 'put',
-				url: 'news/'+$scope.news[key].id,
-				data: $scope.news[key]
-			});
-		}
-
-		$scope.delete = function(id){
-			$http({
-				method: 'delete',
-				url: 'news/'+id
-			}).then(function(){
-				$http({
-					method: 'get',
-					url: 'news'
-				}).then(function(res){
-					$scope.news = res.data;
-				});
-			});
-
-		}
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-	        .withDOM('<"html5buttons"B>lTfgitp')
-	        .withButtons([
-	            {extend: 'copy'},
-	            {extend: 'csv'},
-	            {extend: 'excel', title: 'ExampleFile'},
-	            
-
-	            {extend: 'print',
-	                customize: function (win){
-	                    $(win.document.body).addClass('white-bg');
-	                    $(win.document.body).css('font-size', '10px');
-
-	                    $(win.document.body).find('table')
-	                        .addClass('compact')
-	                        .css('font-size', 'inherit');
-	                }
-	            }
-	        ]);
-	});	
-angular
-	.module('inspinia')
 	.controller('createPollController', function($rootScope, $scope, $http){
 		
 		$scope.createPollURL = 'polls';
@@ -2807,6 +2931,113 @@ angular
 		    ]);
 
 				    
+	});	
+angular
+	.module('inspinia')
+	.controller('createPreTextController', function($rootScope, $scope, $http){
+		
+		$scope.createPreTextURL = 'pre-texts';
+
+		$http({
+			url: 'pre-texts/api',
+			method: 'get',
+		}).then(function(res){
+			$scope.groups = res.data;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('editPreTextController', function($rootScope, $scope, $http, $stateParams){
+		
+		$scope.id = $stateParams.id;
+		$scope.editPreTextURL = 'pre-texts/'+$scope.id;
+
+		$http({
+			url: 'pre-texts/'+$scope.id+'/edit',
+			method: 'get',
+		}).then(function(res){
+			$rootScope.info = res.data;
+		});
+
+		$http({
+			url: 'pre-texts/api',
+			method: 'get',
+		}).then(function(res){
+			$scope.groups = res.data;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('preTextController', function($rootScope, $scope, $http, DTOptionsBuilder){
+		
+		$scope.selectedRows = [];
+			
+		$http({
+			url: 'pre-texts',
+			method: 'get'
+		}).then(function(res){
+			$scope.preTexts = res.data;
+		});
+
+		$scope.selectRow = function(key, id){
+	    	if($scope.selectedRows.indexOf(key) !== -1){
+	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
+	    		return;
+	    	}
+	    	$scope.selectedRows[id] = key;
+	    }
+
+	    $scope.removeSelected = function(){
+	    	for(selected in $scope.selectedRows){
+	    		$scope.delete($scope.selectedRows[selected], selected, true);
+	    	}
+	    	setTimeout(function(){
+	    		$scope.selectedRows = [];
+		    	$http({
+					url: 'pre-texts',
+					method: 'get'
+				}).then(function(res){
+					$scope.preTexts = res.data;
+				});
+	    	}, 500);
+	    }
+
+		jQuery('body').on('click', '#selectAllRows', function(){
+    		jQuery('input[type=checkbox].selectRow').each(function(){
+				jQuery(this).trigger('click');
+			});
+    	});
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+	        .withDOM('<"html5buttons"B>lTfgitp')
+	        .withButtons([
+	            {extend: 'copy'},
+	            {extend: 'csv'},
+	            {extend: 'excel', title: 'ExampleFile'},
+	            
+
+	            {extend: 'print',
+	                customize: function (win){
+	                    $(win.document.body).addClass('white-bg');
+	                    $(win.document.body).css('font-size', '10px');
+
+	                    $(win.document.body).find('table')
+	                        .addClass('compact')
+	                        .css('font-size', 'inherit');
+	                }
+	            }
+	        ]);
+
+	    $scope.delete = function(key, id){
+	    	$http({
+	    		url: 'pre-texts/' + id,
+	    		method: 'delete'
+	    	});
+	    	$scope.preTexts.splice(key, 1);
+	    }
+
 	});	
 angular
 	.module('inspinia')
@@ -3067,113 +3298,6 @@ angular
 		            }
 		        }
 		    ]);
-
-	});	
-angular
-	.module('inspinia')
-	.controller('createPreTextController', function($rootScope, $scope, $http){
-		
-		$scope.createPreTextURL = 'pre-texts';
-
-		$http({
-			url: 'pre-texts/api',
-			method: 'get',
-		}).then(function(res){
-			$scope.groups = res.data;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('editPreTextController', function($rootScope, $scope, $http, $stateParams){
-		
-		$scope.id = $stateParams.id;
-		$scope.editPreTextURL = 'pre-texts/'+$scope.id;
-
-		$http({
-			url: 'pre-texts/'+$scope.id+'/edit',
-			method: 'get',
-		}).then(function(res){
-			$rootScope.info = res.data;
-		});
-
-		$http({
-			url: 'pre-texts/api',
-			method: 'get',
-		}).then(function(res){
-			$scope.groups = res.data;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('preTextController', function($rootScope, $scope, $http, DTOptionsBuilder){
-		
-		$scope.selectedRows = [];
-			
-		$http({
-			url: 'pre-texts',
-			method: 'get'
-		}).then(function(res){
-			$scope.preTexts = res.data;
-		});
-
-		$scope.selectRow = function(key, id){
-	    	if($scope.selectedRows.indexOf(key) !== -1){
-	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
-	    		return;
-	    	}
-	    	$scope.selectedRows[id] = key;
-	    }
-
-	    $scope.removeSelected = function(){
-	    	for(selected in $scope.selectedRows){
-	    		$scope.delete($scope.selectedRows[selected], selected, true);
-	    	}
-	    	setTimeout(function(){
-	    		$scope.selectedRows = [];
-		    	$http({
-					url: 'pre-texts',
-					method: 'get'
-				}).then(function(res){
-					$scope.preTexts = res.data;
-				});
-	    	}, 500);
-	    }
-
-		jQuery('body').on('click', '#selectAllRows', function(){
-    		jQuery('input[type=checkbox].selectRow').each(function(){
-				jQuery(this).trigger('click');
-			});
-    	});
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-	        .withDOM('<"html5buttons"B>lTfgitp')
-	        .withButtons([
-	            {extend: 'copy'},
-	            {extend: 'csv'},
-	            {extend: 'excel', title: 'ExampleFile'},
-	            
-
-	            {extend: 'print',
-	                customize: function (win){
-	                    $(win.document.body).addClass('white-bg');
-	                    $(win.document.body).css('font-size', '10px');
-
-	                    $(win.document.body).find('table')
-	                        .addClass('compact')
-	                        .css('font-size', 'inherit');
-	                }
-	            }
-	        ]);
-
-	    $scope.delete = function(key, id){
-	    	$http({
-	    		url: 'pre-texts/' + id,
-	    		method: 'delete'
-	    	});
-	    	$scope.preTexts.splice(key, 1);
-	    }
 
 	});	
 angular
@@ -3483,11 +3607,6 @@ angular
 			$scope.smsFee = fee;
 		}
 
-	});	
-angular
-	.module('inspinia')
-	.controller('socketController', function($rootScope, $scope){
-		console.log('i');
 	});	
 angular
 	.module('inspinia')
@@ -3969,42 +4088,78 @@ angular
 	});
 angular
 	.module('inspinia')
-	.controller('receivedSMSController', function($rootScope, $scope, $http, $modal, DTOptionsBuilder){
+	.controller('receivedSMSController', function($rootScope, $scope, $http, $modal, DTOptionsBuilder, DataTableService){
 
 		$scope.selectedRows = [];
 
-		$scope.getMessages = function()
-		{
-			$http({
-				url: 'sms/report/received',
-				method: 'get'
-			}).then(function(res){
-				$scope.messages = res.data;
-				$scope.selectedRows = [];
-			});
-		}
+		// $scope.getMessages = function()
+		// {
+		// 	$http({
+		// 		url: 'sms/report/received',
+		// 		method: 'get'
+		// 	}).then(function(res){
+		// 		$scope.messages = res.data;
+		// 		$scope.selectedRows = [];
+		// 	});
+		// }
 
-		$scope.getMessages();
+		// $scope.getMessages();
 
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-	        .withDOM('<"html5buttons"B>lTfgitp')
-	        .withButtons([
-	            {extend: 'copy'},
-	            {extend: 'csv'},
-	            {extend: 'excel', title: 'ExampleFile'},
+		// $scope.dtOptions = DTOptionsBuilder.newOptions()
+	 //        .withDOM('<"html5buttons"B>lTfgitp')
+	 //        .withButtons([
+	 //            {extend: 'copy'},
+	 //            {extend: 'csv'},
+	 //            {extend: 'excel', title: 'ExampleFile'},
 	            
 
-	            {extend: 'print',
-	                customize: function (win){
-	                    $(win.document.body).addClass('white-bg');
-	                    $(win.document.body).css('font-size', '10px');
+	 //            {extend: 'print',
+	 //                customize: function (win){
+	 //                    $(win.document.body).addClass('white-bg');
+	 //                    $(win.document.body).css('font-size', '10px');
 
-	                    $(win.document.body).find('table')
-	                        .addClass('compact')
-	                        .css('font-size', 'inherit');
-	                }
-	            }
-	        ]);
+	 //                    $(win.document.body).find('table')
+	 //                        .addClass('compact')
+	 //                        .css('font-size', 'inherit');
+	 //                }
+	 //            }
+	 //        ]);
+	 	
+	 	$scope.dataTableColumns = [
+	 	{
+	        data: 'select_box',
+	        name: 'select_box',
+	        sortable: false
+	    }, {
+	        data: 'text',
+	        name: 'text'
+	    }, {
+	        data: 'created_at',
+	        name: 'created_at'
+	    }, {
+	        data: 'from',
+	        name: 'from'
+	    }, {
+	        data: 'to',
+	        name: 'to'
+	    }, {
+	        data: 'forward',
+	        name: 'forward'
+	    }, {
+	        data: 'reply',
+	        name: 'reply'
+	    }, {
+	        data: 'delete',
+	        name: 'delete'
+	    }];
+
+	 	$rootScope.getTableData = function() {
+
+	        $scope.dtOptions = DataTableService.build('/sms/report/received', $scope.dataTableColumns, $scope);
+
+	    }
+
+	    $rootScope.getTableData();
 
 	    $scope.forward = function(event, message){
 	    	$rootScope.messageToForward = message;
@@ -4081,22 +4236,22 @@ angular
 	});
 angular
 	.module('inspinia')
-	.controller('reportSMSController', function($rootScope, $scope, $http, DTOptionsBuilder, $modal, $state, $ocLazyLoad){
+	.controller('reportSMSController', function($rootScope, $scope, $http, DTOptionsBuilder, $modal, $state, $ocLazyLoad, DataTableService){
 		
 		$scope.messages = [];
 		$rootScope.groupMessages = [];
 		$scope.selectedRows = [];
 
-		$scope.getMessages = function(){
-			$http({
-				url: 'sms/report',
-				method: 'get'
-			}).then(function(res){
-				$scope.messages = res.data;
-				$scope.selectedRows = [];
-			});
-		}
-		$scope.getMessages();
+		// $scope.getMessages = function(){
+		// 	$http({
+		// 		url: 'sms/report',
+		// 		method: 'get'
+		// 	}).then(function(res){
+		// 		$scope.messages = res.data;
+		// 		$scope.selectedRows = [];
+		// 	});
+		// }
+		// $scope.getMessages();
 
 		$scope.resendProcessing = false;
 
@@ -4108,25 +4263,70 @@ angular
 			$scope.resendProcessing = true;
 		}
 
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-	        .withDOM('<"html5buttons"B>lTfgitp')
-	        .withButtons([
-	            {extend: 'copy'},
-	            {extend: 'csv'},
-	            {extend: 'excel', title: 'ExampleFile'},
+		// $scope.dtOptions = DTOptionsBuilder.newOptions()
+	 //        .withDOM('<"html5buttons"B>lTfgitp')
+	 //        .withButtons([
+	 //            {extend: 'copy'},
+	 //            {extend: 'csv'},
+	 //            {extend: 'excel', title: 'ExampleFile'},
 	            
 
-	            {extend: 'print',
-	                customize: function (win){
-	                    $(win.document.body).addClass('white-bg');
-	                    $(win.document.body).css('font-size', '10px');
+	 //            {extend: 'print',
+	 //                customize: function (win){
+	 //                    $(win.document.body).addClass('white-bg');
+	 //                    $(win.document.body).css('font-size', '10px');
 
-	                    $(win.document.body).find('table')
-	                        .addClass('compact')
-	                        .css('font-size', 'inherit');
-	                }
-	            }
-	        ]);
+	 //                    $(win.document.body).find('table')
+	 //                        .addClass('compact')
+	 //                        .css('font-size', 'inherit');
+	 //                }
+	 //            }
+	 //        ]);
+	 
+	 	$scope.dataTableColumns = [
+	 		{
+	 			data: 'selectBox',
+	 			name: 'selectBox',
+	 			sortable: false
+	 		},
+		 	{
+		        data: 'id',
+		        name: 'id'
+		    }, {
+		        data: 'text',
+		        name: 'text'
+		    }, {
+		        data: 'created_at',
+		        name: 'created_at'
+		    }, {
+		        data: 'sms_status',
+		        name: 'sms_status'
+		    }, {
+		        data: 'line.number',
+		        name: 'line',
+		        sortable: false
+		    }, {
+		        data: 'sms_type',
+		        name: 'sms_type'
+		    }, {
+		        data: 'numbers',
+		        name: 'numbers'
+		    }, {
+		        data: 'amount',
+		        name: 'amount'
+		    }, {
+		        data: 'actions',
+		        name: 'actions'
+		    }
+	    ];
+
+	 	$rootScope.getTableData = function() {
+
+	        $scope.dtOptions = DataTableService.build('/sms/report', $scope.dataTableColumns, $scope);
+
+	    }
+
+	    $rootScope.getTableData();
 
 	    $scope.delete = function(key, message_id){
 	    	$http({
@@ -4352,6 +4552,11 @@ angular
 	});
 angular
 	.module('inspinia')
+	.controller('socketController', function($rootScope, $scope){
+		console.log('i');
+	});	
+angular
+	.module('inspinia')
 	.controller('createSpecialsController', function($rootScope, $scope){
 		
 		$scope.createSpecialsURL = 'specials';
@@ -4407,213 +4612,6 @@ angular
 			});
 			$scope.specials[key].status = 0;
 		};
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-	});	
-angular
-	.module('inspinia')
-	.controller('lawyersController', function($scope, $http, DTOptionsBuilder){
-		
-		$http({
-			url: 'users/lawyer',
-			method: 'get'
-		}).then(function(res){
-			$scope.lawyers = res.data;
-		});
-
-		$scope.delete = function(key, index){
-			$http({
-				method: 'delete',
-				url: 'users/lawyer/'+index
-			});
-			$scope.lawyers.splice(key, 1);
-		};
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-
-	});	
-angular
-	.module('inspinia')
-	.controller('changeUserParentController', function($scope, $http, $rootScope, $stateParams){
-		
-		$scope.changeUserParentURL = 'api/users/change-parent';
-
-		$http({
-			url: 'api/users/available-to-parent/'+$stateParams.id,
-			method: 'get'
-		}).then(function(res){
-			$scope.parents = res.data.users;
-			$scope.currentUser = res.data.userInfo;
-		});
-
-		$scope.submitForm = function(){
-			$rootScope.info.target = $stateParams.id;
-		}
-
-	});	
-angular
-	.module('inspinia')
-	.controller('userReportController', function($scope, $http, DTOptionsBuilder){
-		
-		$http({
-			url: 'users/report',
-			method: 'get'
-		}).then(function(res){
-			$scope.logins = res.data;
-		});
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-
-	});	
-angular
-	.module('inspinia')
-	.controller('sendMessageToUserController', function($rootScope, $scope, charactersFactory){
-		
-		$scope.messageCharacters = 0;
-
-		$scope.sendSingleSMSURL = 'sms/send/to';
-		$scope.sendGroupSMSURL = 'sms/send/to/group';
-
-		$scope.calculateCharacters = function(text){
-			$scope.messageCharacters = (typeof text != 'undefined') ? text.length : 0;
-			$scope.messagePages = charactersFactory.calculate($rootScope.lineIdNumbers[$rootScope.info.line], $rootScope.info.text);
-		}
-
-	});	
-angular
-	.module('inspinia')
-	.controller('createTransferToEmailController', function($rootScope, $scope, $http){
-		
-		$scope.createTransferToEmailURL = 'transfer-to-email';
-
-		$http({
-			url: 'lines',
-			method: 'get'
-		}).then(function(res){
-			$scope.lines = res.data;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('editTransferToEmailController', function($rootScope, $scope, $http, $stateParams){
-		
-		$scope.id = $stateParams.id;
-
-		$scope.editTransferToEmailURL = 'transfer-to-email/'+$scope.id;
-
-		$http({
-			url: 'transfer-to-email/'+$scope.id+'/edit',
-			method: 'get'
-		}).then(function(res){
-			$rootScope.info = res.data.transfer;
-			$scope.lines = res.data.lines;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('transferToEmailController', function($rootScope, $scope, $http, DTOptionsBuilder){
-
-		$scope.selectedRows = [];
-		
-		$http({
-			url: 'transfer-to-email',
-			method: 'get'
-		}).then(function(res){
-			$scope.transfers = res.data;
-		});
-
-		$scope.delete = function(key, index){
-			$http({
-				method: 'delete',
-				url: 'transfer-to-email/'+index
-			});
-			$scope.transfers.splice(key, 1);
-		}
-
-		$scope.selectRow = function(key, id){
-	    	if($scope.selectedRows.indexOf(key) !== -1){
-	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
-	    		return;
-	    	}
-	    	$scope.selectedRows[id] = key;
-	    }
-
-	    jQuery('body').on('click', '#selectAllRows', function(){
-    		jQuery('input[type=checkbox].selectRow').each(function(){
-				jQuery(this).trigger('click');
-			});
-    	});
-
-	    $scope.removeSelected = function(){
-	    	for(selected in $scope.selectedRows){
-	    		$scope.delete($scope.selectedRows[selected], selected, true);
-	    	}
-	    	setTimeout(function(){
-	    		$scope.selectedRows = [];
-		    	$http({
-					url: 'sms/report',
-					method: 'get'
-				}).then(function(res){
-					$scope.messages = res.data;
-				});
-	    	}, 500);
-	    }
 
 		$scope.dtOptions = DTOptionsBuilder.newOptions()
 		    .withDOM('<"html5buttons"B>lTfgitp')
@@ -4777,6 +4775,213 @@ angular
 		            }
 		        }
 		    ]);
+	});	
+angular
+	.module('inspinia')
+	.controller('createTransferToEmailController', function($rootScope, $scope, $http){
+		
+		$scope.createTransferToEmailURL = 'transfer-to-email';
+
+		$http({
+			url: 'lines',
+			method: 'get'
+		}).then(function(res){
+			$scope.lines = res.data;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('editTransferToEmailController', function($rootScope, $scope, $http, $stateParams){
+		
+		$scope.id = $stateParams.id;
+
+		$scope.editTransferToEmailURL = 'transfer-to-email/'+$scope.id;
+
+		$http({
+			url: 'transfer-to-email/'+$scope.id+'/edit',
+			method: 'get'
+		}).then(function(res){
+			$rootScope.info = res.data.transfer;
+			$scope.lines = res.data.lines;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('transferToEmailController', function($rootScope, $scope, $http, DTOptionsBuilder){
+
+		$scope.selectedRows = [];
+		
+		$http({
+			url: 'transfer-to-email',
+			method: 'get'
+		}).then(function(res){
+			$scope.transfers = res.data;
+		});
+
+		$scope.delete = function(key, index){
+			$http({
+				method: 'delete',
+				url: 'transfer-to-email/'+index
+			});
+			$scope.transfers.splice(key, 1);
+		}
+
+		$scope.selectRow = function(key, id){
+	    	if($scope.selectedRows.indexOf(key) !== -1){
+	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
+	    		return;
+	    	}
+	    	$scope.selectedRows[id] = key;
+	    }
+
+	    jQuery('body').on('click', '#selectAllRows', function(){
+    		jQuery('input[type=checkbox].selectRow').each(function(){
+				jQuery(this).trigger('click');
+			});
+    	});
+
+	    $scope.removeSelected = function(){
+	    	for(selected in $scope.selectedRows){
+	    		$scope.delete($scope.selectedRows[selected], selected, true);
+	    	}
+	    	setTimeout(function(){
+	    		$scope.selectedRows = [];
+		    	$http({
+					url: 'sms/report',
+					method: 'get'
+				}).then(function(res){
+					$scope.messages = res.data;
+				});
+	    	}, 500);
+	    }
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+	});	
+angular
+	.module('inspinia')
+	.controller('lawyersController', function($scope, $http, DTOptionsBuilder){
+		
+		$http({
+			url: 'users/lawyer',
+			method: 'get'
+		}).then(function(res){
+			$scope.lawyers = res.data;
+		});
+
+		$scope.delete = function(key, index){
+			$http({
+				method: 'delete',
+				url: 'users/lawyer/'+index
+			});
+			$scope.lawyers.splice(key, 1);
+		};
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+
+	});	
+angular
+	.module('inspinia')
+	.controller('changeUserParentController', function($scope, $http, $rootScope, $stateParams){
+		
+		$scope.changeUserParentURL = 'api/users/change-parent';
+
+		$http({
+			url: 'api/users/available-to-parent/'+$stateParams.id,
+			method: 'get'
+		}).then(function(res){
+			$scope.parents = res.data.users;
+			$scope.currentUser = res.data.userInfo;
+		});
+
+		$scope.submitForm = function(){
+			$rootScope.info.target = $stateParams.id;
+		}
+
+	});	
+angular
+	.module('inspinia')
+	.controller('userReportController', function($scope, $http, DTOptionsBuilder){
+		
+		$http({
+			url: 'users/report',
+			method: 'get'
+		}).then(function(res){
+			$scope.logins = res.data;
+		});
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+
+	});	
+angular
+	.module('inspinia')
+	.controller('sendMessageToUserController', function($rootScope, $scope, charactersFactory){
+		
+		$scope.messageCharacters = 0;
+
+		$scope.sendSingleSMSURL = 'sms/send/to';
+		$scope.sendGroupSMSURL = 'sms/send/to/group';
+
+		$scope.calculateCharacters = function(text){
+			$scope.messageCharacters = (typeof text != 'undefined') ? text.length : 0;
+			$scope.messagePages = charactersFactory.calculate($rootScope.lineIdNumbers[$rootScope.info.line], $rootScope.info.text);
+		}
+
 	});	
 angular
 	.module('inspinia')

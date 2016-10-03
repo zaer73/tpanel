@@ -5,9 +5,13 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Query\Builder as Builder;
 use Auth;
+use App\Toolbox\DataTable;
 
 class User extends Authenticatable
 {
+
+    use DataTable;
+
     /**
      * The attributes that are mass assignable.
      *

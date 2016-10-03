@@ -80,6 +80,7 @@
 <script src="{{ asset('js/translations.js') }}"></script>
 <script src="{{ asset('js/directives.js') }}"></script>
 <script src="{{ asset('js/tpanel-directives.js') }}"></script>
+<script src="{{ asset('js/tpanel-services.js') }}"></script>
 <script src="{{ asset('js/factories.js') }}"></script>
 <script src="{{ asset('js/controllers.js') }}"></script>
 <script src="{{ asset('js/tpanel-controllers.js') }}"></script>

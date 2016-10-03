@@ -19,13 +19,9 @@
         <div class="ibox float-e-margins">
 
             <div class="ibox-content">
-                <table datatable="ng" dt-options="dtOptions"  class="table table-striped table-bordered table-hover dataTables-example">
+                <table class="DataTable table-striped table-bordered table-hover dataTables-example" style="width: 100%">
                     <thead>
                     <tr>
-                        <th>
-                            <input type="checkbox" id="selectAllRows">
-                        </th>
-                        <th>ID</th>
                         <th>{{ 'USERNAME' | translate }}</th>
                         <th>{{ 'NAME' | translate }}</th>
                         <th>{{ 'MOBILE' | translate }}</th>
@@ -35,65 +31,7 @@
                         <th>{{ 'ACTIONS' | translate }}</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr ng-repeat="(key, userShow) in users" ng-style="{'background-color': selectedRows.indexOf(key) != -1 ? '#F9F8CC' : ''}">
-                        <td>
-                            <input type="checkbox" class="selectRow" ng-click="selectRow(key, userShow.id, userShow.mobile)" ng-checked="selectedRows.indexOf(key) != -1">
-                        </td>
-                        <td>{{ userShow.id }}</td>
-                        <td>{{ userShow.username }}</td>
-                        <td>{{ userShow.name }}</td>
-                        <td>{{ userShow.mobile }}</td>
-                        <td>{{ userShow.plan.expires_at }}</td>
-                        <td>{{ userShow.parent_user.username }}</td>
-                        <td>{{ userShow.online_status }}</td>
-                        <td>
-                            <a ng-if="user.role == 'admin' || user.role == 'agent'" title="{{ 'LINES' | translate }}" ui-sref="app.users.credit({id: userShow.id})">
-                                <i class="fa fa-money"></i>
-                            </a>
-                            <a ng-if="user.role == 'admin' || user.role == 'agent'" title="{{ 'LINES' | translate }}" ui-sref="app.admin.lines.user_show({id: userShow.id})">
-                                <i class="fa fa-list"></i>
-                            </a>
-                            <a ng-if="user.role == 'admin' || user.role == 'agent'" title="{{ 'PROFILE' | translate }}" ui-sref="app.users.user_profile({id: userShow.id})">
-                                <i class="fa fa-pencil"></i>
-                            </a>
-                            <a ng-if="user.role == 'admin' || user.role == 'agent'" title="{{ 'PARENT' | translate }}" ui-sref="app.users.parent({id: userShow.id})">
-                                <i class="fa fa-exchange"></i>
-                            </a>
-                            <a ng-if="user.role == 'admin'" href="/admin/loginToUser/{{ userShow.id }}" title="{{ 'LOGIN' | translate }}">
-                                <i class="fa fa-key"></i>
-                            </a>
-                            <a href="" ng-click="sendMessage(key, userShow.mobile)">
-                                <i class="fa fa-paper-plane"></i>
-                            </a>
-                            <a ui-sref="app.admin.permissions.user.edit({user_id:userShow.id})">
-                                <i class="fa fa-lock"></i>
-                            </a>
-                            <a ng-click="enable(key, userShow.id)" ng-if="userShow.status == -1">
-                                <i class="fa fa-check"></i>
-                            </a>
-                            <a ng-click="disable(key, userShow.id)" ng-if="userShow.status == 0">
-                                <i class="fa fa-remove"></i>
-                            </a>
-                            <a ng-click="makeAgent(key, userShow.id)" ng-if="userShow.role == 0">
-                                <i class="fa fa-user"></i>
-                            </a>
-                            <a ng-click="makeUser(key, userShow.id)" ng-if="userShow.role == 1">
-                                <i class="fa fa-suitcase"></i>
-                            </a>
-                            <a ng-click="trash(key, userShow.id)">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    </tbody>
-                    <tbody>
-                        <tr ng-show="selectedRows.length">
-                        <td colspan="9">
-                            <button ng-click="sendGroup()" class="btn btn-primary">{{ 'SEND_SMS' | translate }}</button>
-                        </td>
-                    </tr>
-                    </tbody>
+                    
                 </table>
             </div>
         </div>

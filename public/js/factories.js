@@ -125,7 +125,7 @@ angular
 				}
 				$rootScope.user = res.data;
 				$rootScope.userTotalCredit = res.data.credit;
-				var socket = io('158.58.185.50');
+				var socket = io('192.168.33.21:8890');
 				socket.on('notification_'+res.data.id, function(data){
 					$rootScope.$broadcast('notification', data);
 				    // notify({ message: 'Info - This is a Inspinia info notification', classes: 'alert-info', templateUrl: 'views/common/notify.html'});

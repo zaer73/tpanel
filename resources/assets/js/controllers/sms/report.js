@@ -1,21 +1,21 @@
 angular
 	.module('inspinia')
-	.controller('reportSMSController', function($rootScope, $scope, $http, DTOptionsBuilder, $modal, $state, $ocLazyLoad){
+	.controller('reportSMSController', function($rootScope, $scope, $http, DTOptionsBuilder, $modal, $state, $ocLazyLoad, DataTableService){
 		
 		$scope.messages = [];
 		$rootScope.groupMessages = [];
 		$scope.selectedRows = [];
 
-		$scope.getMessages = function(){
-			$http({
-				url: 'sms/report',
-				method: 'get'
-			}).then(function(res){
-				$scope.messages = res.data;
-				$scope.selectedRows = [];
-			});
-		}
-		$scope.getMessages();
+		// $scope.getMessages = function(){
+		// 	$http({
+		// 		url: 'sms/report',
+		// 		method: 'get'
+		// 	}).then(function(res){
+		// 		$scope.messages = res.data;
+		// 		$scope.selectedRows = [];
+		// 	});
+		// }
+		// $scope.getMessages();
 
 		$scope.resendProcessing = false;
 
@@ -27,25 +27,70 @@ angular
 			$scope.resendProcessing = true;
 		}
 
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-	        .withDOM('<"html5buttons"B>lTfgitp')
-	        .withButtons([
-	            {extend: 'copy'},
-	            {extend: 'csv'},
-	            {extend: 'excel', title: 'ExampleFile'},
+		// $scope.dtOptions = DTOptionsBuilder.newOptions()
+	 //        .withDOM('<"html5buttons"B>lTfgitp')
+	 //        .withButtons([
+	 //            {extend: 'copy'},
+	 //            {extend: 'csv'},
+	 //            {extend: 'excel', title: 'ExampleFile'},
 	            
 
-	            {extend: 'print',
-	                customize: function (win){
-	                    $(win.document.body).addClass('white-bg');
-	                    $(win.document.body).css('font-size', '10px');
+	 //            {extend: 'print',
+	 //                customize: function (win){
+	 //                    $(win.document.body).addClass('white-bg');
+	 //                    $(win.document.body).css('font-size', '10px');
 
-	                    $(win.document.body).find('table')
-	                        .addClass('compact')
-	                        .css('font-size', 'inherit');
-	                }
-	            }
-	        ]);
+	 //                    $(win.document.body).find('table')
+	 //                        .addClass('compact')
+	 //                        .css('font-size', 'inherit');
+	 //                }
+	 //            }
+	 //        ]);
+	 
+	 	$scope.dataTableColumns = [
+	 		{
+	 			data: 'selectBox',
+	 			name: 'selectBox',
+	 			sortable: false
+	 		},
+		 	{
+		        data: 'id',
+		        name: 'id'
+		    }, {
+		        data: 'text',
+		        name: 'text'
+		    }, {
+		        data: 'created_at',
+		        name: 'created_at'
+		    }, {
+		        data: 'sms_status',
+		        name: 'sms_status'
+		    }, {
+		        data: 'line.number',
+		        name: 'line',
+		        sortable: false
+		    }, {
+		        data: 'sms_type',
+		        name: 'sms_type'
+		    }, {
+		        data: 'numbers',
+		        name: 'numbers'
+		    }, {
+		        data: 'amount',
+		        name: 'amount'
+		    }, {
+		        data: 'actions',
+		        name: 'actions'
+		    }
+	    ];
+
+	 	$rootScope.getTableData = function() {
+
+	        $scope.dtOptions = DataTableService.build('/sms/report', $scope.dataTableColumns, $scope);
+
+	    }
+
+	    $rootScope.getTableData();
 
 	    $scope.delete = function(key, message_id){
 	    	$http({

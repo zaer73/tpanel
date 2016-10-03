@@ -1,0 +1,26 @@
+<tbody>
+                    <tr ng-repeat="(key,contact) in contacts" ng-style="{'background-color': selectedRows.indexOf(key) != -1 ? '#F9F8CC' : ''}">
+                        <td>
+                            <input type="checkbox" class="selectRow" ng-click="selectRow(key, contact.id)" ng-checked="selectedRows.indexOf(key) != -1">
+                        </td>
+                        <td>{{ contact.id }}</td>
+                        <td>{{ contact.name }}</td>
+                        <td>{{ contact.number }}</td>
+                        <td>{{ contact.description }}</td>
+                        <td>
+                            <a href="" ng-click="restore(key, contact.id)">
+                                <i class="fa fa-recycle"></i>
+                            </a>
+                            <a href="" ng-click="explode(key,contact.id)">
+                                <i class="fa fa-remove"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                        <tr ng-show="selectedRows.length">
+                        <td colspan="9">
+                            <button ng-click="removeSelected()" class="btn btn-danger">{{ 'REMOVE_SELECTED' | translate }}</button>
+                        </td>
+                    </tr>
+                    </tbody>
