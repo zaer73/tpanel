@@ -55,6 +55,10 @@ class DashboardController extends Controller
     	if($this->role == 'admin'){
     		return \App\User::select('id')->count('id');
     	}
+
+        if($this->role == 'agent'){
+            return \App\User::select('id')->whereParent(auth()->id())->count('id');
+        }
     }
 
     protected function messages_chart(){

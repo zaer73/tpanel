@@ -66,7 +66,8 @@ class LineController extends Controller
         if(isAgent($user)){
             $lines = Line::whereAgentId($user->id);
             if($type == 'sms'){
-                $lines = $lines->where('user_id', 0);
+                $lines = $lines->where('user_id', 0)
+                                ->orWhereDate('user_expires_at', '>', 'NOW()');
             }
             $lines = $lines
                 ->with(['user', 'agent'])

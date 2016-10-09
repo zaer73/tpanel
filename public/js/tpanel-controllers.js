@@ -785,10 +785,10 @@ angular
         data: 'mobile',
         name: 'mobile'
     }, {
-        data: 'plan',
+        data: 'plan.expires_at',
         name: 'plan'
     }, {
-        data: 'parent_user',
+        data: 'parent_user.username',
         name: 'parent_user'
     }, {
         data: 'last_login',
@@ -799,6 +799,8 @@ angular
     }];
 
  	$rootScope.getTableData = function() {
+
+ 		console.log('sda');
 
         $scope.dtOptions = DataTableService.build('/users', $scope.dataTableColumns, $scope);
 
@@ -1647,23 +1649,6 @@ angular
 	});	
 angular
 	.module('inspinia')
-	.controller('customizationController', function($rootScope, $scope, $http){
-		
-		$rootScope.$watch('user.id', function(res){	
-			if(typeof res == 'undefined') return;
-			$scope.customizationURL = 'customization/'+$rootScope.user.id;
-
-			$http({
-				url: 'customization/' + $rootScope.user.id + '/edit',
-				method: 'get'
-			}).then(function(res){
-				$rootScope.info = res.data;
-			});
-		});
-
-	});	
-angular
-	.module('inspinia')
 	.controller('dashboardController', function($rootScope, $scope, $http){
 
 		$rootScope.info = [];
@@ -1828,6 +1813,211 @@ angular
 	});	
 angular
 	.module('inspinia')
+	.controller('customizationController', function($rootScope, $scope, $http){
+		
+		$rootScope.$watch('user.id', function(res){	
+			if(typeof res == 'undefined') return;
+			$scope.customizationURL = 'customization/'+$rootScope.user.id;
+
+			$http({
+				url: 'customization/' + $rootScope.user.id + '/edit',
+				method: 'get'
+			}).then(function(res){
+				$rootScope.info = res.data;
+			});
+		});
+
+	});	
+
+
+
+angular
+	.module('inspinia')
+	.controller('ourServicesController', function($rootScope, $scope, $http){
+
+		$scope.ourServices = '';
+
+		$http({
+			url: 'customization/our-services',
+			method: 'get'
+		}).then(function(res){
+			$scope.ourServices = res.data;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('financialReportController', function($rootScope, $scope, $http, DTOptionsBuilder, DataTableService){
+		
+		$scope.transactions = [];
+
+		// $http({
+		// 	url: 'financial/report',
+		// 	method: 'get'
+		// }).then(function(res){
+		// 	$scope.transactions = res.data;
+		// });
+
+		// $scope.dtOptions = DTOptionsBuilder.newOptions()
+		//     .withDOM('<"html5buttons"B>lTfgitp')
+		//     .withButtons([
+		//         {extend: 'copy'},
+		//         {extend: 'csv'},
+		//         {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		//         {extend: 'print',
+		//             customize: function (win){
+		//                 $(win.document.body).addClass('white-bg');
+		//                 $(win.document.body).css('font-size', '10px');
+		
+		//                 $(win.document.body).find('table')
+		//                     .addClass('compact')
+		//                     .css('font-size', 'inherit');
+		//             }
+		//         }
+		//     ]);
+		$scope.dataTableColumns = [
+  		// {
+	   //      data: 'select_box',
+	   //      name: 'select_box',
+	   //      sortable: false
+	   //  },
+  		{
+	        data: 'id',
+	        name: 'id'
+	    }, {
+	        data: 'group.title',
+	        name: 'group'
+	    }, {
+	        data: 'name',
+	        name: 'name'
+	    }, {
+	        data: 'number',
+	        name: 'number'
+	    }, {
+	        data: 'description',
+	        name: 'description'
+	    }, {
+	        data: 'actions',
+	        name: 'actions'
+	    }];
+
+	 	$rootScope.getTableData = function() {
+
+	        $scope.dtOptions = DataTableService.build('/financial/report', $scope.dataTableColumns, $scope);
+
+	    }
+
+	    $rootScope.getTableData();
+
+	});	
+
+angular
+	.module('inspinia')
+	.controller('submittedBillsController', function($rootScope, $scope, $http, DTOptionsBuilder){
+
+		$http({
+			url: '/financial/bill/report',
+			method: 'get'
+		}).then(function(res){
+			$scope.bills = res.data;
+		});
+		
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+	});	
+angular
+	.module('inspinia')
+	.controller('transactionsController', function($rootScope, $scope, $http, DTOptionsBuilder, DataTableService){
+			
+		$scope.transactions = [];
+
+		// $http({
+		// 	url: 'financial/transactions',
+		// 	method: 'get'
+		// }).then(function(res){
+		// 	$scope.transactions = res.data;
+		// });
+
+		// $scope.dtOptions = DTOptionsBuilder.newOptions()
+		//     .withDOM('<"html5buttons"B>lTfgitp')
+		//     .withButtons([
+		//         {extend: 'copy'},
+		//         {extend: 'csv'},
+		//         {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		//         {extend: 'print',
+		//             customize: function (win){
+		//                 $(win.document.body).addClass('white-bg');
+		//                 $(win.document.body).css('font-size', '10px');
+		
+		//                 $(win.document.body).find('table')
+		//                     .addClass('compact')
+		//                     .css('font-size', 'inherit');
+		//             }
+		//         }
+		//     ]);
+		//     
+		$scope.dataTableColumns = [
+  		// {
+	   //      data: 'select_box',
+	   //      name: 'select_box',
+	   //      sortable: false
+	   //  },
+  		{
+	        data: 'code',
+	        name: 'code',
+	        sortable: false
+	    }, {
+	        data: 'value',
+	        name: 'value'
+	    }, {
+	        data: 'type_title',
+	        name: 'type_title'
+	    }, {
+	        data: 'date',
+	        name: 'date'
+	    }, {
+	        data: 'last_credit',
+	        name: 'last_credit'
+	    }, {
+	        data: 'invoices_connections.payment.RefId',
+	        name: 'RefId'
+	    }, {
+	        data: 'description',
+	        name: 'description'
+	    }];
+
+	 	$rootScope.getTableData = function() {
+
+	        $scope.dtOptions = DataTableService.build('/financial/transactions', $scope.dataTableColumns, $scope);
+
+	    }
+
+	    $rootScope.getTableData();
+
+	});	
+angular
+	.module('inspinia')
 	.controller('createFilteringsController', function($rootScope, $scope){
 		
 		$scope.createFilteringsURL = 'filterings';
@@ -1887,123 +2077,6 @@ angular
 		            }
 		        }
 		    ]);
-	});	
-
-
-
-angular
-	.module('inspinia')
-	.controller('ourServicesController', function($rootScope, $scope, $http){
-
-		$scope.ourServices = '';
-
-		$http({
-			url: 'customization/our-services',
-			method: 'get'
-		}).then(function(res){
-			$scope.ourServices = res.data;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('financialReportController', function($rootScope, $scope, $http, DTOptionsBuilder){
-		
-		$scope.transactions = [];
-
-		$http({
-			url: 'financial/report',
-			method: 'get'
-		}).then(function(res){
-			$scope.transactions = res.data;
-		});
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-
-	});	
-
-angular
-	.module('inspinia')
-	.controller('submittedBillsController', function($rootScope, $scope, $http, DTOptionsBuilder){
-
-		$http({
-			url: '/financial/bill/report',
-			method: 'get'
-		}).then(function(res){
-			$scope.bills = res.data;
-		});
-		
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-	});	
-angular
-	.module('inspinia')
-	.controller('transactionsController', function($rootScope, $scope, $http, DTOptionsBuilder){
-			
-		$scope.transactions = [];
-
-		$http({
-			url: 'financial/transactions',
-			method: 'get'
-		}).then(function(res){
-			$scope.transactions = res.data;
-		});
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-
 	});	
 angular
 	.module('inspinia')
@@ -2082,6 +2155,28 @@ angular
 		            }
 		        }
 		    ]);
+
+	});	
+
+angular
+	.module('inspinia')
+	.controller('marketingCodeController', function($rootScope, $scope, $http){
+		$http({
+			url: 'marketing-codes',
+			method: 'get'
+		}).then(function(res){
+			$scope.marketingCode = res.data;
+			$rootScope.info = res.data;
+			$scope.createMarketingPolicyURL = 'marketing-codes/'+$rootScope.user.id;
+		});
+
+		
+	});
+angular
+	.module('inspinia')
+	.controller('importLineController', function($scope){
+		
+		$scope.importLineURL = 'lines/import';
 
 	});	
 angular
@@ -2203,28 +2298,6 @@ angular
 		        }
 		    ]);
 	});	
-angular
-	.module('inspinia')
-	.controller('importLineController', function($scope){
-		
-		$scope.importLineURL = 'lines/import';
-
-	});	
-
-angular
-	.module('inspinia')
-	.controller('marketingCodeController', function($rootScope, $scope, $http){
-		$http({
-			url: 'marketing-codes',
-			method: 'get'
-		}).then(function(res){
-			$scope.marketingCode = res.data;
-			$rootScope.info = res.data;
-			$scope.createMarketingPolicyURL = 'marketing-codes/'+$rootScope.user.id;
-		});
-
-		
-	});
 angular
 	.module('inspinia')
 	.controller('createModuleController', function($rootScope, $scope, $http){
@@ -3143,121 +3216,6 @@ angular
 	});	
 angular
 	.module('inspinia')
-	.controller('smsReceiversEditController', function($rootScope, $scope, $http, $stateParams){
-
-		$scope.editReceiveSettingURL = 'receive-sms/'+$stateParams.id;
-
-		$http({
-			url: 'receive-sms/'+$stateParams.id,
-			method: 'get'
-		}).then(function(res){
-			$rootScope.info = res.data;
-		});
-
-	});
-angular
-	.module('inspinia')
-	.controller('smsReceiversController', function($rootScope, $scope, $http, DTOptionsBuilder){
-		
-		$scope.selectedRows = [];
-
-		$scope.lines = $scope.editURL = $scope.editNumber = [];
-		$scope.editURLID = '';
-		$scope.editNumberID = '';
-
-		$http({
-			url: 'receive-sms',
-			method: 'get'
-		}).then(function(res){
-			$scope.lines = res.data;
-		});
-
-		$scope.editRow = function(key, index){
-			$scope.editURLID = index;
-			$scope.editNumberID = index;
-		}
-
-		$scope.delete = function(id){
-			$http({
-				url: 'receive-sms/'+id,
-				method: 'delete'
-			}).then(function(){
-				$http({
-					url: 'receive-sms',
-					method: 'get'
-				}).then(function(res){
-					$scope.lines = res.data;
-				});
-			});
-		}
-
-		$scope.saveEditURL = function(line){
-			$scope.editURL[line.id] = $scope.editURL[line.id]+'?from=FROM&to=TO&text=TEXT';
-			$http({
-				url: 'receive-sms/'+$scope.editURLID,
-				method: 'put',
-				data: {
-					url: $scope.editURL[line.id],
-					receiver_number: $scope.editNumber[line.id]
-				}
-			});
-			line.receivers.redirect_url = $scope.editURL[line.id];
-			$scope.editURLID = '';
-			$scope.editNumberID = '';
-			// $scope.editURL[line.id] = '';
-		}
-
-		$scope.selectRow = function(key, id){
-	    	if($scope.selectedRows.indexOf(key) !== -1){
-	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
-	    		return;
-	    	}
-	    	$scope.selectedRows[id] = key;
-	    }
-
-	    $scope.removeSelected = function(){
-	    	for(selected in $scope.selectedRows){
-	    		$scope.delete($scope.selectedRows[selected], selected, true);
-	    	}
-	    	setTimeout(function(){
-	    		$scope.selectedRows = [];
-		    	$http({
-					url: 'receive-sms',
-					method: 'get'
-				}).then(function(res){
-					$scope.lines = res.data;
-				});
-	    	}, 500);
-	    }
-
-	    jQuery('body').on('click', '#selectAllRows', function(){
-    		jQuery('input[type=checkbox].selectRow').each(function(){
-				jQuery(this).trigger('click');
-			});
-    	});
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-	});	
-angular
-	.module('inspinia')
 	.controller('sendFromMobileCreateController', function($scope){
 		
 		$scope.createSendFromMobileURL = 'send-from-mobile';
@@ -3305,314 +3263,6 @@ angular
 		            }
 		        }
 		    ]);
-
-	});	
-angular
-	.module('inspinia')
-	.controller('checkoutController', function($rootScope, $scope, $http){
-
-		$scope.selectedGate = '';
-		$scope.movingInProgress = false;
-		$scope.movingURL = 'financial/checkout/moving-to-gateway';
-		
-		$http({
-			url: 'financial/checkout/gateways',
-			method: 'get'
-		}).then(function(res){
-			$scope.gateways = res.data;
-		});
-
-		$scope.gatewaySelected = function(gateway){
-			$scope.selectedGate = gateway;
-			var id = 'gateway-'+gateway;
-			jQuery('#'+id).trigger('submit');
-		}
-
-		// $scope.goToGateway = function(){
-		// 	$scope.movingInProgress = true;
-		// 	$http({
-		// 		url: 'financial/checkout/moving-to-gateway',
-		// 		method: 'post',
-		// 		data: {
-		// 			gateway: $scope.selectedGate,
-		// 		}
-		// 	}).then(function(res){
-		// 		window.location.href = res.data.url;
-		// 	});
-		// }
-
-	});	
-angular
-	.module('inspinia')
-	.controller('invoiceController', function($rootScope, $scope, $http){
-		
-		$http({
-			url: 'financial/invoice',
-			mehtod: 'get'
-		}).then(function(res){
-			$scope.invoice = res.data;
-		});
-
-		$scope.delete = function(key, index){
-			$http({
-				url: 'shop/modules/remove-from-invoice/'+index,
-				method: 'delete'
-			});
-			$http({
-				url: 'financial/invoice',
-				mehtod: 'get'
-			}).then(function(res){
-				$scope.invoice = res.data;
-			});
-		}
-
-		$scope.checkout = function(){
-			$http({
-				url: 'financial/invoice/offline-checkout',
-				method: 'post'
-			}).then(function(res){
-				$scope.shopping_result = res.data;
-				if(res.data.result == 'success'){
-					$http({
-						url: 'financial/invoice',
-						mehtod: 'get'
-					}).then(function(res){
-						$scope.invoice = res.data;
-					});
-				}
-			});
-		}
-
-	});	
-angular
-	.module('inspinia')
-	.controller('lineExtensionController', function($rootScope, $scope, $http, DTOptionsBuilder, SweetAlert, $filter){
-
-		$scope.addedLines = [];
-		
-		$http({
-			url: 'shop/lines/extension/list',
-			method: 'get'
-		}).then(function(res){
-			$scope.lines = res.data;
-		});
-
-		$scope.buy = function(key, line){
-			$scope.addedLines.push(key);
-			SweetAlert.swal({ 
-				title: '',
-				text: $filter('translate')('LINE_ADDED_TO_SHOPPING_INVOICE')
-			});
-			$http({
-				url: 'shop/lines/add-to-invoice',
-				method: 'post',
-				data: {
-					line_id: line.id
-				}
-			})
-		}
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-	});	
-angular
-	.module('inspinia')
-	.controller('shopLinesController', function($rootScope, $scope, $http, DTOptionsBuilder, SweetAlert, $filter){
-
-		$scope.addedLines = [];
-		
-		$http({
-			url: 'shop/lines/list',
-			method: 'get'
-		}).then(function(res){
-			$scope.lines = res.data;
-		});
-
-		$scope.buy = function(key, line){
-			$scope.addedLines.push(key);
-			SweetAlert.swal({ 
-				title: '',
-				text: $filter('translate')('LINE_ADDED_TO_SHOPPING_INVOICE')
-			});
-			$http({
-				url: 'shop/lines/add-to-invoice',
-				method: 'post',
-				data: {
-					line_id: line.id
-				}
-			})
-		}
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-
-	});	
-angular
-	.module('inspinia')
-	.controller('shopModulesController', function($rootScope, $scope, $http, DTOptionsBuilder, notify, $filter){
-
-		$scope.addedModules = [];
-		
-		$http({
-			url: 'shop/modules/list',
-			method: 'get'
-		}).then(function(res){
-			$scope.modules = res.data;
-		});
-
-		$scope.buy = function(key, index){
-			$scope.addedModules.push(key);
-			notify({ message: $filter('translate')('MODULE_ADDED_TO_SHOPPING_INVOICE'), classes: 'alert-info', templateUrl: 'views/common/notify.html'});
-			$http({
-				url: 'shop/modules/add-to-invoice',
-				method: 'post',
-				data: {
-					module_id: index
-				}
-			});
-		}
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-	});	
-angular
-	.module('inspinia')
-	.controller('shopSpecialsController', function($rootScope, $scope, $http, DTOptionsBuilder){
-		
-		$http({
-			url: 'shop/specials/list', 
-			method: 'get'
-		}).then(function(res){
-			$scope.specials = res.data;
-		});	
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-	});	
-angular
-	.module('inspinia')
-	.controller('upgradeCreditController', function($rootScope, $scope, $http, $state, SweetAlert){
-		
-		$scope.upgradeByCodeURL = 'shop/charge/upgrade/code';
-		$scope.fluentCredits = [];
-
-		$http({
-			url: 'shop/charge/upgrade/fluent-credits',
-			method: 'get'
-		}).then(function(res){
-			for(ceil in res.data){
-				$scope.fluentCredits[ceil] = res.data[ceil];
-			}
-		});
-
-		$scope.submitChargingBill = function(){
-			$http({
-				url: 'shop/charge/upgrade/cash',
-				method: 'post',
-				data: {
-					credit: $rootScope.info.credit
-				}
-			}).then(function(res){
-				if(res.data.result == 'success'){
-					$state.go('app.shop.checkout');
-				} else {
-					SweetAlert.swal({ 
-						title: '',
-						text: res.data.errors,
-						type: 'warning'
-					});
-				}
-			}, function(err){
-				SweetAlert.swal({ 
-					title: '',
-					text: err.data.credit[0],
-					type: 'warning'
-				});
-			})
-		}
-
-		$scope.calculateSMSFee = function(credit){
-			var fee = 0;
-			credit = parseInt(credit);
-			var length = $scope.fluentCredits.length;
-			for(ceil in $scope.fluentCredits){
-				if(credit <= ceil) {
-					fee = parseInt($scope.fluentCredits[ceil]);
-					break;
-				} else {
-					fee = parseInt($scope.fluentCredits[length-1]);
-				}
-			}
-			$scope.smsFee = fee;
-		}
 
 	});	
 angular
@@ -4569,66 +4219,406 @@ angular
 	});
 angular
 	.module('inspinia')
-	.controller('socketController', function($rootScope, $scope){
-		console.log('i');
-	});	
-angular
-	.module('inspinia')
-	.controller('createSpecialsController', function($rootScope, $scope){
-		
-		$scope.createSpecialsURL = 'specials';
+	.controller('checkoutController', function($rootScope, $scope, $http){
 
-	});	
-angular
-	.module('inspinia')
-	.controller('editSpecialsController', function($rootScope, $scope, $http, $stateParams){
-		
-		$scope.id = $stateParams.id;
-
-		$scope.editSpecialsURL = 'specials/'+$scope.id;
-
-		$http({
-			url: 'specials/'+$scope.id+'/edit',
-			method: 'get',
-		}).then(function(res){
-			$rootScope.info = res.data;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('specialsController', function($rootScope, $scope, $http, DTOptionsBuilder){
+		$scope.selectedGate = '';
+		$scope.movingInProgress = false;
+		$scope.movingURL = 'financial/checkout/moving-to-gateway';
 		
 		$http({
-			url: 'specials',
+			url: 'financial/checkout/gateways',
 			method: 'get'
 		}).then(function(res){
-			$scope.specials = res.data;
+			$scope.gateways = res.data;
+		});
+
+		$scope.gatewaySelected = function(gateway){
+			$scope.selectedGate = gateway;
+			var id = 'gateway-'+gateway;
+			jQuery('#'+id).trigger('submit');
+		}
+
+		// $scope.goToGateway = function(){
+		// 	$scope.movingInProgress = true;
+		// 	$http({
+		// 		url: 'financial/checkout/moving-to-gateway',
+		// 		method: 'post',
+		// 		data: {
+		// 			gateway: $scope.selectedGate,
+		// 		}
+		// 	}).then(function(res){
+		// 		window.location.href = res.data.url;
+		// 	});
+		// }
+
+	});	
+angular
+	.module('inspinia')
+	.controller('invoiceController', function($rootScope, $scope, $http){
+		
+		$http({
+			url: 'financial/invoice',
+			mehtod: 'get'
+		}).then(function(res){
+			$scope.invoice = res.data;
 		});
 
 		$scope.delete = function(key, index){
 			$http({
-				method: 'delete',
-				url: 'specials/'+index
+				url: 'shop/modules/remove-from-invoice/'+index,
+				method: 'delete'
 			});
-			$scope.specials.splice(key, 1);
-		};
-
-		$scope.disable = function(key, index){
 			$http({
-				method: 'delete',
-				url: 'specials/disable/'+index
+				url: 'financial/invoice',
+				mehtod: 'get'
+			}).then(function(res){
+				$scope.invoice = res.data;
 			});
-			$scope.specials[key].status = -1;
-		};
+		}
 
-		$scope.enable = function(key, index){
+		$scope.checkout = function(){
 			$http({
+				url: 'financial/invoice/offline-checkout',
+				method: 'post'
+			}).then(function(res){
+				$scope.shopping_result = res.data;
+				if(res.data.result == 'success'){
+					$http({
+						url: 'financial/invoice',
+						mehtod: 'get'
+					}).then(function(res){
+						$scope.invoice = res.data;
+					});
+				}
+			});
+		}
+
+	});	
+angular
+	.module('inspinia')
+	.controller('lineExtensionController', function($rootScope, $scope, $http, DTOptionsBuilder, SweetAlert, $filter){
+
+		$scope.addedLines = [];
+		
+		$http({
+			url: 'shop/lines/extension/list',
+			method: 'get'
+		}).then(function(res){
+			$scope.lines = res.data;
+		});
+
+		$scope.buy = function(key, line){
+			$scope.addedLines.push(key);
+			SweetAlert.swal({ 
+				title: '',
+				text: $filter('translate')('LINE_ADDED_TO_SHOPPING_INVOICE')
+			});
+			$http({
+				url: 'shop/lines/add-to-invoice',
+				method: 'post',
+				data: {
+					line_id: line.id
+				}
+			})
+		}
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+	});	
+angular
+	.module('inspinia')
+	.controller('shopLinesController', function($rootScope, $scope, $http, DTOptionsBuilder, SweetAlert, $filter){
+
+		$scope.addedLines = [];
+		
+		$http({
+			url: 'shop/lines/list',
+			method: 'get'
+		}).then(function(res){
+			$scope.lines = res.data;
+		});
+
+		$scope.buy = function(key, line){
+			$scope.addedLines.push(key);
+			SweetAlert.swal({ 
+				title: '',
+				text: $filter('translate')('LINE_ADDED_TO_SHOPPING_INVOICE')
+			});
+			$http({
+				url: 'shop/lines/add-to-invoice',
+				method: 'post',
+				data: {
+					line_id: line.id
+				}
+			})
+		}
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+
+	});	
+angular
+	.module('inspinia')
+	.controller('shopModulesController', function($rootScope, $scope, $http, DTOptionsBuilder, notify, $filter){
+
+		$scope.addedModules = [];
+		
+		$http({
+			url: 'shop/modules/list',
+			method: 'get'
+		}).then(function(res){
+			$scope.modules = res.data;
+		});
+
+		$scope.buy = function(key, index){
+			$scope.addedModules.push(key);
+			notify({ message: $filter('translate')('MODULE_ADDED_TO_SHOPPING_INVOICE'), classes: 'alert-info', templateUrl: 'views/common/notify.html'});
+			$http({
+				url: 'shop/modules/add-to-invoice',
+				method: 'post',
+				data: {
+					module_id: index
+				}
+			});
+		}
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+	});	
+angular
+	.module('inspinia')
+	.controller('shopSpecialsController', function($rootScope, $scope, $http, DTOptionsBuilder){
+		
+		$http({
+			url: 'shop/specials/list', 
+			method: 'get'
+		}).then(function(res){
+			$scope.specials = res.data;
+		});	
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+	});	
+angular
+	.module('inspinia')
+	.controller('upgradeCreditController', function($rootScope, $scope, $http, $state, SweetAlert){
+		
+		$scope.upgradeByCodeURL = 'shop/charge/upgrade/code';
+		$scope.fluentCredits = [];
+
+		$http({
+			url: 'shop/charge/upgrade/fluent-credits',
+			method: 'get'
+		}).then(function(res){
+			for(ceil in res.data){
+				$scope.fluentCredits[ceil] = res.data[ceil];
+			}
+		});
+
+		$scope.submitChargingBill = function(){
+			$http({
+				url: 'shop/charge/upgrade/cash',
+				method: 'post',
+				data: {
+					credit: $rootScope.info.credit
+				}
+			}).then(function(res){
+				if(res.data.result == 'success'){
+					$state.go('app.shop.checkout');
+				} else {
+					SweetAlert.swal({ 
+						title: '',
+						text: res.data.errors,
+						type: 'warning'
+					});
+				}
+			}, function(err){
+				SweetAlert.swal({ 
+					title: '',
+					text: err.data.credit[0],
+					type: 'warning'
+				});
+			})
+		}
+
+		$scope.calculateSMSFee = function(credit){
+			var fee = 0;
+			credit = parseInt(credit);
+			var length = $scope.fluentCredits.length;
+			for(ceil in $scope.fluentCredits){
+				if(credit <= ceil) {
+					fee = parseInt($scope.fluentCredits[ceil]);
+					break;
+				} else {
+					fee = parseInt($scope.fluentCredits[length-1]);
+				}
+			}
+			$scope.smsFee = fee;
+		}
+
+	});	
+angular
+	.module('inspinia')
+	.controller('smsReceiversEditController', function($rootScope, $scope, $http, $stateParams){
+
+		$scope.editReceiveSettingURL = 'receive-sms/'+$stateParams.id;
+
+		$http({
+			url: 'receive-sms/'+$stateParams.id,
+			method: 'get'
+		}).then(function(res){
+			$rootScope.info = res.data;
+		});
+
+	});
+angular
+	.module('inspinia')
+	.controller('smsReceiversController', function($rootScope, $scope, $http, DTOptionsBuilder){
+		
+		$scope.selectedRows = [];
+
+		$scope.lines = $scope.editURL = $scope.editNumber = [];
+		$scope.editURLID = '';
+		$scope.editNumberID = '';
+
+		$http({
+			url: 'receive-sms',
+			method: 'get'
+		}).then(function(res){
+			$scope.lines = res.data;
+		});
+
+		$scope.editRow = function(key, index){
+			$scope.editURLID = index;
+			$scope.editNumberID = index;
+		}
+
+		$scope.delete = function(id){
+			$http({
+				url: 'receive-sms/'+id,
+				method: 'delete'
+			}).then(function(){
+				$http({
+					url: 'receive-sms',
+					method: 'get'
+				}).then(function(res){
+					$scope.lines = res.data;
+				});
+			});
+		}
+
+		$scope.saveEditURL = function(line){
+			$scope.editURL[line.id] = $scope.editURL[line.id]+'?from=FROM&to=TO&text=TEXT';
+			$http({
+				url: 'receive-sms/'+$scope.editURLID,
 				method: 'put',
-				url: 'specials/enable/'+index
+				data: {
+					url: $scope.editURL[line.id],
+					receiver_number: $scope.editNumber[line.id]
+				}
 			});
-			$scope.specials[key].status = 0;
-		};
+			line.receivers.redirect_url = $scope.editURL[line.id];
+			$scope.editURLID = '';
+			$scope.editNumberID = '';
+			// $scope.editURL[line.id] = '';
+		}
+
+		$scope.selectRow = function(key, id){
+	    	if($scope.selectedRows.indexOf(key) !== -1){
+	    		delete($scope.selectedRows[$scope.selectedRows.indexOf(key)]);
+	    		return;
+	    	}
+	    	$scope.selectedRows[id] = key;
+	    }
+
+	    $scope.removeSelected = function(){
+	    	for(selected in $scope.selectedRows){
+	    		$scope.delete($scope.selectedRows[selected], selected, true);
+	    	}
+	    	setTimeout(function(){
+	    		$scope.selectedRows = [];
+		    	$http({
+					url: 'receive-sms',
+					method: 'get'
+				}).then(function(res){
+					$scope.lines = res.data;
+				});
+	    	}, 500);
+	    }
+
+	    jQuery('body').on('click', '#selectAllRows', function(){
+    		jQuery('input[type=checkbox].selectRow').each(function(){
+				jQuery(this).trigger('click');
+			});
+    	});
 
 		$scope.dtOptions = DTOptionsBuilder.newOptions()
 		    .withDOM('<"html5buttons"B>lTfgitp')
@@ -4795,6 +4785,84 @@ angular
 	});	
 angular
 	.module('inspinia')
+	.controller('createSpecialsController', function($rootScope, $scope){
+		
+		$scope.createSpecialsURL = 'specials';
+
+	});	
+angular
+	.module('inspinia')
+	.controller('editSpecialsController', function($rootScope, $scope, $http, $stateParams){
+		
+		$scope.id = $stateParams.id;
+
+		$scope.editSpecialsURL = 'specials/'+$scope.id;
+
+		$http({
+			url: 'specials/'+$scope.id+'/edit',
+			method: 'get',
+		}).then(function(res){
+			$rootScope.info = res.data;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('specialsController', function($rootScope, $scope, $http, DTOptionsBuilder){
+		
+		$http({
+			url: 'specials',
+			method: 'get'
+		}).then(function(res){
+			$scope.specials = res.data;
+		});
+
+		$scope.delete = function(key, index){
+			$http({
+				method: 'delete',
+				url: 'specials/'+index
+			});
+			$scope.specials.splice(key, 1);
+		};
+
+		$scope.disable = function(key, index){
+			$http({
+				method: 'delete',
+				url: 'specials/disable/'+index
+			});
+			$scope.specials[key].status = -1;
+		};
+
+		$scope.enable = function(key, index){
+			$http({
+				method: 'put',
+				url: 'specials/enable/'+index
+			});
+			$scope.specials[key].status = 0;
+		};
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+	});	
+angular
+	.module('inspinia')
 	.controller('createTransferToEmailController', function($rootScope, $scope, $http){
 		
 		$scope.createTransferToEmailURL = 'transfer-to-email';
@@ -4893,6 +4961,11 @@ angular
 		            }
 		        }
 		    ]);
+	});	
+angular
+	.module('inspinia')
+	.controller('socketController', function($rootScope, $scope){
+		console.log('i');
 	});	
 angular
 	.module('inspinia')

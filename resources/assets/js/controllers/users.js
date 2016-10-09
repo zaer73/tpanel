@@ -183,10 +183,10 @@ angular
         data: 'mobile',
         name: 'mobile'
     }, {
-        data: 'plan',
+        data: 'plan.expires_at',
         name: 'plan'
     }, {
-        data: 'parent_user',
+        data: 'parent_user.username',
         name: 'parent_user'
     }, {
         data: 'last_login',
@@ -197,6 +197,8 @@ angular
     }];
 
  	$rootScope.getTableData = function() {
+
+ 		console.log('sda');
 
         $scope.dtOptions = DataTableService.build('/users', $scope.dataTableColumns, $scope);
 

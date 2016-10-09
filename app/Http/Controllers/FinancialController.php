@@ -98,14 +98,28 @@ class FinancialController extends Controller
 	}
 
 	public function getTransactions(){
-		return Auth::user()->transactions()->orderBy('id', 'desc')->with(['invoicesConnections.payment'])->get();
+		// return Auth::user()->transactions()->orderBy('id', 'desc')->with(['invoicesConnections.payment'])->get();
+		$dataTable = \Yajra\Datatables\Facades\Datatables::usingEloquent(
+	            \App\Transaction::where('user_id', auth()->id())->orderBy('id', 'desc')->with(['invoicesConnections.payment'])
+	        )->make(true);
+	        return $dataTable;
 	}
 
 	public function getReport(){
 		if( Auth::user()->role == 2 ) {
-			return \App\SMSTransaction::orderBy('id', 'desc')->get();
+
+			$dataTable = \Yajra\Datatables\Facades\Datatables::usingEloquent(
+	            \App\SMSTransaction::orderBy('id', 'desc')
+	        )->make(true);
+	        return $dataTable;
+
 		}
-		return Auth::user()->smsTransactions()->orderBy('id', 'desc')->get();
+
+		$dataTable = \Yajra\Datatables\Facades\Datatables::usingEloquent(
+	            \App\SMSTransaction::where('user_id', auth()->id())->orderBy('id', 'desc')
+	        )->make(true);
+	        return $dataTable;
+
 	}
 
 	public function unsuccessful($error){

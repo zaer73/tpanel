@@ -68,6 +68,11 @@ class AdminController extends Controller
 
     public function getLoginToUser($id){
         Session::put('adminLoginBy', Auth::id());
+
+        if (!userRole(auth()->user()) != 'admin' ) {
+            $user = \App\User::whereParent(auth()->id())->findOrFail($id);
+        }
+
         Auth::loginUsingId($id);
         return redirect('/');
     }
