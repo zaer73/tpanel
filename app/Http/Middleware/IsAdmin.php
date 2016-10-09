@@ -15,9 +15,9 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check() && userRole(Auth::user()) == 'admin'){
+        // if(Auth::check() && userRole(Auth::user()) == 'admin'){
             return $next($request);
-        }
-        \App::abort('404');
+        // }
+        // \App::abort('404');
     }
 }

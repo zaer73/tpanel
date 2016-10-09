@@ -1,0 +1,9 @@
+<tbody>
+                    <tr ng-repeat="(key,transaction) in transactions">
+                        <td>{{ transaction.id }}</td>
+                        <td>{{ transaction.type_title }}</td>
+                        <td>{{ transaction.value }}</td>
+                        <td>{{ transaction.date }}</td>
+                        <td>{{ transaction.last_credit }}</td>
+                    </tr>
+                    </tbody>

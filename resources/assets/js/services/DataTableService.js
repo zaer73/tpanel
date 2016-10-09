@@ -20,6 +20,10 @@ angular
                         "ajax": {
                             "url": url
                         },
+                        select: {
+                            style:    'os',
+                            selector: 'td:first-child'
+                        },
                         columns: cols,
                         buttons: ['copy', 'csv', 'excel'],
                         fnRowCallback: function(nRow, aData, iDisplayIndex, iDisplayIndexFull) {

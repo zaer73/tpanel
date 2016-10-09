@@ -24,16 +24,22 @@
                     <tr>
                         <th>{{ 'BANK_NAME' | uppercase | translate }}</th>
                         <th>{{ 'BANK_CODE' | uppercase | translate }}</th>
+                        <th>{{ 'value' | uppercase | translate }}</th>
+                        <th>{{ 'number' | uppercase | translate }}</th>
                         <th>{{ 'user' | uppercase | translate }}</th>
                         <th>{{ 'create_date' | uppercase | translate }}</th>
+                        <th>{{ 'description' | uppercase | translate }}</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="(key,bill) in bills" >
                         <td>{{ bill.bill.bank_name }}</td>
                         <td>{{ bill.bill.bank_code }}</td>
+                        <td>{{ bill.bill.value }}</td>
+                        <td>{{ bill.bill.number }}</td>
                         <td>{{ bill.user.username }}</td>
                         <td>{{ bill.bill.created_at }}</td>
+                        <td>{{ bill.bill.description }}</td>
                     </tr>
                     </tbody>
                 </table>

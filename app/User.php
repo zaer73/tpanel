@@ -21,8 +21,10 @@ class User extends Authenticatable
         'first_name', 'last_name', 'name', 'username', 'email', 'password', 'mobile', 'national_code', 'link_first_name', 'link_last_name', 'submit_code', 'role', 'domain', 'type', 'credit', 'price_groups_id', 'fluent_group_id', 'parent', 'birth_day', 'birth_year', 'birth_month'
     ];
     protected $visible = [
-        'first_name', 'last_name', 'name', 'username', 'email', 'mobile', 'national_code', 'link_first_name', 'link_last_name', 'submit_code', 'role', 'domain', 'parentUser', 'last_logout', 'last_login', 'id', 'permissions', 'price_groups_id', 'fluent_group_id', 'status', 'parent', 'plan', 'date_of_birth', 'birth_day', 'birth_year', 'birth_month', 'credit'
+        'first_name', 'last_name', 'name', 'username', 'email', 'mobile', 'national_code', 'link_first_name', 'link_last_name', 'submit_code', 'role', 'domain', 'parentUser', 'last_logout', 'last_login', 'id', 'permissions', 'price_groups_id', 'fluent_group_id', 'status', 'parent', 'plan', 'date_of_birth', 'birth_day', 'birth_year', 'birth_month', 'credit', 'actions'
     ];
+
+    protected $appends = ['actions'];
 
 
     public function setPasswordAttribute($password){
@@ -306,6 +308,75 @@ class User extends Authenticatable
     public function getCreditAttribute($credit)
     {
         return intval($credit);
+    }
+
+    public function getActionsAttribute()
+    {
+
+        $role = userRole($this);
+
+        $return = '';
+
+        if ($role == 'admin' || $role == 'agent') {
+
+            $return .= '
+                <a title="'.trans('lines') . '" ui-sref="app.users.credit({id: ' . $this->id . '})">
+                    <i class="fa fa-money"></i>
+                </a>';
+        }
+
+        if ($role == 'admin' || $role == 'agent') {
+
+            $return .= '
+                <a title="'.trans('lines') . '" ui-sref="app.admin.lines.user_show({id: ' . $this->id . '})">
+                <i class="fa fa-list"></i>
+                </a>';
+        }
+
+        if ($role == 'admin' || $role == 'agent') {
+            $return .= '
+                <a title="'.trans('profile') . '" ui-sref="app.users.user_profile({id: ' . $this->id . '})">
+                    <i class="fa fa-pencil"></i>
+                </a>';
+        }
+
+        if ($role == 'admin' || $role == 'agent') {
+            $return .= '<a title="'.trans('parent') . '" ui-sref="app.users.parent({id: ' . $this->id . '})">
+                <i class="fa fa-exchange"></i>
+            </a>';
+        }
+
+        if ($role == 'admin' || $role == 'agent') {
+            $return .= '<a href="/admin/loginToUser/' . $this->id . '" title="'.trans('login') . '">
+                <i class="fa fa-key"></i>
+            </a>';
+        }
+        
+        $return .= '<a href="" ng-click="sendMessage(key, userShow.mobile)">
+            <i class="fa fa-paper-plane"></i>
+        </a>';
+
+        $return .= '<a ui-sref="app.admin.permissions.user.edit({user_id:' . $this->id . '})">
+            <i class="fa fa-lock"></i>
+        </a>
+        <a ng-click="enable(key, ' . $this->id . ')" ng-if="'.$this->status.' == -1">
+            <i class="fa fa-check"></i>
+        </a>
+        <a ng-click="disable(key, ' . $this->id . ')" ng-if="'.$this->status.' == 0">
+            <i class="fa fa-remove"></i>
+        </a>
+        <a ng-click="makeAgent(key, ' . $this->id . ')" ng-if="'.$this->role.' == 0">
+            <i class="fa fa-user"></i>
+        </a>
+        <a ng-click="makeUser(key, ' . $this->id . ')" ng-if="'.$this->role.' == 1">
+            <i class="fa fa-suitcase"></i>
+        </a>
+        <a ng-click="trash(key, ' . $this->id . ')">
+            <i class="fa fa-trash"></i>
+        </a>
+        ';
+
+        return $return;
     }
 
 }

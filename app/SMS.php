@@ -44,7 +44,7 @@ class SMS extends Model
 
     public function getSelectBoxAttribute()
     {
-        return '<input type="checkbox" id="selectAllRows">';
+        // return '<input type="checkbox" class="selectRow" ng-click="selectRow(key, '.$this->id.')" ng-checked="selectedRows.indexOf(key) != -1">';
     }
 
     public function getAmountAttribute()

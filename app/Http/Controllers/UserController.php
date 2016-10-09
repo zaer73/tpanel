@@ -38,13 +38,18 @@ class UserController extends Controller
             return $users;
         }
         if(isAgent(Auth::user())){
-            $users = User::where('status', '!=', '-2')->where('parent', Auth::id())->with([
+            
+            $users = User::DataTable(function ($where) {
+                $where->where('status', '!=', '-2')->where('parent', Auth::id());
+            },[
                 'parentUser' => function($query){
                     $query->select('name', 'id', 'parent', 'username');
                 }, 'plan' => function($query){
                     $query->select('expires_at', 'id', 'user_id');
                 }
-            ])->get();
+            ]);
+
+            return $users;
         }
         if(count($users) < 1) return;
         // $users = $users->toArray();
