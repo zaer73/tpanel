@@ -39,7 +39,7 @@ class ShopController extends Controller
         $already_added_modules = Transaction::whereType('module')->whereIn('id', $invoice_transactions_connection)->lists('target_id');
     	return Module::whereStatus(0)
                 ->whereNotIn('id', $already_added_modules)
-                ->whereUserId(supervisor_id(Auth::user()))
+                // ->whereUserId(supervisor_id(Auth::user()))
                 ->get();
     }
 

@@ -68,19 +68,24 @@
                         <div class="col-md-9 col-sm-9 col-xs-12">
                             <div class="col-md-4 col-sm-4 col-xs-12">
                                 <select class="form-control m-b" ng-model="info.sendingCountRelative" ng-disabled="info.sendingCountAbsolute || !maxSendingCount">
+                                    <option value="-1">
+                                        ارسال به همه
+                                    </option>
                                     <option ng-repeat="(key,range) in sendingCountRelative" value="{{ key }}">
                                         {{ range }}
                                     </option>
                                 </select>
                             </div>
                             <div class="col-md-1 col-sm-1 col-xs-12">
-                                <input style="width:100%" type="number" min="0" max="{{ maxSendingCount }}" ng-model="info.sendingCountAbsoluteMin" ng-disabled="(info.sendingCountRelative && info.sendingCountRelative != 0) || !maxSendingCount">
+                                <input style="width:100%" type="number" min="0" max="{{ maxSendingCount }}" ng-model="info.sendingCountAbsoluteMin" ng-disabled="
+                                info.sendingCountRelative == -1 || (info.sendingCountRelative && info.sendingCountRelative != 0) || !maxSendingCount">
                             </div>
                             <div class="col-md-1 col-sm-1 col-xs-12">
                                 {{ 'TILL' | translate }}
                             </div>
                             <div class="col-md-1 col-sm-1 col-xs-12">
-                                <input style="width:100%" type="number" min="{{ info.sendingCountAbsoluteMin }}" max="{{ maxSendingCount }}" ng-model="info.sendingCountAbsoluteMax" ng-disabled="(info.sendingCountRelative && info.sendingCountRelative != 0) || !maxSendingCount || !info.sendingCountAbsoluteMin">
+                                <input style="width:100%" type="number" min="{{ info.sendingCountAbsoluteMin }}" max="{{ maxSendingCount }}" ng-model="info.sendingCountAbsoluteMax" ng-disabled="
+                                info.sendingCountRelative == -1 || (info.sendingCountRelative && info.sendingCountRelative != 0) || !maxSendingCount || !info.sendingCountAbsoluteMin">
                             </div>
                             <div class="col-md-4 col-sm-2 col-xs-12">
                                 <span>{{ 'MAX_SENDING_COUNT' | translate }}: {{ maxSendingCount }}</span>
