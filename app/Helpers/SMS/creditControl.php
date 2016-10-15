@@ -58,10 +58,15 @@ trait creditControl{
     public function sendingLimit($request, $numbers){
         $limit = 0;
         if(isset($request['sendingCountAbsoluteMin']) || isset($request['sendingCountAbsoluteMax']) || isset($request['sendingCountRelative'])){
-            if(isset($request['sendingCountAbsoluteMin'])){
-                $limit = $request['sendingCountAbsoluteMin'];
-            } else {
-                $limit = $request['sendingCountRelative'];
+            if ($request['sendingCountRelative'] == -1) {
+               $limit = 0; 
+            }
+            else {    
+                if(isset($request['sendingCountAbsoluteMin'])){
+                    $limit = $request['sendingCountAbsoluteMin'];
+                } else {
+                    $limit = $request['sendingCountRelative'];
+                }
             }
         }
         if(is_int($numbers)) return $limit;
