@@ -18,7 +18,8 @@ class Kernel extends ConsoleKernel
         Commands\UserIdContactsConverter::class,
         Commands\ImportUsers::class,
         Commands\ScanLinesExpiration::class,
-        Commands\RetryMessages::class
+        Commands\RetryMessages::class,
+        Commands\SetApiKey::class
     ];
 
     /**
