@@ -40,7 +40,6 @@
 <script src="{{ asset('js/jquery/jquery-2.1.1.min.js') }}"></script>
 <script src="{{ asset('js/plugins/jquery-ui/jquery-ui.js') }}"></script>
 <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
-<script src="{{ asset('js/socket.io.js') }}"></script>
 
 <!-- MetsiMenu -->
 <script src="{{ asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>

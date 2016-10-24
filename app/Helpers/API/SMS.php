@@ -44,7 +44,6 @@ trait SMS {
             'group_hash' => $group_hash
         ]);
 
-        return $response;
 	}
 
 }
