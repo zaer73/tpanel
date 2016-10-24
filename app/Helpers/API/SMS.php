@@ -43,6 +43,8 @@ trait SMS {
             'brand' => $brand,
             'group_hash' => $group_hash
         ]);
+
+        return $response;
 	}
 
 }
