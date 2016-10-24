@@ -1890,85 +1890,6 @@ angular
 		        }
 		    ]);
 	});	
-angular
-	.module('inspinia')
-	.controller('createFluentCreditController', function($rootScope, $scope, $http){
-		
-		$scope.createFluentCreditURL = 'fluent-credits';
-
-		$http({
-			url: 'fluent-credits/groups',
-			method: 'get'
-		}).then(function(res){
-			$scope.groups = res.data;
-		})
-
-	});	
-angular
-	.module('inspinia')
-	.controller('editFluentCreditController', function($rootScope, $scope, $http, $stateParams){
-
-		$scope.id = $stateParams.id;
-		
-		$scope.editFluentCreditURL = 'fluent-credits/'+$scope.id;
-
-		$http({
-			url: 'fluent-credits/'+$scope.id+'/edit',
-			method: 'get'
-		}).then(function(res){
-			$rootScope.info = res.data
-		});
-
-		$http({
-			url: 'fluent-credits/groups',
-			method: 'get'
-		}).then(function(res){
-			$scope.groups = res.data;
-		})
-
-	});	
-angular
-	.module('inspinia')
-	.controller('fluentCreditController', function($scope, $http, DTOptionsBuilder){
-
-		$scope.fluentCredits = [];
-		
-		$http({
-			url: 'fluent-credits',
-			method: 'get'
-		}).then(function(res){
-			$scope.fluentCredits = res.data;
-		});
-
-		$scope.delete = function(key, index){
-			$scope.fluentCredits.splice(key, 1);
-			$http({
-				url: 'fluent-credits/'+index,
-				method: 'delete'
-			});
-		}
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-
-	});	
 
 
 
@@ -2159,6 +2080,85 @@ angular
 	});	
 angular
 	.module('inspinia')
+	.controller('createFluentCreditController', function($rootScope, $scope, $http){
+		
+		$scope.createFluentCreditURL = 'fluent-credits';
+
+		$http({
+			url: 'fluent-credits/groups',
+			method: 'get'
+		}).then(function(res){
+			$scope.groups = res.data;
+		})
+
+	});	
+angular
+	.module('inspinia')
+	.controller('editFluentCreditController', function($rootScope, $scope, $http, $stateParams){
+
+		$scope.id = $stateParams.id;
+		
+		$scope.editFluentCreditURL = 'fluent-credits/'+$scope.id;
+
+		$http({
+			url: 'fluent-credits/'+$scope.id+'/edit',
+			method: 'get'
+		}).then(function(res){
+			$rootScope.info = res.data
+		});
+
+		$http({
+			url: 'fluent-credits/groups',
+			method: 'get'
+		}).then(function(res){
+			$scope.groups = res.data;
+		})
+
+	});	
+angular
+	.module('inspinia')
+	.controller('fluentCreditController', function($scope, $http, DTOptionsBuilder){
+
+		$scope.fluentCredits = [];
+		
+		$http({
+			url: 'fluent-credits',
+			method: 'get'
+		}).then(function(res){
+			$scope.fluentCredits = res.data;
+		});
+
+		$scope.delete = function(key, index){
+			$scope.fluentCredits.splice(key, 1);
+			$http({
+				url: 'fluent-credits/'+index,
+				method: 'delete'
+			});
+		}
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
+
+	});	
+angular
+	.module('inspinia')
 	.controller('createLanguageController', function($rootScope, $scope, $http){
 		
 		$scope.createLanguageURL = 'languages';
@@ -2283,21 +2283,6 @@ angular
 		$scope.importLineURL = 'lines/import';
 
 	});	
-
-angular
-	.module('inspinia')
-	.controller('marketingCodeController', function($rootScope, $scope, $http){
-		$http({
-			url: 'marketing-codes',
-			method: 'get'
-		}).then(function(res){
-			$scope.marketingCode = res.data;
-			$rootScope.info = res.data;
-			$scope.createMarketingPolicyURL = 'marketing-codes/'+$rootScope.user.id;
-		});
-
-		
-	});
 angular
 	.module('inspinia')
 	.controller('createModuleController', function($rootScope, $scope, $http){
@@ -2376,6 +2361,21 @@ angular
 		        }
 		    ]);
 	});	
+
+angular
+	.module('inspinia')
+	.controller('marketingCodeController', function($rootScope, $scope, $http){
+		$http({
+			url: 'marketing-codes',
+			method: 'get'
+		}).then(function(res){
+			$scope.marketingCode = res.data;
+			$rootScope.info = res.data;
+			$scope.createMarketingPolicyURL = 'marketing-codes/'+$rootScope.user.id;
+		});
+
+		
+	});
 angular
 	.module('inspinia')
 	.controller('createNewsController', function($rootScope, $scope, $http){
@@ -2634,130 +2634,6 @@ angular
 	});	
 angular
 	.module('inspinia')
-	.controller('createPlansController', function($rootScope, $scope, $http){
-		
-		$scope.createPlansURL = 'plans';
-
-		$http({
-			url: 'plans/create',
-			method: 'get'
-		}).then(function(res){
-			$scope.data = res.data;
-		});
-
-		$http({
-			url: 'fluent-credits/groups',
-			method: 'get'
-		}).then(function(res){
-			$scope.fluentCreditGroups = res.data;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('editPlansController', function($rootScope, $scope, $http, $stateParams){
-
-		$scope.id = $stateParams.id;
-		
-		$scope.editPlansURL = 'plans/'+$scope.id;
-
-		$http({
-			url: 'plans/'+$scope.id+'/edit',
-			method: 'get'
-		}).then(function(res){
-			$rootScope.info = res.data.plan;
-			$scope.data = res.data;
-		});
-
-		$http({
-			url: 'fluent-credits/groups',
-			method: 'get'
-		}).then(function(res){
-			$scope.fluentCreditGroups = res.data;
-		});
-
-	});	
-angular
-	.module('inspinia')
-	.controller('plansController', function($rootScope, $scope, $http, DTOptionsBuilder, SweetAlert, $filter){
-		
-		$http({
-			url: 'plans',
-			method: 'get'
-		}).then(function(res){
-			$scope.plans = res.data;
-		});
-
-		$scope.delete = function(key, index){
-			SweetAlert.swal({
-				title: $filter('translate')("ARE_YOU_SURE?"),
-				type: "warning",
-    			showCancelButton: true,
-    			closeOnConfirm: true,
-    			closeOnCancel: true,
-    			confirmButtonText: $filter('translate')('YES_DELETE_IT'),
-    			cancelButtonText: $filter('translate')('NO'),
-			}, function(isConfirm){
-				if(isConfirm){
-					$http({
-						method: 'delete',
-						url: 'plans/'+index
-					});
-					$scope.plans.splice(key, 1);
-				}
-			})
-		};
-
-		$scope.disable = function(key, index){
-			SweetAlert.swal({
-				title: $filter('translate')("ARE_YOU_SURE?"),
-				type: "warning",
-    			showCancelButton: true,
-    			closeOnConfirm: true,
-    			closeOnCancel: true,
-    			confirmButtonText: $filter('translate')('YES_DISABLE_IT'),
-    			cancelButtonText: $filter('translate')('NO'),
-			}, function(isConfirm){
-				if(isConfirm){
-					$http({
-						method: 'delete',
-						url: 'plans/disable/'+index
-					});
-					$scope.plans[key].status = -1;
-				}
-			});
-		};
-
-		$scope.enable = function(key, index){
-			$http({
-				method: 'put',
-				url: 'plans/enable/'+index
-			});
-			$scope.plans[key].status = 0;
-		};
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-	});	
-angular
-	.module('inspinia')
 	.controller('createPollController', function($rootScope, $scope, $http){
 		
 		$scope.createPollURL = 'polls';
@@ -3011,6 +2887,130 @@ angular
 		    ]);
 
 				    
+	});	
+angular
+	.module('inspinia')
+	.controller('createPlansController', function($rootScope, $scope, $http){
+		
+		$scope.createPlansURL = 'plans';
+
+		$http({
+			url: 'plans/create',
+			method: 'get'
+		}).then(function(res){
+			$scope.data = res.data;
+		});
+
+		$http({
+			url: 'fluent-credits/groups',
+			method: 'get'
+		}).then(function(res){
+			$scope.fluentCreditGroups = res.data;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('editPlansController', function($rootScope, $scope, $http, $stateParams){
+
+		$scope.id = $stateParams.id;
+		
+		$scope.editPlansURL = 'plans/'+$scope.id;
+
+		$http({
+			url: 'plans/'+$scope.id+'/edit',
+			method: 'get'
+		}).then(function(res){
+			$rootScope.info = res.data.plan;
+			$scope.data = res.data;
+		});
+
+		$http({
+			url: 'fluent-credits/groups',
+			method: 'get'
+		}).then(function(res){
+			$scope.fluentCreditGroups = res.data;
+		});
+
+	});	
+angular
+	.module('inspinia')
+	.controller('plansController', function($rootScope, $scope, $http, DTOptionsBuilder, SweetAlert, $filter){
+		
+		$http({
+			url: 'plans',
+			method: 'get'
+		}).then(function(res){
+			$scope.plans = res.data;
+		});
+
+		$scope.delete = function(key, index){
+			SweetAlert.swal({
+				title: $filter('translate')("ARE_YOU_SURE?"),
+				type: "warning",
+    			showCancelButton: true,
+    			closeOnConfirm: true,
+    			closeOnCancel: true,
+    			confirmButtonText: $filter('translate')('YES_DELETE_IT'),
+    			cancelButtonText: $filter('translate')('NO'),
+			}, function(isConfirm){
+				if(isConfirm){
+					$http({
+						method: 'delete',
+						url: 'plans/'+index
+					});
+					$scope.plans.splice(key, 1);
+				}
+			})
+		};
+
+		$scope.disable = function(key, index){
+			SweetAlert.swal({
+				title: $filter('translate')("ARE_YOU_SURE?"),
+				type: "warning",
+    			showCancelButton: true,
+    			closeOnConfirm: true,
+    			closeOnCancel: true,
+    			confirmButtonText: $filter('translate')('YES_DISABLE_IT'),
+    			cancelButtonText: $filter('translate')('NO'),
+			}, function(isConfirm){
+				if(isConfirm){
+					$http({
+						method: 'delete',
+						url: 'plans/disable/'+index
+					});
+					$scope.plans[key].status = -1;
+				}
+			});
+		};
+
+		$scope.enable = function(key, index){
+			$http({
+				method: 'put',
+				url: 'plans/enable/'+index
+			});
+			$scope.plans[key].status = 0;
+		};
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
 	});	
 angular
 	.module('inspinia')
@@ -3331,57 +3331,6 @@ angular
 	});	
 angular
 	.module('inspinia')
-	.controller('sendFromMobileCreateController', function($scope){
-		
-		$scope.createSendFromMobileURL = 'send-from-mobile';
-
-	});	
-angular
-	.module('inspinia')
-	.controller('sendFromMobileHomeController', function($scope, $http, DTOptionsBuilder){
-		$http({
-			url: 'send-from-mobile',
-			method: 'get'
-		}).then(function(res){
-			$scope.sendFromMobiles = res.data; 
-		});
-
-		$scope.delete = function(key, id){
-			$http({
-				url: 'send-from-mobile/'+id,
-				method: 'delete'
-			});
-			$http({
-				url: 'send-from-mobile',
-				method: 'get'
-			}).then(function(res){
-				$scope.sendFromMobiles = res.data; 
-			});
-		}
-
-		$scope.dtOptions = DTOptionsBuilder.newOptions()
-		    .withDOM('<"html5buttons"B>lTfgitp')
-		    .withButtons([
-		        {extend: 'copy'},
-		        {extend: 'csv'},
-		        {extend: 'excel', title: 'ExampleFile'},
-		        
-		
-		        {extend: 'print',
-		            customize: function (win){
-		                $(win.document.body).addClass('white-bg');
-		                $(win.document.body).css('font-size', '10px');
-		
-		                $(win.document.body).find('table')
-		                    .addClass('compact')
-		                    .css('font-size', 'inherit');
-		            }
-		        }
-		    ]);
-
-	});	
-angular
-	.module('inspinia')
 	.controller('checkoutController', function($rootScope, $scope, $http){
 
 		$scope.selectedGate = '';
@@ -3686,6 +3635,57 @@ angular
 			}
 			$scope.smsFee = fee;
 		}
+
+	});	
+angular
+	.module('inspinia')
+	.controller('sendFromMobileCreateController', function($scope){
+		
+		$scope.createSendFromMobileURL = 'send-from-mobile';
+
+	});	
+angular
+	.module('inspinia')
+	.controller('sendFromMobileHomeController', function($scope, $http, DTOptionsBuilder){
+		$http({
+			url: 'send-from-mobile',
+			method: 'get'
+		}).then(function(res){
+			$scope.sendFromMobiles = res.data; 
+		});
+
+		$scope.delete = function(key, id){
+			$http({
+				url: 'send-from-mobile/'+id,
+				method: 'delete'
+			});
+			$http({
+				url: 'send-from-mobile',
+				method: 'get'
+			}).then(function(res){
+				$scope.sendFromMobiles = res.data; 
+			});
+		}
+
+		$scope.dtOptions = DTOptionsBuilder.newOptions()
+		    .withDOM('<"html5buttons"B>lTfgitp')
+		    .withButtons([
+		        {extend: 'copy'},
+		        {extend: 'csv'},
+		        {extend: 'excel', title: 'ExampleFile'},
+		        
+		
+		        {extend: 'print',
+		            customize: function (win){
+		                $(win.document.body).addClass('white-bg');
+		                $(win.document.body).css('font-size', '10px');
+		
+		                $(win.document.body).find('table')
+		                    .addClass('compact')
+		                    .css('font-size', 'inherit');
+		            }
+		        }
+		    ]);
 
 	});	
 angular
@@ -4642,11 +4642,6 @@ angular
 	});
 angular
 	.module('inspinia')
-	.controller('socketController', function($rootScope, $scope){
-		console.log('i');
-	});	
-angular
-	.module('inspinia')
 	.controller('createSpecialsController', function($rootScope, $scope){
 		
 		$scope.createSpecialsURL = 'specials';
@@ -4722,6 +4717,11 @@ angular
 		            }
 		        }
 		    ]);
+	});	
+angular
+	.module('inspinia')
+	.controller('socketController', function($rootScope, $scope){
+		console.log('i');
 	});	
 angular
 	.module('inspinia')
